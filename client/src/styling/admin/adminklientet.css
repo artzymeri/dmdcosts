@@ -1,0 +1,75 @@
+:root {
+    --admin-klientet-content-container--border: 1px solid lightgray;
+    --admin-klientet-content-container--background: whitesmoke;
+    --admin-klientet-header-container--background: white;
+    --admin-klientet-list-container--background: white;
+    --admin-klientet-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-klientet-list-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-klientet-header-container--color: darkslategray;
+    --admin-klientet-list-container--color: darkslategray;
+    --admin-klientet-list-item-border: 1px solid lightgray;
+}
+
+.admin-klientet-content-container {
+    padding: 15px;
+    border-top: var(--admin-klientet-content-container--border);
+    border-left: var(--admin-klientet-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--admin-klientet-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.admin-klientet-header-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--admin-klientet-header-container--background);
+    box-shadow: var(--admin-klientet-header-container--box-shadow);
+    color: var(--admin-klientet-header-container--color);
+    gap: 15px;
+}
+
+.css-1wd3yy0-MuiInputBase-input-MuiInput-input {
+    padding: 4px 8px !important;
+}
+
+.admin-klientet-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: var(--admin-klientet-list-container--box-shadow);
+    background: var(--admin-klientet-list-container--background);
+    color: var(--admin-klientet-list-container--color);
+    font-weight: 600;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.admin-klientet-list-item {
+    display: grid;
+    align-items: center;
+    border: var(--admin-klientet-list-item-border);
+    padding: 5px 10px;
+    border-radius: 10px;
+    gap: 10px;
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 40px;
+}
+
+.admin-klientet-list-item :nth-child(1) {
+    padding: 0 !important;
+}
+
+.admin-klientet-list-item :is(span) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: min-content;
+}

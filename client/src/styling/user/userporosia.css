@@ -1,0 +1,262 @@
+:root {
+    --user-porosia-content-container--border: 1px solid lightgray;
+    --user-porosia-content-container--background: whitesmoke;
+    --user-porosia-header-container--background: white;
+    --user-porosia-list-container--background: white;
+    --user-porosia-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --user-porosia-list-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --user-porosia-header-container--color: darkslategray;
+    --user-porosia-list-container--color: darkslategray;
+    --user-porosia-list-item-border: 1px solid lightgray;
+    --user-porosia-list-item-cancelled--border: 1px solid rgba(255, 69, 0, 0.5);
+    --user-porosia-list-item-progress-bar-cancelled--background: rgba(255, 69, 0, 0.75);
+    --user-porosia-list-item-progress-bar-cancelled--color: white;
+    --user-porosia-list-item-progress-bar-cancelled--border: 1px solid orangered;
+    --user-porosia-id-banner--border-left: 1px solid lightgray;
+    --user-porosia-id-banner--background: ghostwhite;
+    --user-porosia-title-container--border: 1px solid lightgray;
+    --user-porosia-title-container--background: white;
+    --user-porosia-title-container--color: darkslategray;
+    --user-porosia-details-container--background: white;
+    --user-porosia-details-container--border: 1px solid lightgray;
+    --user-porosia-details-container--color: darkslategray;
+    --user-porosia-details-left-side-row--border: 1px solid lightgray;
+    --user-porosia-details-left-side-info-no-info: 1px dashed gray;
+    --user-porosia-details-left-side-info-no-info: gray;
+    --user-porosia-details-left-side-info-no-info: whitesmoke;
+    --user-porosia-details-left-side-label--color: darkslategray;
+    --user-porosia-details-middle--border-left: 1px dashed rgba(47, 79, 79, 0.33);
+    --user-porosia-details-left-side-title-after--background: rgba(47, 79, 79, 0.33);
+    --user-porosia-details-right-side-qr-code-container--border: 1px solid lightgray;
+    --user-porosia-status-banner-request--border: 1px dashed lightgray;
+    --user-porosia-status-banner-request--color: gray;
+    --user-porosia-status-banner-cancelled--border: 1px dashed red;
+    --user-porosia-status-banner-cancelled--color: darkslategray;
+    --user-porosia-status-banner-cancelled--background: rgba(255, 69, 0, 0.25);
+    --no-access-order-view--color: darkslategray;
+}
+
+.user-porosia-content-container {
+    padding: 15px;
+    border-top: var(--user-porosia-content-container--border);
+    border-left: var(--user-porosia-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--user-porosia-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.user-porosia-content-title-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.user-porosia-header-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--user-porosia-header-container--background);
+    box-shadow: var(--user-porosia-header-container--box-shadow);
+    color: var(--user-porosia-header-container--color);
+    gap: 15px;
+}
+
+.css-1wd3yy0-MuiInputBase-input-MuiInput-input {
+    padding: 4px 8px !important;
+}
+
+.user-porosia-id-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 20px;
+    border-radius: 100px;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: var(--user-porosia-id-banner--border-left);
+    background: var(--user-porosia-id-banner--background);
+}
+
+.user-porosia-title-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+    font-size: 20px;
+    border-radius: 100px;
+    border: var(--user-porosia-title-container--border);
+    padding: 0px 0px 0px 10px;
+    background: var(--user-porosia-title-container--background);
+    color: var(--user-porosia-title-container--color);
+}
+
+.kthehu-button {
+    background: var(--user-porosia-title-container--background) !important;
+    color: var(--user-porosia-title-container--color) !important;
+    border: var(--user-porosia-title-container--border) !important;
+    border-radius: 15px !important;
+}
+
+.user-porosia-details-container {
+    display: grid;
+    padding: 15px;
+    border-radius: 15px;
+    gap: 15px;
+    background: var(--user-porosia-details-container--background);
+    border: 1px solid lightgray;
+    height: 100%;
+    overflow-y: auto;
+    grid-template-columns: 1fr 1px 1fr;
+    color: var(--user-porosia-details-container--color);
+}
+
+.user-porosia-details-left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.user-porosia-details-left-side-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+    border: var(--user-porosia-details-left-side-row--border);
+    padding: 15px 20px;
+    flex-shrink: 0;
+}
+
+.user-porosia-details-left-side-label {
+    color: var(--user-porosia-details-left-side-label--color);
+    font-weight: 500;
+}
+
+.user-porosia-details-left-side-info {
+    font-weight: 600;
+}
+
+.user-porosia-details-left-side-info-no-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--user-porosia-details-left-side-info-no-info);
+    color: var(--user-porosia-details-left-side-info-no-info);
+    background: var(--user-porosia-details-left-side-info-no-info);
+    cursor: not-allowed;
+}
+
+.user-porosia-details-middle {
+    width: 100%;
+    height: 100%;
+    content: '';
+    border-left: var(--user-porosia-details-middle--border-left);
+}
+
+.user-porosia-details-left-side-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    height: 32px;
+}
+
+.user-porosia-details-left-side-title::after {
+    background: var(--user-porosia-details-left-side-title-after--background);
+    height: 2px;
+    width: 50%;
+    content: '';
+    bottom: -5px;
+    left: 25%;
+    position: absolute;
+}
+
+.user-porosia-details-right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.user-porosia-details-right-side-qr-code-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    flex-shrink: 0;
+    gap: 15px;
+    width: 100%;
+    border-radius: 15px;
+    border: var(--user-porosia-details-right-side-qr-code-container--border);
+    margin-top: 20px;
+}
+
+.user-porosia-details-right-side-qr-code-container-description {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.user-porosia-details-right-side-qr-code-container-description-title {
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+}
+
+.user-porosia-details-right-side-qr-code-container-description :is(p) {
+    text-align: center;
+}
+
+.user-porosia-details-right-side-qr-code-container img {
+    border-radius: 15px;
+}
+
+.user-porosia-details-status-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-porosia-status-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    padding: 3px 12px;
+    gap: 8px;
+}
+
+.user-porosia-status-banner-request {
+    border: var(--user-porosia-status-banner-request--border);
+    color: var(--user-porosia-status-banner-request--color);
+}
+
+.user-porosia-status-banner-cancelled {
+    border: var(--user-porosia-status-banner-cancelled--border);
+    color: var(--user-porosia-status-banner-cancelled--color);
+    background: var(--user-porosia-status-banner-cancelled--background);
+}
+
+.no-access-order-view {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--no-access-order-view--color);
+}

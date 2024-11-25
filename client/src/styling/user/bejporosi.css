@@ -1,0 +1,38 @@
+:root {
+    --user-bej-porosi-page-container--border: 1px solid lightgray;
+    --user-bej-porosi-page-container--background: whitesmoke;
+    --bej-porosi-page-form-container--background: white;
+}
+
+.bej-porosi-page-container {
+    padding: 15px;
+    border-top: var(--user-bej-porosi-page-container--border);
+    border-left: var(--user-bej-porosi-page-container--border);
+    background: var(--user-bej-porosi-page-container--background);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.bej-porosi-page-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.bej-porosi-page-form-container {
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--bej-porosi-page-form-container--background);
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+}

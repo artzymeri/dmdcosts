@@ -1,0 +1,276 @@
+:root {
+    --admin-porosia-content-container--border: 1px solid lightgray;
+    --admin-porosia-content-container--background: whitesmoke;
+    --admin-porosia-header-container--background: white;
+    --admin-porosia-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-porosia-header-container--color: darkslategray;
+    --admin-porosia-id-banner--border-left: 1px solid lightgray;
+    --admin-porosia-id-banner--background: ghostwhite;
+    --admin-porosia-title-container--border: 1px solid lightgray;
+    --admin-porosia-title-container--background: white;
+    --admin-porosia-title-container--color: darkslategray;
+    --admin-porosia-details-container--background: white;
+    --admin-porosia-details-container--color: darkslategray;
+    --admin-porosia-details-left-side-row--border: 1px solid lightgray;
+    --admin-porosia-details-left-side-info-no-info: 1px dashed gray;
+    --admin-porosia-details-left-side-info-no-info: gray;
+    --admin-porosia-details-left-side-info-no-info: whitesmoke;
+    --admin-porosia-details-left-side-label--color: darkslategray;
+    --admin-porosia-details-middle--border-left: 1px dashed rgba(47, 79, 79, 0.33);
+    --admin-porosia-details-left-side-title-after--background: rgba(47, 79, 79, 0.33);
+    --admin-porosia-details-right-side-qr-code-container--border: 1px solid lightgray;
+    --admin-porosia-status-banner-request--border: 1px dashed lightgray;
+    --admin-porosia-status-banner-request--color: gray;
+    --admin-porosia-status-banner-cancelled--border: 1px dashed red;
+    --admin-porosia-status-banner-cancelled--color: darkslategray;
+    --admin-porosia-status-banner-cancelled--background: rgba(255, 69, 0, 0.25);
+    --no-access-order-view--color: darkslategray;
+    --admin-porosia-details-right-side-employees-involved--background: whitesmoke;
+    --admin-porosia-details-right-side-employees-involved--color: darkslategray;
+    --admin-porosia-details-right-side-employees-involved--border: 1px dotted lightslategray;
+}
+
+.admin-porosia-content-container {
+    padding: 15px;
+    border-top: var(--admin-porosia-content-container--border);
+    border-left: var(--admin-porosia-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--admin-porosia-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.admin-porosia-content-title-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.admin-porosia-header-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--admin-porosia-header-container--background);
+    box-shadow: var(--admin-porosia-header-container--box-shadow);
+    color: var(--admin-porosia-header-container--color);
+    gap: 15px;
+}
+
+.css-1wd3yy0-MuiInputBase-input-MuiInput-input {
+    padding: 4px 8px !important;
+}
+
+.admin-porosia-id-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 20px;
+    border-radius: 100px;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: var(--admin-porosia-id-banner--border-left);
+    background: var(--admin-porosia-id-banner--background);
+}
+
+.admin-porosia-title-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+    font-size: 20px;
+    border-radius: 100px;
+    border: var(--admin-porosia-title-container--border);
+    padding: 0px 0px 0px 10px;
+    background: var(--admin-porosia-title-container--background);
+    color: var(--admin-porosia-title-container--color);
+}
+
+.kthehu-button {
+    background: var(--admin-porosia-title-container--background) !important;
+    color: var(--admin-porosia-title-container--color) !important;
+    border: var(--admin-porosia-title-container--border) !important;
+    border-radius: 15px !important;
+}
+
+.admin-porosia-details-container {
+    display: grid;
+    padding: 15px;
+    border-radius: 15px;
+    gap: 15px;
+    background: var(--admin-porosia-details-container--background);
+    border: 1px solid lightgray;
+    height: 100%;
+    overflow-y: auto;
+    grid-template-columns: 1fr 1px 1fr;
+    color: var(--admin-porosia-details-container--color);
+}
+
+.admin-porosia-details-left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.admin-porosia-details-left-side-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+    border: var(--admin-porosia-details-left-side-row--border);
+    padding: 15px 20px;
+    flex-shrink: 0;
+}
+
+.admin-porosia-details-left-side-label {
+    color: var(--admin-porosia-details-left-side-label--color);
+    font-weight: 500;
+}
+
+.admin-porosia-details-left-side-info {
+    font-weight: 600;
+}
+
+.admin-porosia-details-left-side-info-no-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--admin-porosia-details-left-side-info-no-info);
+    color: var(--admin-porosia-details-left-side-info-no-info);
+    background: var(--admin-porosia-details-left-side-info-no-info);
+    cursor: not-allowed;
+}
+
+.admin-porosia-details-middle {
+    width: 100%;
+    height: 100%;
+    content: '';
+    border-left: var(--admin-porosia-details-middle--border-left);
+}
+
+.admin-porosia-details-left-side-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    height: 32px;
+}
+
+.admin-porosia-details-left-side-title::after {
+    background: var(--admin-porosia-details-left-side-title-after--background);
+    height: 2px;
+    width: 50%;
+    content: '';
+    bottom: -5px;
+    left: 25%;
+    position: absolute;
+}
+
+.admin-porosia-details-right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.admin-porosia-details-right-side-qr-code-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    flex-shrink: 0;
+    gap: 15px;
+    width: 100%;
+    border-radius: 15px;
+    border: var(--admin-porosia-details-right-side-qr-code-container--border);
+    margin-top: 20px;
+}
+
+.admin-porosia-details-right-side-qr-code-container-description {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.admin-porosia-details-right-side-qr-code-container-description-title {
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+}
+
+.admin-porosia-details-right-side-qr-code-container-description :is(p) {
+    text-align: center;
+}
+
+.admin-porosia-details-right-side-qr-code-container img {
+    border-radius: 15px;
+}
+
+.admin-porosia-details-status-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-porosia-status-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    padding: 3px 12px;
+    gap: 8px;
+}
+
+.admin-porosia-status-banner-request {
+    border: var(--admin-porosia-status-banner-request--border);
+    color: var(--admin-porosia-status-banner-request--color);
+}
+
+.admin-porosia-status-banner-cancelled {
+    border: var(--admin-porosia-status-banner-cancelled--border);
+    color: var(--admin-porosia-status-banner-cancelled--color);
+    background: var(--admin-porosia-status-banner-cancelled--background);
+}
+
+.no-access-order-view {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--no-access-order-view--color);
+}
+
+.admin-porosia-details-right-side-employees-involved {
+    display: flex;
+    width: 100%;
+    flex-shrink: 0;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--admin-porosia-details-right-side-employees-involved--background);
+    color: var(--admin-porosia-details-right-side-employees-involved--color);
+    flex-direction: column;
+    gap: 7.5px;
+    border: var(--admin-porosia-details-right-side-employees-involved--border);
+}
+
+.admin-porosia-details-right-side-employee-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
