@@ -1,0 +1,110 @@
+:root {
+    --admin-cases-content-container--border: 1px solid lightgray;
+    --admin-cases-content-container--background: whitesmoke;
+    --admin-cases-header-container--background: white;
+    --admin-cases-list-container--background: white;
+    --admin-cases-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-cases-list-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-cases-header-container--color: darkslategray;
+    --admin-cases-list-container--color: darkslategray;
+    --admin-cases-list-item-border: 1px solid lightgray;
+    --admin-cases-list-item-cancelled--border: 1px solid rgba(255, 69, 0, 0.5);
+    --admin-cases-list-item-progress-bar-cancelled--background: rgba(255, 69, 0, 0.75);
+    --admin-cases-list-item-progress-bar-cancelled--color: white;
+    --admin-cases-list-item-progress-bar-cancelled--border: 1px solid orangered;
+}
+
+.admin-cases-content-container {
+    padding: 15px;
+    border-top: var(--admin-cases-content-container--border);
+    border-left: var(--admin-cases-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--admin-cases-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.admin-cases-header-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--admin-cases-header-container--background);
+    box-shadow: var(--admin-cases-header-container--box-shadow);
+    color: var(--admin-cases-header-container--color);
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.css-1wd3yy0-MuiInputBase-input-MuiInput-input {
+    padding: 4px 8px !important;
+}
+
+.admin-cases-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: var(--admin-cases-list-container--box-shadow);
+    background: var(--admin-cases-list-container--background);
+    color: var(--admin-cases-list-container--color);
+    font-weight: 600;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.admin-cases-list-item {
+    display: grid;
+    align-items: center;
+    border: var(--admin-cases-list-item-border);
+    padding: 5px 10px;
+    border-radius: 10px;
+    gap: 10px;
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 65px;
+    height: 50px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.admin-cases-list-item-cancelled {
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 65px;
+}
+
+.admin-cases-list-item :nth-child(1) {
+    padding: 0;
+}
+
+.admin-cases-list-item :is(span) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: min-content;
+}
+
+.admin-cases-list-item-progress-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.admin-cases-list-item-progress-bar {
+    text-align: center;
+    font-weight: 400;
+    padding: 0px 10px 1px 10px !important;
+    border-radius: 100px;
+    border: var(--admin-cases-list-item-border);
+    width: min-content;
+    font-size: 14px;
+}
+
+.admin-cases-list-item-progress-bar-cancelled {
+    background: var(--admin-cases-list-item-progress-bar-cancelled--background);
+    color: var(--admin-cases-list-item-progress-bar-cancelled--color);
+    border: var(--admin-cases-list-item-progress-bar-cancelled--border);
+}

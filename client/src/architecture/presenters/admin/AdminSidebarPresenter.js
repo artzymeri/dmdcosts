@@ -33,8 +33,8 @@ class AdminSidebarPresenter {
             {
                 id: 3,
                 title: 'Porositë',
-                route: '/porosite',
-                pathName: '/porosite',
+                route: '/cases',
+                pathName: '/cases',
                 icon: <MailRounded sx={{height: '18px', width: '18px'}}/>
             },
             {

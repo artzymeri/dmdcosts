@@ -16,12 +16,12 @@ class MainAppRepository {
 
     //functions
 
-    registerUser = async (user_data_object) => {
-        return await this.appGateway.registerUser(user_data_object);
+    registerUser = async (employee_data_object) => {
+        return await this.appGateway.registerUser(employee_data_object);
     }
 
-    loginByEmail = async (user_data_object) => {
-        return await this.appGateway.loginByEmail(user_data_object);
+    loginByEmail = async (employee_data_object) => {
+        return await this.appGateway.loginByEmail(employee_data_object);
     }
 
     getEmployeesData = async () => {
@@ -44,8 +44,8 @@ class MainAppRepository {
         return await this.appGateway.getAllCases();
     }
 
-    getCaseDetails = async (user_id ,case_id) => {
-        return await this.appGateway.getCaseDetails(user_id ,case_id);
+    getCaseDetails = async (employee_id ,case_id) => {
+        return await this.appGateway.getCaseDetails(employee_id ,case_id);
     }
 
     getCaseDetailsAsAdmin = async (case_id) => {

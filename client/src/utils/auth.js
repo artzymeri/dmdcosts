@@ -2,10 +2,10 @@ import Cookies from 'js-cookie';
 
 export function getTokenType() {
     const adminToken = Cookies.get('adminToken');
-    const userToken = Cookies.get('userToken');
+    const employeeToken = Cookies.get('employeeToken');
 
     if (adminToken) return 'admin';
-    if (userToken) return 'user';
+    if (employeeToken) return 'employee';
 
     return null;
 }

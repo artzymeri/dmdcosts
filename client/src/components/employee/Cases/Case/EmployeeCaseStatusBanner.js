@@ -2,7 +2,7 @@ import {Close, MovingRounded} from "@mui/icons-material";
 import {Tooltip} from "@mui/material";
 import {observer} from "mobx-react-lite";
 
-const AdminCaseStatusBanner = (props) => {
+const EmployeeCaseStatusBanner = (props) => {
     const {progress} = props;
 
     const checkProgressText = (progress_type) => {
@@ -53,4 +53,4 @@ const AdminCaseStatusBanner = (props) => {
     )
 }
 
-export default observer(AdminCaseStatusBanner);
+export default observer(EmployeeCaseStatusBanner);

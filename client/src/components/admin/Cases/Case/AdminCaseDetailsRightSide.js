@@ -5,13 +5,13 @@ import axios from "axios";
 
 const AdminCaseDetailsRightSide = ({presenter}) => {
 
-    const generatePDF = async (case) => {
-            const dateObject = new Date(case?.createdAt);
+    const generatePDF = async (caseData) => {
+            const dateObject = new Date(caseData?.createdAt);
             const formattedDate = dateObject.toLocaleString();
             try {
                 const response = await axios.post(
-                    `http://localhost:8080/generatepdfonly/${case?.id}`,
-                    { case },
+                    `http://localhost:8080/generatepdfonly/${caseData?.id}`,
+                    { caseData },
                     { responseType: "blob" }
                 );
 
@@ -22,7 +22,7 @@ const AdminCaseDetailsRightSide = ({presenter}) => {
                 downloadLink.href = url;
                 downloadLink.setAttribute(
                     "download",
-                    `Case ${case?.id} ${formattedDate}.pdf`
+                    `Case ${caseData?.id} ${formattedDate}.pdf`
                 );
                 downloadLink.click();
             } catch (error) {

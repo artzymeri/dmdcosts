@@ -6,11 +6,11 @@ import AdminCaseDetailsRightSide from "@/components/admin/Cases/Case/AdminCaseDe
 const AdminCaseView = ({presenter}) => {
 
     return (
-        <div className="admin-porosia-content-container">
+        <div className="admin-case-content-container">
             <AdminCaseTitle presenter={presenter}/>
-            <div className="admin-porosia-details-container">
+            <div className="admin-case-details-container">
                 <AdminCaseDetailsLeftSide presenter={presenter}/>
-                <div className="admin-porosia-details-middle"></div>
+                <div className="admin-case-details-middle"></div>
                 <AdminCaseDetailsRightSide presenter={presenter}/>
             </div>
         </div>

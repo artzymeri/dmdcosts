@@ -20,8 +20,8 @@ class EmployeeSidebarPresenter {
             {
                 id: 2,
                 title: 'Porositë Tuaja',
-                route: '/porosite',
-                pathName: '/porosite',
+                route: '/cases',
+                pathName: '/cases',
                 icon: <MailRounded sx={{height: '18px', width: '18px'}}/>
             },
             {
@@ -41,7 +41,7 @@ class EmployeeSidebarPresenter {
     }
 
     async logout() {
-        await Cookies.remove("userToken")
+        await Cookies.remove("employeeToken")
     }
 
     get sidebarItems() {

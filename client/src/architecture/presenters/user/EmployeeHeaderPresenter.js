@@ -19,7 +19,7 @@ class EmployeeHeaderPresenter {
     }
 
     async getEmployeeData() {
-        const userData = Cookies.get("employeeData");
+        const employeeData = Cookies.get("employeeData");
 
         if (employeeData) {
             try {

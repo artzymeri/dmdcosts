@@ -1,0 +1,276 @@
+:root {
+    --admin-case-content-container--border: 1px solid lightgray;
+    --admin-case-content-container--background: whitesmoke;
+    --admin-case-header-container--background: white;
+    --admin-case-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-case-header-container--color: darkslategray;
+    --admin-case-id-banner--border-left: 1px solid lightgray;
+    --admin-case-id-banner--background: ghostwhite;
+    --admin-case-title-container--border: 1px solid lightgray;
+    --admin-case-title-container--background: white;
+    --admin-case-title-container--color: darkslategray;
+    --admin-case-details-container--background: white;
+    --admin-case-details-container--color: darkslategray;
+    --admin-case-details-left-side-row--border: 1px solid lightgray;
+    --admin-case-details-left-side-info-no-info: 1px dashed gray;
+    --admin-case-details-left-side-info-no-info: gray;
+    --admin-case-details-left-side-info-no-info: whitesmoke;
+    --admin-case-details-left-side-label--color: darkslategray;
+    --admin-case-details-middle--border-left: 1px dashed rgba(47, 79, 79, 0.33);
+    --admin-case-details-left-side-title-after--background: rgba(47, 79, 79, 0.33);
+    --admin-case-details-right-side-qr-code-container--border: 1px solid lightgray;
+    --admin-case-status-banner-request--border: 1px dashed lightgray;
+    --admin-case-status-banner-request--color: gray;
+    --admin-case-status-banner-cancelled--border: 1px dashed red;
+    --admin-case-status-banner-cancelled--color: darkslategray;
+    --admin-case-status-banner-cancelled--background: rgba(255, 69, 0, 0.25);
+    --no-access-order-view--color: darkslategray;
+    --admin-case-details-right-side-employees-involved--background: whitesmoke;
+    --admin-case-details-right-side-employees-involved--color: darkslategray;
+    --admin-case-details-right-side-employees-involved--border: 1px dotted lightslategray;
+}
+
+.admin-case-content-container {
+    padding: 15px;
+    border-top: var(--admin-case-content-container--border);
+    border-left: var(--admin-case-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--admin-case-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.admin-case-content-title-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.admin-case-header-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--admin-case-header-container--background);
+    box-shadow: var(--admin-case-header-container--box-shadow);
+    color: var(--admin-case-header-container--color);
+    gap: 15px;
+}
+
+.css-1wd3yy0-MuiInputBase-input-MuiInput-input {
+    padding: 4px 8px !important;
+}
+
+.admin-case-id-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 20px;
+    border-radius: 100px;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: var(--admin-case-id-banner--border-left);
+    background: var(--admin-case-id-banner--background);
+}
+
+.admin-case-title-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+    font-size: 20px;
+    border-radius: 100px;
+    border: var(--admin-case-title-container--border);
+    padding: 0px 0px 0px 10px;
+    background: var(--admin-case-title-container--background);
+    color: var(--admin-case-title-container--color);
+}
+
+.kthehu-button {
+    background: var(--admin-case-title-container--background) !important;
+    color: var(--admin-case-title-container--color) !important;
+    border: var(--admin-case-title-container--border) !important;
+    border-radius: 15px !important;
+}
+
+.admin-case-details-container {
+    display: grid;
+    padding: 15px;
+    border-radius: 15px;
+    gap: 15px;
+    background: var(--admin-case-details-container--background);
+    border: 1px solid lightgray;
+    height: 100%;
+    overflow-y: auto;
+    grid-template-columns: 1fr 1px 1fr;
+    color: var(--admin-case-details-container--color);
+}
+
+.admin-case-details-left-side {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.admin-case-details-left-side-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+    border: var(--admin-case-details-left-side-row--border);
+    padding: 15px 20px;
+    flex-shrink: 0;
+}
+
+.admin-case-details-left-side-label {
+    color: var(--admin-case-details-left-side-label--color);
+    font-weight: 500;
+}
+
+.admin-case-details-left-side-info {
+    font-weight: 600;
+}
+
+.admin-case-details-left-side-info-no-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--admin-case-details-left-side-info-no-info);
+    color: var(--admin-case-details-left-side-info-no-info);
+    background: var(--admin-case-details-left-side-info-no-info);
+    cursor: not-allowed;
+}
+
+.admin-case-details-middle {
+    width: 100%;
+    height: 100%;
+    content: '';
+    border-left: var(--admin-case-details-middle--border-left);
+}
+
+.admin-case-details-left-side-title {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    height: 32px;
+}
+
+.admin-case-details-left-side-title::after {
+    background: var(--admin-case-details-left-side-title-after--background);
+    height: 2px;
+    width: 50%;
+    content: '';
+    bottom: -5px;
+    left: 25%;
+    position: absolute;
+}
+
+.admin-case-details-right-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    overflow-y: auto;
+    max-height: 100%;
+}
+
+.admin-case-details-right-side-qr-code-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    flex-shrink: 0;
+    gap: 15px;
+    width: 100%;
+    border-radius: 15px;
+    border: var(--admin-case-details-right-side-qr-code-container--border);
+    margin-top: 20px;
+}
+
+.admin-case-details-right-side-qr-code-container-description {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.admin-case-details-right-side-qr-code-container-description-title {
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+}
+
+.admin-case-details-right-side-qr-code-container-description :is(p) {
+    text-align: center;
+}
+
+.admin-case-details-right-side-qr-code-container img {
+    border-radius: 15px;
+}
+
+.admin-case-details-status-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-case-status-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    padding: 3px 12px;
+    gap: 8px;
+}
+
+.admin-case-status-banner-request {
+    border: var(--admin-case-status-banner-request--border);
+    color: var(--admin-case-status-banner-request--color);
+}
+
+.admin-case-status-banner-cancelled {
+    border: var(--admin-case-status-banner-cancelled--border);
+    color: var(--admin-case-status-banner-cancelled--color);
+    background: var(--admin-case-status-banner-cancelled--background);
+}
+
+.no-access-order-view {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--no-access-order-view--color);
+}
+
+.admin-case-details-right-side-employees-involved {
+    display: flex;
+    width: 100%;
+    flex-shrink: 0;
+    padding: 15px;
+    border-radius: 15px;
+    background: var(--admin-case-details-right-side-employees-involved--background);
+    color: var(--admin-case-details-right-side-employees-involved--color);
+    flex-direction: column;
+    gap: 7.5px;
+    border: var(--admin-case-details-right-side-employees-involved--border);
+}
+
+.admin-case-details-right-side-employee-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}

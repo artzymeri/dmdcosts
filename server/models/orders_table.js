@@ -160,7 +160,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    viewed_by_user_for_request: {
+    viewed_by_employee_for_request: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false,
@@ -168,7 +168,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    viewed_by_user_for_cancelled: {
+    viewed_by_employee_for_cancelled: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false,
@@ -176,7 +176,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    viewed_by_user_for_collected: {
+    viewed_by_employee_for_collected: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false,
@@ -184,7 +184,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    viewed_by_user_for_on_delivery: {
+    viewed_by_employee_for_on_delivery: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false,
@@ -192,7 +192,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    viewed_by_user_for_delivered: {
+    viewed_by_employee_for_delivered: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: false,

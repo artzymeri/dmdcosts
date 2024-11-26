@@ -8,22 +8,22 @@ import Cookies from "js-cookie";
 class AdminHeaderPresenter {
 
     vm = {
-        userData: null
+        employeeData: null
     }
 
     constructor() {
         makeObservable(this, {
             vm: observable,
-            userData: computed
+            employeeData: computed
         });
     }
 
     async getUserData() {
-       this.vm.userData = await JSON.parse(Cookies.get("userData"));
+       this.vm.employeeData = await JSON.parse(Cookies.get("employeeData"));
     }
 
-    get userData() {
-        return this.vm.userData
+    get employeeData() {
+        return this.vm.employeeData
     }
 
 }

@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "root",
+    "employeename": "root",
     "password": "password",
     "database": "dmdcosts",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
+    "employeename": "root",
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "udffdndlnob9wj7d",
+    "employeename": "udffdndlnob9wj7d",
     "password": "7icioVQKMVaEV3dS29aa",
     "database": "baukprwexnesnqzylg5m",
     "host": "baukprwexnesnqzylg5m-mysql.services.clever-cloud.com",

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const users_table = sequelize.define("users_table", {
+  const employees_table = sequelize.define("employees_table", {
     name_surname: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -47,5 +47,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-  return users_table;
+  return employees_table;
 };

@@ -29,7 +29,7 @@ function generateCustomerInformation(doc, order_object) {
 
     doc
         .fillColor("#000000")
-        .text(`Porosia Numër: #${order_object.id}`, 60, 130)
+        .text(`Case Numër: #${order_object.id}`, 60, 130)
         .text(`Data e porosisë: ${order_object.createdAt}`, 60, 145)
         .text(order_object.receiver_name_surname, 60, 160)
         .text(order_object.receiver_city, 60, 175)

@@ -22,8 +22,8 @@ class EmployeeCasePresenter {
         });
     }
 
-    getCaseDetails = async (user_id, case_id) => {
-        const response = await this.mainAppRepository.getCaseDetails(user_id ,case_id);
+    getCaseDetails = async (employee_id, case_id) => {
+        const response = await this.mainAppRepository.getCaseDetails(employee_id ,case_id);
         this.vm.case_details = response.data;
     }
 

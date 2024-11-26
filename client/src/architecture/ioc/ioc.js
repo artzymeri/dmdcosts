@@ -6,16 +6,16 @@ import LoginRegisterPresenter from '../presenters/LoginRegisterPresenter';
 import AdminSidebarPresenter from "@/architecture/presenters/admin/AdminSidebarPresenter";
 import AdminHeaderPresenter from "@/architecture/presenters/admin/AdminHeaderPresenter";
 import AdminDashboardPresenter from "@/architecture/presenters/admin/AdminDashboardPresenter";
-import EmployeeSidebarPresenter from "@/architecture/presenters/user/EmployeeSidebarPresenter";
-import EmployeeAddCasePresenter from "@/architecture/presenters/user/EmployeeAddCasePresenter";
-import EmployeeCasesPresenter from "@/architecture/presenters/user/EmployeeCasesPresenter";
-import EmployeeCasePresenter from "@/architecture/presenters/user/EmployeeCasePresenter";
+import EmployeeSidebarPresenter from "@/architecture/presenters/employee/EmployeeSidebarPresenter";
+import EmployeeAddCasePresenter from "@/architecture/presenters/employee/EmployeeAddCasePresenter";
+import EmployeeCasesPresenter from "@/architecture/presenters/employee/EmployeeCasesPresenter";
+import EmployeeCasePresenter from "@/architecture/presenters/employee/EmployeeCasePresenter";
 import AdminCasesPresenter from "@/architecture/presenters/admin/AdminCasesPresenter";
 import AdminCasePresenter from "@/architecture/presenters/admin/AdminCasePresenter";
 import AdminEmployeesPresenter from "@/architecture/presenters/admin/AdminEmployeesPresenter";
 import AdminAddEmployeePresenter from "@/architecture/presenters/admin/AdminAddEmployeePresenter";
 import AppGateway from "@/architecture/gateways/AppGateway";
-import EmployeeHeaderPresenter from "@/architecture/presenters/user/EmployeeHeaderPresenter";
+import EmployeeHeaderPresenter from "@/architecture/presenters/employee/EmployeeHeaderPresenter";
 
 export const container = new Container({
     autoBindInjectable: true,

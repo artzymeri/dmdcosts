@@ -23,14 +23,14 @@ const KyçuPageLeftSide = () => {
                 <>
                     <EmailButtonGroup presenter={presenter}/>
                     <TextField onChange={(e) => {
-                        presenter.changeLoginUserData('email_address', e.target.value)
+                        presenter.changeLoginEmployeeData('email_address', e.target.value)
                     }} label="Email Llogaria" variant="outlined"/>
                 </> :
                 <>
                     <PhoneNumberButtonGroup presenter={presenter}/>
                     <TextField
                         onChange={(e) => {
-                            presenter.changeLoginUserData('phone_number', e.target.value)
+                            presenter.changeLoginEmployeeData('phone_number', e.target.value)
                         }}
                         label="Numri Telefonit" variant="outlined"
                         onKeyDown={(e) => {
@@ -45,7 +45,7 @@ const KyçuPageLeftSide = () => {
             }
             <TextField
                 onChange={(e) => {
-                    presenter.changeLoginUserData('password', e.target.value)
+                    presenter.changeLoginEmployeeData('password', e.target.value)
                 }}
                 label="Fjalëkalimi" variant="outlined" type="password"
                 onKeyDown={(e) => {

@@ -1,22 +1,19 @@
-import {Button, FormControl, NativeSelect, TextField} from "@mui/material";
+import {FormControl, NativeSelect, TextField} from "@mui/material";
 import {observer} from "mobx-react-lite";
-import {DeleteOutlineRounded} from "@mui/icons-material";
 
-const AdminCasesHeader = ({presenter}) => {
+const EmployeeCasesHeader = ({presenter}) => {
+
 
     return (
-        <div className="admin-cases-header-container" style={{height: '86px'}}>
+        <div className="employee-cases-header-container">
             <TextField
-                placeholder="Kërko"
+                placeholder="Kërko porositë"
                 id="filled-hidden-label-small"
                 variant="standard"
                 size="small"
                 fullWidth
                 autoComplete={"off"}
-                clearable={true}
-                onChange={(e) => {
-                    presenter.handleSearchFiltering(e)
-                }}
+                onChange={(e) => {presenter.handleSearchFiltering(e)}}
             />
             <FormControl sx={{width: '250px'}} variant="filled">
                 <NativeSelect
@@ -46,13 +43,8 @@ const AdminCasesHeader = ({presenter}) => {
                     <option value={'cancelled'}>Anuluar</option>
                 </NativeSelect>
             </FormControl>
-            <Button variant="contained" size="large" color="error" onClick={() => {
-                presenter.handleDeleteCasesModal(true)
-            }} disabled={presenter?.deleteButtonDisabled}>
-                <DeleteOutlineRounded/>
-            </Button>
         </div>
     )
 }
 
-export default observer(AdminCasesHeader);
+export default observer(EmployeeCasesHeader);

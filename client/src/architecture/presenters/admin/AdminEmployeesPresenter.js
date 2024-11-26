@@ -37,9 +37,9 @@ class AdminEmployeesPresenter {
     }
 
     deleteEmployees = async () => {
-        for (const user of this.vm.employeesData) {
-            if (user.checked) {
-                await this.mainAppRepository.deleteEmployee(user.id);
+        for (const employee of this.vm.employeesData) {
+            if (employee.checked) {
+                await this.mainAppRepository.deleteEmployee(employee.id);
             }
         }
         this.vm.deletionModalOpen = false;
@@ -68,7 +68,7 @@ class AdminEmployeesPresenter {
     }
 
     get employeesData() {
-        const normalizedData = this.vm.employeesData.map((user) => ({...user, checked: false}))
+        const normalizedData = this.vm.employeesData.map((employee) => ({...employee, checked: false}))
 
         const filteredData = normalizedData.filter(item => {
             const itemValue = item[this.vm.sortingOption]?.toString().toLowerCase() || '';

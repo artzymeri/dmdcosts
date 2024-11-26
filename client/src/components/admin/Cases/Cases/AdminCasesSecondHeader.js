@@ -6,7 +6,7 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 const AdminSecondHeader = ({presenter}) => {
 
     return (
-        <div className="admin-porosite-header-container">
+        <div className="admin-cases-header-container">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker sx={{width: '100%'}} value={presenter.vm?.firstDateFilter} slotProps={{
                     field: {

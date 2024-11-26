@@ -5,12 +5,12 @@ import "reflect-metadata";
 
 @injectable()
 class AppGateway {
-    registerUser = async (user_data_object) => {
-        return await axios.post('http://localhost:8080/registeruser', user_data_object);
+    registerUser = async (employee_data_object) => {
+        return await axios.post('http://localhost:8080/registeremployee', employee_data_object);
     }
 
-    loginByEmail = async (user_data_object) => {
-        return await axios.post('http://localhost:8080/loginbyemail', user_data_object);
+    loginByEmail = async (employee_data_object) => {
+        return await axios.post('http://localhost:8080/loginbyemail', employee_data_object);
     }
 
     getEmployeesData = async () => {
@@ -33,8 +33,8 @@ class AppGateway {
         return await axios.get(`http://localhost:8080/allcases`);
     }
 
-    getCaseDetails = async (user_id, case_id) => {
-        return await axios.get(`http://localhost:8080/users/${user_id}/cases/${case_id}`);
+    getCaseDetails = async (employee_id, case_id) => {
+        return await axios.get(`http://localhost:8080/employees/${employee_id}/cases/${case_id}`);
     };
 
     getCaseDetailsAsAdmin = async (case_id) => {

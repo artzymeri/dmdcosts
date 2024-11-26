@@ -4,10 +4,10 @@ import {useEffect} from "react";
 import {useRouter} from "next/router";
 import dynamic from "next/dynamic";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
-import UserHeader from "@/components/user/Header/UserHeader";
+import UserHeader from "@/components/employee/Header/EmployeeHeader";
 import Head from "next/head";
 import AdminBallinaContent from "@/components/admin/Dashboard/AdminDashboardContent";
-import UserBallinaContent from "@/components/user/Ballina/UserBallinaContent";
+import UserBallinaContent from "@/components/employee/Dashboard/EmployeeDashboardContent";
 
 const AdminHOC = dynamic(
     () => import("@/components/admin/adminHOC"),
@@ -15,7 +15,7 @@ const AdminHOC = dynamic(
 );
 
 const UserHOC = dynamic(
-    () => import("@/components/user/userHOC"),
+    () => import("@/components/employee/employeeHOC"),
     {ssr: false}
 );
 
@@ -44,7 +44,7 @@ const HomePage = () => {
                 )
             }
             {
-                token === 'user' && (
+                token === 'employee' && (
                     <>
                         <Head>
                             <title>Dashboard | DMD Costs</title>

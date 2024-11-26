@@ -52,7 +52,7 @@ class EmployeeCasesPresenter {
     }
 
     getClientOrders = async () => {
-        let clientId = await JSON.parse(Cookies.get('userData')).id
+        let clientId = await JSON.parse(Cookies.get('employeeData')).id
         const response = await this.mainAppRepository.getClientOrders(clientId);
         this.vm.clientOrders = response?.data;
     }

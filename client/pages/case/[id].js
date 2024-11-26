@@ -4,18 +4,18 @@ import {getTokenType} from "@/utils/auth";
 import {useEffect, useState} from "react";
 import Head from "next/head";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
-import UserHeader from "@/components/user/Header/UserHeader";
-import UserPorosiaView from "@/components/user/Porosite/Porosia/UserPorosiaView";
+import UserHeader from "@/components/employee/Header/EmployeeHeader";
+import UserCaseView from "@/components/employee/Cases/Case/EmployeeCaseView";
 import {observer} from "mobx-react-lite";
 import {container} from "@/architecture/ioc/ioc";
 import {TYPES} from "@/architecture/ioc/types";
 import Cookies from "js-cookie";
 import {CircularProgress} from "@mui/material";
 import {WarningOutlined} from "@mui/icons-material";
-import AdminPorosiaView from "@/components/admin/Cases/Case/AdminCaseView";
+import AdminCaseView from "@/components/admin/Cases/Case/AdminCaseView";
 
 const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), { ssr: false });
-const EmployeeHOC = dynamic(() => import("@/components/user/userHOC"), { ssr: false });
+const EmployeeHOC = dynamic(() => import("@/components/employee/employeeHOC"), { ssr: false });
 
 const CasePage = () => {
     const token = getTokenType();
@@ -77,8 +77,8 @@ const CasePage = () => {
                     {loading && (<div className="backdrop-container">
                         <CircularProgress/>
                     </div>)}
-                    {!loading && successfulLoad && (<AdminPorosiaView presenter={presenter}/>)}
-                    {!loading && !successfulLoad && (<div className="employee-porosia-content-container">
+                    {!loading && successfulLoad && (<AdminCaseView presenter={presenter}/>)}
+                    {!loading && !successfulLoad && (<div className="employee-case-content-container">
                         <div className="no-access-order-view">
                             <WarningOutlined/>
                             <span>
@@ -90,7 +90,7 @@ const CasePage = () => {
             </>)}
             {token === 'employee' && (<>
                 <Head>
-                    <title>{`Porosia #${id}`}</title>
+                    <title>{`Case #${id}`}</title>
                 </Head>
                 <EmployeeHOC>
                     <EmployeeHeader/>
@@ -98,7 +98,7 @@ const CasePage = () => {
                         <CircularProgress/>
                     </div>)}
                     {!loading && successfulLoad && (<EmployeeCaseView presenter={presenter}/>)}
-                    {!loading && !successfulLoad && (<div className="employee-porosia-content-container">
+                    {!loading && !successfulLoad && (<div className="employee-case-content-container">
                         <div className="no-access-order-view">
                             <WarningOutlined/>
                             <span>

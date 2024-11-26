@@ -12,7 +12,7 @@ const {createInvoice} = require("./createinvoice.js");
 
 
 const {
-    users_table,
+    employees_table,
     orders_table,
     transport_table,
     drivers_table,
@@ -32,16 +32,16 @@ const db = require("./models");
 
 const port = 8080;
 
-app.post("/registeruser", async (req, res) => {
+app.post("/registeremployee", async (req, res) => {
     try {
         const {name_surname, business_name, location, phone_number, email_address, password} = req.body;
         const hashedPassword = bcrypt.hashSync(password, 10);
 
-        const existingPhoneNumberInUsers = await users_table.findOne({
+        const existingPhoneNumberInUsers = await employees_table.findOne({
             where: {phone_number: phone_number},
         });
 
-        const existingEmailAddressInUsers = await users_table.findOne({
+        const existingEmailAddressInUsers = await employees_table.findOne({
             where: {email_address: email_address},
         });
 
@@ -59,14 +59,14 @@ app.post("/registeruser", async (req, res) => {
             });
         }
 
-        await users_table.create({
+        await employees_table.create({
             name_surname,
             business_name,
             location,
             phone_number,
             email_address,
             password: hashedPassword,
-            role: 'user'
+            role: 'employee'
         });
 
         res.json({
@@ -87,11 +87,11 @@ app.post("/loginbyphone", async (req, res) => {
         const {phone_number, password} = req.body;
 
         if (phone_number) {
-            const user = await users_table.findOne({
+            const employee = await employees_table.findOne({
                 where: {phone_number: phone_number},
             });
 
-            if (!user || !bcrypt.compareSync(password, user?.password)) {
+            if (!employee || !bcrypt.compareSync(password, employee?.password)) {
                 return res.json({
                     title: "error",
                     message: "Numri apo fjalëkalimi është gabim",
@@ -99,9 +99,9 @@ app.post("/loginbyphone", async (req, res) => {
             }
 
 
-            if (user?.role === "admin") {
+            if (employee?.role === "admin") {
                 const adminToken = jwt.sign(
-                    {phone_number: user?.phone_number, role: "admin"},
+                    {phone_number: employee?.phone_number, role: "admin"},
                     secretKey,
                     {
                         expiresIn: "1h",
@@ -112,31 +112,31 @@ app.post("/loginbyphone", async (req, res) => {
                     title: "success",
                     message: "Kyçja u bë me sukses",
                     adminToken: adminToken,
-                    phone_number: user?.phone_number,
-                    business_name: user?.business_name,
-                    name_surname: user?.name_surname,
-                    location: user?.location,
-                    email_address: user?.email_address,
-                    role: user?.role,
-                    id: user?.id
+                    phone_number: employee?.phone_number,
+                    business_name: employee?.business_name,
+                    name_surname: employee?.name_surname,
+                    location: employee?.location,
+                    email_address: employee?.email_address,
+                    role: employee?.role,
+                    id: employee?.id
                 });
-            } else if (user?.role === "user") {
-                const userToken = jwt.sign(
-                    {phone_number: user?.phone_number, role: "user"},
+            } else if (employee?.role === "employee") {
+                const employeeToken = jwt.sign(
+                    {phone_number: employee?.phone_number, role: "employee"},
                     secretKey
                 );
-                res.cookie("user", userToken, {httpOnly: true});
+                res.cookie("employee", employeeToken, {httpOnly: true});
                 res.json({
                     title: "success",
                     message: "Kyçja u bë me sukses",
-                    userToken: userToken,
-                    phone_number: user?.phone_number,
-                    name_surname: user?.name_surname,
-                    location: user?.location,
-                    email_address: user?.email_address,
-                    role: user?.role,
-                    business_name: user?.business_name,
-                    id: user?.id,
+                    employeeToken: employeeToken,
+                    phone_number: employee?.phone_number,
+                    name_surname: employee?.name_surname,
+                    location: employee?.location,
+                    email_address: employee?.email_address,
+                    role: employee?.role,
+                    business_name: employee?.business_name,
+                    id: employee?.id,
                 });
             }
         } else {
@@ -156,11 +156,11 @@ app.post("/loginbyemail", async (req, res) => {
         const {email_address, password} = req.body;
 
         if (email_address) {
-            const user = await users_table.findOne({
+            const employee = await employees_table.findOne({
                 where: {email_address: email_address},
             });
 
-            if (!user || !bcrypt.compareSync(password, user?.password)) {
+            if (!employee || !bcrypt.compareSync(password, employee?.password)) {
                 return res.json({
                     title: "error",
                     message: "Numri apo fjalëkalimi është gabim",
@@ -168,9 +168,9 @@ app.post("/loginbyemail", async (req, res) => {
             }
 
 
-            if (user?.role === "admin") {
+            if (employee?.role === "admin") {
                 const adminToken = jwt.sign(
-                    {email_address: user?.email_address, role: "admin"},
+                    {email_address: employee?.email_address, role: "admin"},
                     secretKey,
                     {
                         expiresIn: "1h",
@@ -181,31 +181,31 @@ app.post("/loginbyemail", async (req, res) => {
                     title: "success",
                     message: "Kyçja u bë me sukses",
                     adminToken: adminToken,
-                    phone_number: user?.phone_number,
-                    business_name: user?.business_name,
-                    name_surname: user?.name_surname,
-                    location: user?.location,
-                    email_address: user?.email_address,
-                    role: user?.role,
-                    id: user?.id
+                    phone_number: employee?.phone_number,
+                    business_name: employee?.business_name,
+                    name_surname: employee?.name_surname,
+                    location: employee?.location,
+                    email_address: employee?.email_address,
+                    role: employee?.role,
+                    id: employee?.id
                 });
-            } else if (user?.role === "user") {
-                const userToken = jwt.sign(
-                    {email_address: user?.email_address, role: "user"},
+            } else if (employee?.role === "employee") {
+                const employeeToken = jwt.sign(
+                    {email_address: employee?.email_address, role: "employee"},
                     secretKey
                 );
-                res.cookie("user", userToken, {httpOnly: true});
+                res.cookie("employee", employeeToken, {httpOnly: true});
                 res.json({
                     title: "success",
                     message: "Kyçja u bë me sukses",
-                    userToken: userToken,
-                    phone_number: user?.phone_number,
-                    name_surname: user?.name_surname,
-                    location: user?.location,
-                    email_address: user?.email_address,
-                    role: user?.role,
-                    business_name: user?.business_name,
-                    id: user?.id,
+                    employeeToken: employeeToken,
+                    phone_number: employee?.phone_number,
+                    name_surname: employee?.name_surname,
+                    location: employee?.location,
+                    email_address: employee?.email_address,
+                    role: employee?.role,
+                    business_name: employee?.business_name,
+                    id: employee?.id,
                 });
             }
         } else {
@@ -221,31 +221,31 @@ app.post("/loginbyemail", async (req, res) => {
 });
 
 app.get('/klientet', async (req, res) => {
-    const klientet = await users_table.findAll({
-        where: {role: 'user'}
+    const klientet = await employees_table.findAll({
+        where: {role: 'employee'}
     });
     res.json(klientet);
 })
 
 app.get('/drivers', async (req, res) => {
-    const drivers = await users_table.findAll({
+    const drivers = await employees_table.findAll({
         where: {role: 'driver'}
     });
     res.json(drivers);
 })
 
 app.get('/collectors', async (req, res) => {
-    const collectors = await users_table.findAll({
+    const collectors = await employees_table.findAll({
         where: {role: 'collector'}
     });
     res.json(collectors);
 })
 
 
-app.post(`/deleteemployee:user_id`, async (req, res) => {
+app.post(`/deleteemployee:employee_id`, async (req, res) => {
     const {employee_id} = req.params;
     try {
-        const employeeToDelete = await users_table.findOne({
+        const employeeToDelete = await employees_table.findOne({
             where: {id: employee_id}
         })
         console.log(employeeToDelete)
@@ -388,13 +388,13 @@ app.post(`/deleteorder:order_id`, async (req, res) => {
     }
 })
 
-app.get("/users/:user_id/orders/:order_id", async (req, res) => {
-    const {user_id, order_id} = req.params;
+app.get("/employees/:employee_id/orders/:order_id", async (req, res) => {
+    const {employee_id, order_id} = req.params;
     try {
         const order = await orders_table.findOne({
             where: {
                 id: order_id,
-                sender_id: user_id
+                sender_id: employee_id
             }
         });
 

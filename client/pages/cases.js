@@ -4,10 +4,10 @@ import {useEffect} from "react";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import UserHeader from "@/components/user/Header/UserHeader";
+import UserHeader from "@/components/employee/Header/EmployeeHeader";
 import {observer} from "mobx-react-lite";
-import AdminPorositeContent from "@/components/admin/Cases/Cases/AdminCasesContent";
-import UserPorositeContent from "@/components/user/Porosite/Porosite/UserPorositeContent";
+import AdminCasesContent from "@/components/admin/Cases/Cases/AdminCasesContent";
+import UserCasesContent from "@/components/employee/Cases/Cases/EmployeeCasesContent";
 
 const AdminHOC = dynamic(
     () => import("@/components/admin/adminHOC"),
@@ -17,7 +17,7 @@ const AdminHOC = dynamic(
 );
 
 const EmployeeHOC = dynamic(
-    () => import("@/components/user/userHOC"),
+    () => import("@/components/employee/employeeHOC"),
     {
         ssr: false,
     }

@@ -29,7 +29,7 @@ class AdminDashboardPresenter {
                 subTitle2: 'Net Profiti:',
                 value2: '5331€',
                 buttonText: 'Porositë',
-                route: './porosite',
+                route: './cases',
                 icon: <EuroRounded sx={{height: '20px', width: '20px'}}/>
             },
             {
@@ -40,7 +40,7 @@ class AdminDashboardPresenter {
                 subTitle2: 'Porositë Ditore:',
                 value2: '338',
                 buttonText: 'Porositë',
-                route: './porosite',
+                route: './cases',
                 icon: <MailRounded sx={{height: '20px', width: '20px'}}/>
             },
             {

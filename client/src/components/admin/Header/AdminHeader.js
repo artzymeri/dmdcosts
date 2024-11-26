@@ -18,7 +18,7 @@ const AdminHeader = () => {
         <div className="admin-header-container">
             <div className="admin-header-name-container">
                 <span>Mirësevjen</span>
-                <span>{presenter?.userData?.name_surname}</span>
+                <span>{presenter?.employeeData?.name_surname}</span>
             </div>
             <div className="admin-header-icons-container">
                 <AdminHeaderNotificationsMenu/>

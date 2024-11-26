@@ -22,8 +22,8 @@ class AdminCasePresenter {
         });
     }
 
-    getOrderDetailsAsAdmin = async (user_id, order_id) => {
-        const response = await this.mainAppRepository.getOrderDetailsAsAdmin(user_id ,order_id);
+    getOrderDetailsAsAdmin = async (employee_id, order_id) => {
+        const response = await this.mainAppRepository.getOrderDetailsAsAdmin(employee_id ,order_id);
         this.vm.order_details = response.data;
     }
 
