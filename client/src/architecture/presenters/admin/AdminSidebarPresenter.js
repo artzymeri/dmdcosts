@@ -18,7 +18,7 @@ class AdminSidebarPresenter {
         sidebarItems: [
             {
                 id: 1,
-                title: 'Ballina',
+                title: 'Dashboard',
                 route: '/',
                 pathName: '/',
                 icon: <HomeRounded sx={{height: '18px', width: '18px'}}/>

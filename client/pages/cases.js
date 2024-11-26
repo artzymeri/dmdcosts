@@ -1,25 +1,29 @@
-import {observer} from "mobx-react-lite";
 import {getTokenType} from "@/utils/auth";
-import {useEffect} from "react";
 import {useRouter} from "next/router";
-import dynamic from "next/dynamic";
+import {useEffect} from "react";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
-import UserHeader from "@/components/user/Header/UserHeader";
 import Head from "next/head";
-import AdminBallinaContent from "@/components/admin/Dashboard/AdminDashboardContent";
-import UserBallinaContent from "@/components/user/Ballina/UserBallinaContent";
+import dynamic from "next/dynamic";
+import UserHeader from "@/components/user/Header/UserHeader";
+import {observer} from "mobx-react-lite";
+import AdminPorositeContent from "@/components/admin/Cases/Cases/AdminCasesContent";
+import UserPorositeContent from "@/components/user/Porosite/Porosite/UserPorositeContent";
 
 const AdminHOC = dynamic(
     () => import("@/components/admin/adminHOC"),
-    {ssr: false}
+    {
+        ssr: false,
+    }
 );
 
-const UserHOC = dynamic(
+const EmployeeHOC = dynamic(
     () => import("@/components/user/userHOC"),
-    {ssr: false}
+    {
+        ssr: false,
+    }
 );
 
-const HomePage = () => {
+const CasesPage = () => {
     const token = getTokenType();
     const router = useRouter()
 
@@ -34,24 +38,24 @@ const HomePage = () => {
                 token === 'admin' && (
                     <>
                         <Head>
-                            <title>Dashboard | DMD Costs</title>
+                            <title>Cases</title>
                         </Head>
                         <AdminHOC>
                             <AdminHeader/>
-                            <AdminDashboardContent />
+                            <AdminCasesContent />
                         </AdminHOC>
                     </>
                 )
             }
             {
-                token === 'user' && (
+                token === 'employee' && (
                     <>
                         <Head>
-                            <title>Dashboard | DMD Costs</title>
+                            <title>Cases</title>
                         </Head>
                         <EmployeeHOC>
                             <EmployeeHeader/>
-                            <EmployeeDashboardContent />
+                            <EmployeeCasesContent />
                         </EmployeeHOC>
                     </>
                 )
@@ -60,4 +64,4 @@ const HomePage = () => {
     )
 }
 
-export default observer(HomePage);
+export default observer(CasesPage);

@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "superposta",
+    "database": "dmdcosts",
     "host": "localhost",
     "dialect": "mysql"
   },

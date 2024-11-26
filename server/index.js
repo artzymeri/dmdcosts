@@ -242,23 +242,23 @@ app.get('/collectors', async (req, res) => {
 })
 
 
-app.post(`/deleteuser:user_id`, async (req, res) => {
-    const {user_id} = req.params;
+app.post(`/deleteemployee:user_id`, async (req, res) => {
+    const {employee_id} = req.params;
     try {
-        const userToDelete = await users_table.findOne({
-            where: {id: user_id}
+        const employeeToDelete = await users_table.findOne({
+            where: {id: employee_id}
         })
-        console.log(userToDelete)
-        await userToDelete.destroy();
+        console.log(employeeToDelete)
+        await employeeToDelete.destroy();
         res.json({
             title: "success",
-            message: "Llogaria u fshi me sukses"
+            message: "Employee Deleted Successful"
         })
     } catch (e) {
         console.log(e)
         res.json({
             title: "error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong"
         })
     }
 })
@@ -357,7 +357,7 @@ app.post(`/cancelorder:order_id`, async (req, res) => {
         await orderToCancel.save();
         res.json({
             title: "success",
-            message: "Porosia u anulua me sukses"
+            message: "Case u anulua me sukses"
         })
     } catch (e) {
         console.log(e)
@@ -377,7 +377,7 @@ app.post(`/deleteorder:order_id`, async (req, res) => {
         await orderToDelete.destroy();
         res.json({
             title: "success",
-            message: "Porosia u fshi me sukses"
+            message: "Case u fshi me sukses"
         })
     } catch (e) {
         console.log(e)
@@ -407,7 +407,7 @@ app.get("/users/:user_id/orders/:order_id", async (req, res) => {
         } else {
             res.json({
                 title: "error",
-                message: "Porosia nuk mund të gjendet"
+                message: "Case nuk mund të gjendet"
             });
         }
     } catch (error) {
@@ -437,7 +437,7 @@ app.get("/order:order_id", async (req, res) => {
         } else {
             res.json({
                 title: "error",
-                message: "Porosia nuk mund të gjendet"
+                message: "Case nuk mund të gjendet"
             });
         }
     } catch (error) {

@@ -12,14 +12,12 @@ class LoginRegisterPresenter {
     vm = {
         loginUserDataObject: {
             email_address: null,
-            phone_number: null,
             password: null,
         },
         newUserDataObject: {
             name_surname: null,
             business_name: null,
             location: null,
-            phone_number: null,
             email_address: null,
             password: null
         },
@@ -47,11 +45,11 @@ class LoginRegisterPresenter {
         if (this.loginMode === 'email') {
             const response = await this.mainAppRepository.loginByEmail(this.loginUserData)
             const {
-                id, name_surname, business_name, location, phone_number, email_address, role, adminToken, userToken
+                id, name_surname, business_name, location, phone_number, email_address, role, adminToken, employeeToken
             } = response.data;
             if (role === 'admin') {
                 await Cookies.set("adminToken", adminToken, {expires: 3 / 24});
-                await Cookies.set('userData', JSON.stringify({
+                await Cookies.set('employeeData', JSON.stringify({
                     id: id,
                     name_surname: name_surname,
                     business_name: business_name,
@@ -59,9 +57,9 @@ class LoginRegisterPresenter {
                     phone_number: phone_number,
                     email_address: email_address
                 }), {expires: 3 / 24})
-            } else if (role === 'user') {
-                await Cookies.set("userToken", userToken, {expires: 3 / 24});
-                await Cookies.set('userData', JSON.stringify({
+            } else if (role === 'employee') {
+                await Cookies.set("employeeToken", employeeToken, {expires: 3 / 24});
+                await Cookies.set('employeeData', JSON.stringify({
                     id: id,
                     name_surname: name_surname,
                     business_name: business_name,
@@ -73,11 +71,11 @@ class LoginRegisterPresenter {
         } else if (this.loginMode === 'phone_number') {
             const response = await this.mainAppRepository.loginByPhone(this.loginUserData)
             const {
-                id, name_surname, business_name, location, phone_number, email_address, role, adminToken, userToken
+                id, name_surname, business_name, location, phone_number, email_address, role, adminToken, employeeToken
             } = response.data;
             if (role === 'admin') {
                 await Cookies.set("adminToken", adminToken, {expires: 3 / 24});
-                await Cookies.set('userData', JSON.stringify({
+                await Cookies.set('employeeData', JSON.stringify({
                     id: id,
                     name_surname: name_surname,
                     business_name: business_name,
@@ -85,9 +83,9 @@ class LoginRegisterPresenter {
                     phone_number: phone_number,
                     email_address: email_address
                 }), {expires: 3 / 24})
-            } else if (role === 'user') {
-                await Cookies.set("userToken", userToken, {expires: 3 / 24});
-                await Cookies.set('userData', JSON.stringify({
+            } else if (role === 'employee') {
+                await Cookies.set("employeeToken", employeeToken, {expires: 3 / 24});
+                await Cookies.set('employeeData', JSON.stringify({
                     id: id,
                     name_surname: name_surname,
                     business_name: business_name,

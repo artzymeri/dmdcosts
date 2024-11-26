@@ -6,7 +6,7 @@ import {action, computed, makeObservable, observable} from "mobx";
 
 @injectable()
 class MainAppRepository {
-    @inject(TYPES.UserGateway) userGateway
+    @inject(TYPES.AppGateway) appGateway
 
     constructor() {
         makeObservable(this, {
@@ -17,71 +17,39 @@ class MainAppRepository {
     //functions
 
     registerUser = async (user_data_object) => {
-        return await this.userGateway.registerUser(user_data_object);
+        return await this.appGateway.registerUser(user_data_object);
     }
 
     loginByEmail = async (user_data_object) => {
-        return await this.userGateway.loginByEmail(user_data_object);
+        return await this.appGateway.loginByEmail(user_data_object);
     }
 
-    loginByPhone = async (user_data_object) => {
-        return await this.userGateway.loginByPhone(user_data_object);
+    getEmployeesData = async () => {
+        return await this.appGateway.getEmployeesData();
     }
 
-    getKlientetData = async () => {
-        return await this.userGateway.getKlientetData();
+    deleteEmployee = async (employee_id) => {
+        return await this.appGateway.deleteEmployee(employee_id);
     }
 
-    getDriversData = async () => {
-        return await this.userGateway.getDriversData();
+    createCase = async (case_object) => {
+        return await this.appGateway.createCase(case_object);
     }
 
-    getCollectorsData = async () => {
-        return await this.userGateway.getCollectorsData();
+    deleteCase = async (case_id) => {
+        return await this.appGateway.deleteCase(case_id);
     }
 
-    deleteUser = async (user_id) => {
-        return await this.userGateway.deleteUser(user_id);
+    getAllCases = async () => {
+        return await this.appGateway.getAllCases();
     }
 
-    createOrder = async (order_object) => {
-        return await this.userGateway.createOrder(order_object);
+    getCaseDetails = async (user_id ,case_id) => {
+        return await this.appGateway.getCaseDetails(user_id ,case_id);
     }
 
-    deleteOrder = async (order_id) => {
-        return await this.userGateway.deleteOrder(order_id);
-    }
-
-    cancelOrder = async (order_id) => {
-        return await this.userGateway.cancelOrder(order_id);
-    }
-
-    getAllOrders = async () => {
-        return await this.userGateway.getAllOrders();
-    }
-
-    getClientOrders = async (client_id) => {
-        return await this.userGateway.getClientOrders(client_id);
-    }
-
-    getOrderDetails = async (user_id ,order_id) => {
-        return await this.userGateway.getOrderDetails(user_id ,order_id);
-    }
-
-    getOrderDetailsAsAdmin = async (order_id) => {
-        return await this.userGateway.getOrderDetailsAsAdmin(order_id);
-    }
-
-    addTransport = async (transport_details_object) => {
-        return await this.userGateway.addTransport(transport_details_object);
-    }
-
-    getAllTransports = async () => {
-        return await this.userGateway.getAllTransports();
-    }
-
-    deleteTransport = async (transport_id) => {
-        return await this.userGateway.deleteTransport(transport_id);
+    getCaseDetailsAsAdmin = async (case_id) => {
+        return await this.appGateway.getCaseDetailsAsAdmin(case_id);
     }
 
 }
