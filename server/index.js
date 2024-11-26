@@ -13,10 +13,7 @@ const {createInvoice} = require("./createinvoice.js");
 
 const {
     users_table,
-    orders_table,
-    transport_table,
-    drivers_table,
-    collectors_table
+    cases_table,
 } = require("./models");
 
 const secretKey = process.env.SECRET_KEY;
@@ -220,25 +217,11 @@ app.post("/loginbyemail", async (req, res) => {
     }
 });
 
-app.get('/klientet', async (req, res) => {
-    const klientet = await users_table.findAll({
+app.get('/employees', async (req, res) => {
+    const employees = await users_table.findAll({
         where: {role: 'employee'}
     });
-    res.json(klientet);
-})
-
-app.get('/drivers', async (req, res) => {
-    const drivers = await users_table.findAll({
-        where: {role: 'driver'}
-    });
-    res.json(drivers);
-})
-
-app.get('/collectors', async (req, res) => {
-    const collectors = await users_table.findAll({
-        where: {role: 'collector'}
-    });
-    res.json(collectors);
+    res.json(employees);
 })
 
 
@@ -263,7 +246,7 @@ app.post(`/deleteemployee:employee_id`, async (req, res) => {
     }
 })
 
-app.post('/createorder', async (req, res) => {
+app.post('/createcase', async (req, res) => {
     const {
         sender_id,
         sender_name_surname,
@@ -282,7 +265,7 @@ app.post('/createorder', async (req, res) => {
     } = req.body;
 
     try {
-        const newOrder = await orders_table.create({
+        const newCase = await cases_table.create({
             sender_id,
             sender_name_surname,
             sender_business_name,
@@ -301,9 +284,9 @@ app.post('/createorder', async (req, res) => {
             qr_code: null // initially set to null
         });
 
-        const qrCodeData = await QRCode.toDataURL(newOrder.id.toString());
+        const qrCodeData = await QRCode.toDataURL(newCase.id.toString());
 
-        await newOrder.update({qr_code: qrCodeData});
+        await newCase.update({qr_code: qrCodeData});
 
         res.json({
             title: 'Success',
@@ -318,10 +301,10 @@ app.post('/createorder', async (req, res) => {
     }
 });
 
-app.get(`/allorders`, async (req, res) => {
+app.get(`/allcases`, async (req, res) => {
     try {
-        const orders_array = await orders_table.findAll()
-        res.send(orders_array);
+        const cases_array = await cases_table.findAll()
+        res.send(cases_array);
     } catch (e) {
         console.log(e)
         res.json({
@@ -331,13 +314,13 @@ app.get(`/allorders`, async (req, res) => {
     }
 })
 
-app.get(`/orders:client_id`, async (req, res) => {
+app.get(`/cases:client_id`, async (req, res) => {
     const {client_id} = req.params;
     try {
-        const orders_array = await orders_table.findAll({
+        const cases_array = await cases_table.findAll({
             where: {sender_id: client_id}
         })
-        res.send(orders_array);
+        res.send(cases_array);
     } catch (e) {
         console.log(e)
         res.json({
@@ -347,14 +330,14 @@ app.get(`/orders:client_id`, async (req, res) => {
     }
 })
 
-app.post(`/cancelorder:order_id`, async (req, res) => {
-    const {order_id} = req.params;
+app.post(`/cancelcase:case_id`, async (req, res) => {
+    const {case_id} = req.params;
     try {
-        const orderToCancel = await orders_table.findOne({
-            where: {id: order_id}
+        const caseToCancel = await cases_table.findOne({
+            where: {id: case_id}
         })
-        orderToCancel.progress = "cancelled"
-        await orderToCancel.save();
+        caseToCancel.progress = "cancelled"
+        await caseToCancel.save();
         res.json({
             title: "success",
             message: "Case u anulua me sukses"
@@ -368,13 +351,13 @@ app.post(`/cancelorder:order_id`, async (req, res) => {
     }
 })
 
-app.post(`/deleteorder:order_id`, async (req, res) => {
-    const {order_id} = req.params;
+app.post(`/deletecase:case_id`, async (req, res) => {
+    const {case_id} = req.params;
     try {
-        const orderToDelete = await orders_table.findOne({
-            where: {id: order_id}
+        const caseToDelete = await cases_table.findOne({
+            where: {id: case_id}
         })
-        await orderToDelete.destroy();
+        await caseToDelete.destroy();
         res.json({
             title: "success",
             message: "Case u fshi me sukses"
@@ -388,21 +371,21 @@ app.post(`/deleteorder:order_id`, async (req, res) => {
     }
 })
 
-app.get("/employees/:employee_id/orders/:order_id", async (req, res) => {
-    const {employee_id, order_id} = req.params;
+app.get("/employees/:employee_id/cases/:case_id", async (req, res) => {
+    const {employee_id, case_id} = req.params;
     try {
-        const order = await orders_table.findOne({
+        const caseData = await cases_table.findOne({
             where: {
-                id: order_id,
+                id: case_id,
                 sender_id: employee_id
             }
         });
 
-        if (order) {
+        if (caseData) {
             res.json({
                 title: "success",
                 message: "U krye me sukeses",
-                order: order
+                case: caseData
             });
         } else {
             res.json({
@@ -411,7 +394,7 @@ app.get("/employees/:employee_id/orders/:order_id", async (req, res) => {
             });
         }
     } catch (error) {
-        console.error("Error fetching order details:", error);
+        console.error("Error fetching case details:", error);
         res.json({
             title: "error",
             message: "Kërkesa nuk mund të realizohet"
@@ -419,20 +402,20 @@ app.get("/employees/:employee_id/orders/:order_id", async (req, res) => {
     }
 });
 
-app.get("/order:order_id", async (req, res) => {
-    const {order_id} = req.params;
+app.get("/case:case_id", async (req, res) => {
+    const {case_id} = req.params;
     try {
-        const order = await orders_table.findOne({
+        const caseData = await cases_table.findOne({
             where: {
-                id: order_id,
+                id: case_id,
             }
         });
 
-        if (order) {
+        if (caseData) {
             res.json({
                 title: "success",
                 message: "U krye me sukeses",
-                order: order
+                case: caseData
             });
         } else {
             res.json({
@@ -441,7 +424,7 @@ app.get("/order:order_id", async (req, res) => {
             });
         }
     } catch (error) {
-        console.error("Error fetching order details:", error);
+        console.error("Error fetching case details:", error);
         res.json({
             title: "error",
             message: "Kërkesa nuk mund të realizohet"
@@ -449,12 +432,12 @@ app.get("/order:order_id", async (req, res) => {
     }
 });
 
-app.post("/generatepdfonly/:order_id", async (req, res) => {
-    const {order_id} = req.params;
-    const order = await orders_table.findByPk(order_id);
+app.post("/generatepdfonly/:case_id", async (req, res) => {
+    const {case_id} = req.params;
+    const caseData = await cases_table.findByPk(case_id);
 
     try {
-        await createInvoice(order_id, order, res);
+        await createInvoice(case_id, caseData, res);
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -463,44 +446,6 @@ app.post("/generatepdfonly/:order_id", async (req, res) => {
         });
     }
 });
-
-app.post('/addtransport', async (req, res) => {
-    const {model, tag, assignee, expiry_date, document} = req.body;
-    try {
-        await transport_table.create({
-            model,
-            tag,
-            assignee,
-            expiry_date,
-            document
-        });
-
-        res.json({
-            title: 'Success',
-            message: 'Kërkesa u përfundua me sukses',
-        });
-    } catch (e) {
-        console.log(e);
-        res.json({
-            title: "Error",
-            message: "Kërkesa nuk mund të realizohet"
-        });
-    }
-});
-
-app.get(`/alltransports`, async (req, res) => {
-    try {
-        const transport_array = await transport_table.findAll()
-        res.send(transport_array);
-    } catch (e) {
-        console.log(e)
-        res.json({
-            title: "error",
-            message: "Diçka nuk shkoi në rregull"
-        })
-    }
-})
-
 
 db.sequelize.sync().then((req) => {
     app.listen(port, () => {
