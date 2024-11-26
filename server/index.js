@@ -12,7 +12,7 @@ const {createInvoice} = require("./createinvoice.js");
 
 
 const {
-    employees_table,
+    users_table,
     orders_table,
     transport_table,
     drivers_table,
@@ -37,11 +37,11 @@ app.post("/registeremployee", async (req, res) => {
         const {name_surname, business_name, location, phone_number, email_address, password} = req.body;
         const hashedPassword = bcrypt.hashSync(password, 10);
 
-        const existingPhoneNumberInUsers = await employees_table.findOne({
+        const existingPhoneNumberInUsers = await users_table.findOne({
             where: {phone_number: phone_number},
         });
 
-        const existingEmailAddressInUsers = await employees_table.findOne({
+        const existingEmailAddressInUsers = await users_table.findOne({
             where: {email_address: email_address},
         });
 
@@ -59,7 +59,7 @@ app.post("/registeremployee", async (req, res) => {
             });
         }
 
-        await employees_table.create({
+        await users_table.create({
             name_surname,
             business_name,
             location,
@@ -87,7 +87,7 @@ app.post("/loginbyphone", async (req, res) => {
         const {phone_number, password} = req.body;
 
         if (phone_number) {
-            const employee = await employees_table.findOne({
+            const employee = await users_table.findOne({
                 where: {phone_number: phone_number},
             });
 
@@ -156,7 +156,7 @@ app.post("/loginbyemail", async (req, res) => {
         const {email_address, password} = req.body;
 
         if (email_address) {
-            const employee = await employees_table.findOne({
+            const employee = await users_table.findOne({
                 where: {email_address: email_address},
             });
 
@@ -221,21 +221,21 @@ app.post("/loginbyemail", async (req, res) => {
 });
 
 app.get('/klientet', async (req, res) => {
-    const klientet = await employees_table.findAll({
+    const klientet = await users_table.findAll({
         where: {role: 'employee'}
     });
     res.json(klientet);
 })
 
 app.get('/drivers', async (req, res) => {
-    const drivers = await employees_table.findAll({
+    const drivers = await users_table.findAll({
         where: {role: 'driver'}
     });
     res.json(drivers);
 })
 
 app.get('/collectors', async (req, res) => {
-    const collectors = await employees_table.findAll({
+    const collectors = await users_table.findAll({
         where: {role: 'collector'}
     });
     res.json(collectors);
@@ -245,7 +245,7 @@ app.get('/collectors', async (req, res) => {
 app.post(`/deleteemployee:employee_id`, async (req, res) => {
     const {employee_id} = req.params;
     try {
-        const employeeToDelete = await employees_table.findOne({
+        const employeeToDelete = await users_table.findOne({
             where: {id: employee_id}
         })
         console.log(employeeToDelete)
