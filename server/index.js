@@ -52,7 +52,7 @@ app.post("/registeremployee", async (req, res) => {
         if (existingEmailAddressInUsers) {
             return res.json({
                 title: "error",
-                message: "Email Llogaria e paraqitur është përdorur më parë",
+                message: "Email address is already used",
             });
         }
 
@@ -68,13 +68,13 @@ app.post("/registeremployee", async (req, res) => {
 
         res.json({
             title: "success",
-            message: "Regjistrimi u bë me sukses",
+            message: "Registration successful",
         });
     } catch (error) {
         console.log(error);
         res.json({
             title: "error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong",
         })
     }
 });
@@ -91,7 +91,7 @@ app.post("/loginbyphone", async (req, res) => {
             if (!employee || !bcrypt.compareSync(password, employee?.password)) {
                 return res.json({
                     title: "error",
-                    message: "Numri apo fjalëkalimi është gabim",
+                    message: "Wrong credentials",
                 });
             }
 
@@ -107,7 +107,7 @@ app.post("/loginbyphone", async (req, res) => {
                 res.cookie("adminToken", adminToken, {httpOnly: true});
                 res.json({
                     title: "success",
-                    message: "Kyçja u bë me sukses",
+                    message: "Successful Login",
                     adminToken: adminToken,
                     phone_number: employee?.phone_number,
                     business_name: employee?.business_name,
@@ -125,7 +125,7 @@ app.post("/loginbyphone", async (req, res) => {
                 res.cookie("employee", employeeToken, {httpOnly: true});
                 res.json({
                     title: "success",
-                    message: "Kyçja u bë me sukses",
+                    message: "Successful Login",
                     employeeToken: employeeToken,
                     phone_number: employee?.phone_number,
                     name_surname: employee?.name_surname,
@@ -139,7 +139,7 @@ app.post("/loginbyphone", async (req, res) => {
         } else {
             res.json({
                 title: "error",
-                message: "Ju lutem mbushni rubrikat"
+                message: "Please fill out the values"
             })
         }
     } catch (error) {
@@ -160,7 +160,7 @@ app.post("/loginbyemail", async (req, res) => {
             if (!employee || !bcrypt.compareSync(password, employee?.password)) {
                 return res.json({
                     title: "error",
-                    message: "Numri apo fjalëkalimi është gabim",
+                    message: "Wrong credentials",
                 });
             }
 
@@ -176,7 +176,7 @@ app.post("/loginbyemail", async (req, res) => {
                 res.cookie("adminToken", adminToken, {httpOnly: true});
                 res.json({
                     title: "success",
-                    message: "Kyçja u bë me sukses",
+                    message: "Successful login",
                     adminToken: adminToken,
                     phone_number: employee?.phone_number,
                     business_name: employee?.business_name,
@@ -194,7 +194,7 @@ app.post("/loginbyemail", async (req, res) => {
                 res.cookie("employee", employeeToken, {httpOnly: true});
                 res.json({
                     title: "success",
-                    message: "Kyçja u bë me sukses",
+                    message: "Successful login",
                     employeeToken: employeeToken,
                     phone_number: employee?.phone_number,
                     name_surname: employee?.name_surname,
@@ -208,7 +208,7 @@ app.post("/loginbyemail", async (req, res) => {
         } else {
             res.json({
                 title: "error",
-                message: "Ju lutem mbushni rubrikat"
+                message: "Please fill out the values"
             })
         }
     } catch (error) {
@@ -281,7 +281,7 @@ app.post('/createcase', async (req, res) => {
             product_description,
             comment,
             progress: 'request',
-            qr_code: null // initially set to null
+            qr_code: null
         });
 
         const qrCodeData = await QRCode.toDataURL(newCase.id.toString());
@@ -290,13 +290,13 @@ app.post('/createcase', async (req, res) => {
 
         res.json({
             title: 'Success',
-            message: 'Kërkesa u përfundua me sukses',
+            message: 'Request done successfully',
         });
     } catch (e) {
         console.log(e);
         res.json({
             title: "Error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong"
         });
     }
 });
@@ -309,7 +309,7 @@ app.get(`/allcases`, async (req, res) => {
         console.log(e)
         res.json({
             title: "error",
-            message: "Diçka nuk shkoi në rregull"
+            message: "Something went wrong"
         })
     }
 })
@@ -325,7 +325,7 @@ app.get(`/cases:client_id`, async (req, res) => {
         console.log(e)
         res.json({
             title: "error",
-            message: "Diçka nuk shkoi në rregull"
+            message: "Something went wrong"
         })
     }
 })
@@ -340,13 +340,13 @@ app.post(`/cancelcase:case_id`, async (req, res) => {
         await caseToCancel.save();
         res.json({
             title: "success",
-            message: "Case u anulua me sukses"
+            message: "Case cancelled successfully",
         })
     } catch (e) {
         console.log(e)
         res.json({
             title: "error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong"
         })
     }
 })
@@ -360,13 +360,13 @@ app.post(`/deletecase:case_id`, async (req, res) => {
         await caseToDelete.destroy();
         res.json({
             title: "success",
-            message: "Case u fshi me sukses"
+            message: "Case deleted successfully",
         })
     } catch (e) {
         console.log(e)
         res.json({
             title: "error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong"
         })
     }
 })
@@ -384,20 +384,20 @@ app.get("/employees/:employee_id/cases/:case_id", async (req, res) => {
         if (caseData) {
             res.json({
                 title: "success",
-                message: "U krye me sukeses",
+                message: "Case found",
                 case: caseData
             });
         } else {
             res.json({
                 title: "error",
-                message: "Case nuk mund të gjendet"
+                message: "Case not found",
             });
         }
     } catch (error) {
         console.error("Error fetching case details:", error);
         res.json({
             title: "error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong"
         });
     }
 });
@@ -414,20 +414,20 @@ app.get("/case:case_id", async (req, res) => {
         if (caseData) {
             res.json({
                 title: "success",
-                message: "U krye me sukeses",
+                message: "Case found",
                 case: caseData
             });
         } else {
             res.json({
                 title: "error",
-                message: "Case nuk mund të gjendet"
+                message: "Case not found"
             });
         }
     } catch (error) {
         console.error("Error fetching case details:", error);
         res.json({
             title: "error",
-            message: "Kërkesa nuk mund të realizohet"
+            message: "Something went wrong"
         });
     }
 });
@@ -442,7 +442,7 @@ app.post("/generatepdfonly/:case_id", async (req, res) => {
         console.log(error);
         res.status(500).json({
             title: "error",
-            message: "Diçka nuk shkoi mirë me kërkesën",
+            message: "Something went wrong",
         });
     }
 });
