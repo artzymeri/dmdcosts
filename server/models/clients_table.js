@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
-  const users_table = sequelize.define("users_table", {
-    name_surname: {
+  const clients_table = sequelize.define("clients_table", {
+    business_name: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    username: {
+    address: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
@@ -21,21 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        notEmpty: false,
-      },
-    },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        notEmpty: false,
-      },
-    },
-    bank_details: {
+    rates_config: {
       type: DataTypes.TEXT("long"), // it is going to be an object parsed
       allowNull: true,
       validate: {
@@ -43,5 +29,5 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   });
-  return users_table;
+  return clients_table;
 };

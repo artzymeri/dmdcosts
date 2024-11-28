@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <link rel="icon" href="/superpostaicon.png" />
+                <link rel="icon" href="/dmd_logo.png" />
             </Head>
             <Component {...pageProps} />
         </>

@@ -1,48 +1,43 @@
 module.exports = (sequelize, DataTypes) => {
-  const collectors_table = sequelize.define("collectors_table", {
-    name_surname: {
+  const invoices_table = sequelize.define("invoices_table", {
+    reference_id: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    location_of_operation: {
+    cases_invovled: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    phone_number: {
+    client_id: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    email_address: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    password: {
+    admin_id: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    transport: {
-      type: DataTypes.STRING,
+    paid: {
+      type: DataTypes.BOOLEAN,
       allowNull: true,
+      defaultValue: false,
     },
-    document_id: {
-      type: DataTypes.TEXT('long'),
+    sent: {
+      type: DataTypes.BOOLEAN,
       allowNull: true,
-      validate: {
-        notEmpty: false,
-      },
+      defaultValue: false,
     },
   });
-  return collectors_table;
+  return invoices_table;
 };

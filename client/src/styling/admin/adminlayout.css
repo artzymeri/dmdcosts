@@ -6,27 +6,27 @@
     --admin-sidebar-logo-container--border-bottom: 1px solid lightgray;
     --admin-header-container--background: white;
     --admin-header-container--border-bottom: 1px solid lightgray;
-    --admin-header-name-container-first-span--color: darkslategray;
+    --admin-header-name-container-first-span--color: #00491e;
     --admin-header-name-container-second-span--color: black;
-    --admin-header-icons--color: darkslategray;
-    --admin-header-icons-divider--background: darkslategray;
+    --admin-header-icons--color: #00491e;
+    --admin-header-icons-divider--background: #00491e;
     --admin-sidebar-item-selected--box-shadow: 0px 3px 10px rgba(119, 136, 153, 0.3);
     --admin-sidebar-item-selected--color: whitesmoke;
-    --admin-sidebar-item-selected--background: darkslategray;
-    --admin-sidebar-item-selected-hover--background: #243c3c;
+    --admin-sidebar-item-selected--background: #00491e;
+    --admin-sidebar-item-selected-hover--background: #04632b;
     --admin-sidebar-item-selected-hover--box-shadow: 0px 3px 10px rgba(119, 136, 153, 0.6);
     --admin-sidebar-item-selected--after--background: palegoldenrod;
     --admin-sidebar-item-selected--after--box-shadow: 0px 0px 5px rgba(238, 232, 170, 0.3);
     --admin-sidebar-item--box-shadow: 0px 3px 10px rgba(119, 136, 153, 0.3);
     --admin-sidebar-item--color: whitesmoke;
-    --admin-sidebar-item--background: lightslategray;
-    --admin-sidebar-item-hover--background: #637180;
+    --admin-sidebar-item--background: #4a7e5f;
+    --admin-sidebar-item-hover--background: #00491e;
     --admin-sidebar-item-hover--box-shadow: 0px 3px 10px rgba(119, 136, 153, 0.6);
     --admin-sidebar-logout-container--border-top: 1px solid lightgray;
-    --admin-sidebar-logout-container-button--background: darkslategray;
+    --admin-sidebar-logout-container-button--background: #00491e;
     --admin-sidebar-logout-container-button--box-shadow: 0px 3px 10px rgba(47, 79, 79, 0.3);
     --admin-sidebar-logout-container-button--color: white;
-    --admin-sidebar-logout-container-button-hover--background: #233c3c;
+    --admin-sidebar-logout-container-button-hover--background: #04632b;
     --admin-sidebar-logout-container-button-hover--box-shadow: 0px 3px 10px rgba(47, 79, 79, 0.5);
 
 }
@@ -64,7 +64,7 @@
 }
 
 .admin-sidebar-container img {
-    width: 125px;
+    height: 50px;
 }
 
 .admin-sidebar-items-container {

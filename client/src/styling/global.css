@@ -3,17 +3,12 @@
 @import "employee/employeelayout.css";
 @import "employee/employeedashboard.css";
 @import "employee/employeecases.css";
-@import "employee/bejporosi.css";
 @import "employee/employeecase.css";
 @import "admin/admindashboard.css";
 @import "admin/adminemployees.css";
 @import "admin/admincases.css";
-@import "admin/adminshoferet.css";
 @import "admin/adminlayout.css";
 @import "admin/admincase.css";
-@import "admin/shtoshofer.css";
-@import "admin/adminmbledhesit.css";
-@import "admin/adminautomjetet.css";
 @import "admin/addemployee.css";
 
 :root {
@@ -37,7 +32,7 @@
 }
 
 body {
-    max-width: 1400px;
+    max-width: 1600px;
     margin-left: auto;
     margin-right: auto;
 }

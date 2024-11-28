@@ -2,7 +2,7 @@ import { Container } from 'inversify'
 import {TYPES} from "@/architecture/ioc/types";
 
 import MainAppRepository from "@/architecture/repositories/MainAppRepository";
-import LoginRegisterPresenter from '../presenters/LoginRegisterPresenter';
+import LoginRegisterPresenter from '../presenters/LoginPresenter';
 import AdminSidebarPresenter from "@/architecture/presenters/admin/AdminSidebarPresenter";
 import AdminHeaderPresenter from "@/architecture/presenters/admin/AdminHeaderPresenter";
 import AdminDashboardPresenter from "@/architecture/presenters/admin/AdminDashboardPresenter";

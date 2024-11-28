@@ -1,48 +1,57 @@
 module.exports = (sequelize, DataTypes) => {
-  const drivers_table = sequelize.define("drivers_table", {
-    name_surname: {
+  const cases_table = sequelize.define("cases_table", {
+    client_id: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    location_of_operation: {
+    assignee_id: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    phone_number: {
+    reference_number: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    email_address: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    password: {
+    status: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
-    transport: {
+    paid: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
+    served: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
+    last_offer_date: {
       type: DataTypes.STRING,
       allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
     },
-    document_id: {
-      type: DataTypes.TEXT('long'),
+    qr_code: {
+      type: DataTypes.TEXT("long"), // it is going to be an image base64 format
       allowNull: true,
       validate: {
         notEmpty: false,
       },
     },
   });
-  return drivers_table;
+  return cases_table;
 };
