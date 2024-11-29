@@ -58,6 +58,21 @@ class MainAppRepository {
   addClient = async (client_data) => {
     return await this.appGateway.addClient(client_data);
   };
+
+  saveEditedClient = async (client_id, edited_client_data) => {
+    return await this.appGateway.saveEditedClient(
+      client_id,
+      edited_client_data
+    );
+  };
+
+  deleteClient = async (client_id) => {
+    return await this.appGateway.deleteClient(client_id);
+  };
+
+  getClientDetails = async (client_id) => {
+    return await this.appGateway.getClientDetails(client_id);
+  };
 }
 
 export default MainAppRepository;

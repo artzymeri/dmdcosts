@@ -13,7 +13,7 @@ const AdminClientsList = ({ presenter }) => {
               presenter={presenter}
               key={client?.id}
               client={client}
-            />
+          />
           );
         })}
         {presenter.allClients.length === 0 && (

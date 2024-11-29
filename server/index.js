@@ -376,6 +376,93 @@ app.post("/addclient", async (req, res) => {
   }
 });
 
+app.post(`/updateclient:client_id`, async (req, res) => {
+  const { client_id } = req.params;
+  const { business_name, address, email_address, rates_config } = req.body;
+  try {
+    const clientToUpdate = await clients_table.findOne({
+      where: { id: client_id },
+    });
+
+    if (!clientToUpdate) {
+      return res.status(404).json({
+        title: "error",
+        message: "Client not found",
+      });
+    }
+
+    clientToUpdate.business_name = business_name;
+    clientToUpdate.address = address;
+    clientToUpdate.email_address = email_address;
+    clientToUpdate.rates_config = JSON.stringify(rates_config);
+
+    await clientToUpdate.save();
+
+    res.json({
+      title: "success",
+      message: "Client updated successfully",
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/deleteclient:client_id`, async (req, res) => {
+  const { client_id } = req.params;
+  try {
+    const clientToDelete = await clients_table.findOne({
+      where: { id: client_id },
+    });
+    await clientToDelete.destroy();
+    res.json({
+      title: "success",
+      message: "Client deleted successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get("/client:client_id", async (req, res) => {
+  const { client_id } = req.params;
+  try {
+    const clientData = await clients_table.findOne({
+      where: {
+        id: client_id,
+      },
+    });
+
+    clientData.rates_config = JSON.parse(clientData.rates_config);
+
+    if (clientData) {
+      res.json({
+        title: "success",
+        message: "Client found",
+        client: clientData,
+      });
+    } else {
+      res.json({
+        title: "error",
+        message: "Client not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching case details:", error);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.post("/generatepdfonly/:case_id", async (req, res) => {
   const { case_id } = req.params;
   const caseData = await cases_table.findByPk(case_id);

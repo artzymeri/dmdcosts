@@ -10,12 +10,12 @@ class AdminClientsPresenter {
   vm = {
     all_clients: [],
     deletionModalOpen: false,
-    clientToBeDeleted: null,
     sortingOption: "business_name",
     sortingMode: "a-z",
     searchQuery: "",
     firstDateFilter: null,
     lastDateFilter: null,
+    single_to_delete_client: null,
   };
 
   constructor() {
@@ -24,6 +24,7 @@ class AdminClientsPresenter {
       allClients: computed,
       getAllClients: action.bound,
       deletionModalOpen: computed,
+      deleteClients: action.bound,
     });
   }
 
@@ -44,7 +45,15 @@ class AdminClientsPresenter {
   }
 
   handleDeleteClientsModal(value) {
+    if (this.vm.single_to_delete_client && value == false) {
+      this.vm.single_to_delete_client = null;
+    }
     this.vm.deletionModalOpen = value;
+  }
+
+  handleSingleDeletionClientsModal(client_id, value) {
+    this.vm.deletionModalOpen = value;
+    this.vm.single_to_delete_client = client_id;
   }
 
   getAllClients = async () => {
@@ -54,12 +63,23 @@ class AdminClientsPresenter {
 
   handleClientCheck = (client_id) => {
     const clientToCheck = this.vm.all_clients.find(
-      (client) => client.id === client_id
+      (client) => client.id == client_id
     );
     clientToCheck.checked = !clientToCheck.checked;
   };
 
   deleteClients = async () => {
+    if (this.vm.single_to_delete_client) {
+      await this.mainAppRepository.deleteClient(
+        this.vm.single_to_delete_client
+      );
+      this.vm.single_to_delete_client = null;
+      await this.getAllClients();
+      this.handleDeleteClientsModal(false);
+      console.log("single deletion");
+      return;
+    }
+    console.log("multiple deletion");
     for (const client of this.vm.all_clients) {
       if (client.checked) {
         await this.mainAppRepository.deleteClient(client?.id);
@@ -102,6 +122,14 @@ class AdminClientsPresenter {
 
   get deleteButtonDisabled() {
     return !this.vm.all_clients.some((client) => client.checked);
+  }
+
+  get singleToDeleteClient() {
+    return this.vm.single_to_delete_client
+      ? this.vm.all_clients.find(
+          (client) => client.id === this.vm.single_to_delete_client
+        )
+      : null;
   }
 }
 

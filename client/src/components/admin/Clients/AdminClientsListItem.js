@@ -35,7 +35,7 @@ const AdminClientsListItem = (props) => {
           color="error"
           onClick={(e) => {
             e.stopPropagation();
-            presenter.deleteClient(true, client?.id);
+            presenter.handleSingleDeletionClientsModal(client?.id, true);
           }}
         >
           Delete

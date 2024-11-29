@@ -51,6 +51,21 @@ class AppGateway {
   addClient = async (client_data) => {
     return await axios.post("http://localhost:8080/addclient", client_data);
   };
+
+  saveEditedClient = async (client_id, edited_client_data) => {
+    return await axios.post(
+      `http://localhost:8080/updateclient${client_id}`,
+      edited_client_data
+    );
+  };
+
+  deleteClient = async (client_id) => {
+    return await axios.post(`http://localhost:8080/deleteclient${client_id}`);
+  };
+
+  getClientDetails = async (client_id) => {
+    return await axios.get(`http://localhost:8080/client${client_id}`);
+  };
 }
 
 export default AppGateway;

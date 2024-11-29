@@ -9,7 +9,13 @@ const AdminClientsDeletionDialog = ({ presenter }) => {
         presenter.handleDeleteClientsModal(false);
       }}
     >
-      <DialogContent>Are you sure you want to proceed?</DialogContent>
+      {presenter?.singleToDeleteClient ? (
+        <DialogContent>{`Are you sure you want to proceed to delete ${presenter?.singleToDeleteClient?.business_name}?`}</DialogContent>
+      ) : (
+        <DialogContent>
+          Are you sure you want to proceed to delete selected clients?
+        </DialogContent>
+      )}
       <DialogActions
         sx={{
           display: "flex",
