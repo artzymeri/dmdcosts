@@ -50,6 +50,10 @@ class MainAppRepository {
   getCaseDetailsAsAdmin = async (case_id) => {
     return await this.appGateway.getCaseDetailsAsAdmin(case_id);
   };
+
+  getAllClients = async () => {
+    return await this.appGateway.getAllClients();
+  };
 }
 
 export default MainAppRepository;

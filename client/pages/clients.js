@@ -4,10 +4,8 @@ import { useEffect } from "react";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import EmployeeHeader from "@/components/employee/Header/EmployeeHeader";
 import { observer } from "mobx-react-lite";
-import AdminCasesContent from "@/components/admin/Cases/Cases/AdminCasesContent";
-import EmployeeCasesContent from "@/components/employee/Cases/Cases/EmployeeCasesContent";
+import AdminClientsContent from "@/components/admin/Clients/AdminClientsContent";
 
 const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), {
   ssr: false,
@@ -17,7 +15,7 @@ const EmployeeHOC = dynamic(() => import("@/components/employee/employeeHOC"), {
   ssr: false,
 });
 
-const CasesPage = () => {
+const ClientsPage = () => {
   const token = getTokenType();
   const router = useRouter();
 
@@ -35,7 +33,7 @@ const CasesPage = () => {
           </Head>
           <AdminHOC>
             <AdminHeader />
-            <AdminCasesContent />
+            <AdminClientsContent />
           </AdminHOC>
         </>
       )}
@@ -54,4 +52,4 @@ const CasesPage = () => {
   );
 };
 
-export default observer(CasesPage);
+export default observer(ClientsPage);

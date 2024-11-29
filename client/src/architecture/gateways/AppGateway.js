@@ -43,6 +43,10 @@ class AppGateway {
   getCaseDetailsAsAdmin = async (case_id) => {
     return await axios.get(`http://localhost:8080/case${case_id}`);
   };
+
+  getAllClients = async () => {
+    return await axios.get(`http://localhost:8080/allclients`);
+  };
 }
 
 export default AppGateway;

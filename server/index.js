@@ -10,7 +10,12 @@ const QRCode = require("qrcode");
 require("dotenv").config();
 const { createInvoice } = require("./createinvoice.js");
 
-const { users_table, cases_table } = require("./models");
+const {
+  users_table,
+  cases_table,
+  clients_table,
+  invoices_table,
+} = require("./models");
 
 const secretKey = process.env.SECRET_KEY;
 
@@ -327,6 +332,19 @@ app.get("/case:case_id", async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching case details:", error);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get(`/allclients`, async (req, res) => {
+  try {
+    const clients_array = await clients_table.findAll();
+    res.send(clients_array);
+  } catch (e) {
+    console.log(e);
     res.json({
       title: "error",
       message: "Something went wrong",
