@@ -25,7 +25,7 @@ const AddClientPage = () => {
       {token === "admin" && (
         <>
           <Head>
-            <title>Add Client</title>
+            <title>Add Client | DMD Costs</title>
           </Head>
           <AdminHOC>
             <AdminHeader />

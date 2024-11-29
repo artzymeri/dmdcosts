@@ -26,7 +26,7 @@ const EmployeesPage = () => {
       {token === "admin" && (
         <>
           <Head>
-            <title>Employees</title>
+            <title>Employees | DMD Costs</title>
           </Head>
           <AdminHOC>
             <AdminHeader />

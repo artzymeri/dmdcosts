@@ -31,7 +31,7 @@ const CasesPage = () => {
       {token === "admin" && (
         <>
           <Head>
-            <title>Cases</title>
+            <title>Cases | DMD Costs</title>
           </Head>
           <AdminHOC>
             <AdminHeader />
