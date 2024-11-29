@@ -11,10 +11,6 @@ const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), {
   ssr: false,
 });
 
-const EmployeeHOC = dynamic(() => import("@/components/employee/employeeHOC"), {
-  ssr: false,
-});
-
 const ClientsPage = () => {
   const token = getTokenType();
   const router = useRouter();
@@ -35,17 +31,6 @@ const ClientsPage = () => {
             <AdminHeader />
             <AdminClientsContent />
           </AdminHOC>
-        </>
-      )}
-      {token === "employee" && (
-        <>
-          <Head>
-            <title>Cases</title>
-          </Head>
-          <EmployeeHOC>
-            <EmployeeHeader />
-            <EmployeeCasesContent />
-          </EmployeeHOC>
         </>
       )}
     </>

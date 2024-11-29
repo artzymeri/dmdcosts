@@ -7,12 +7,12 @@ const AdminClientsList = ({ presenter }) => {
     <>
       <AdminClientsDeletionDialog presenter={presenter} />
       <div className="admin-clients-list-container">
-        {presenter?.allClients.map((item) => {
+        {presenter?.allClients.map((client) => {
           return (
             <AdminClientsListItem
               presenter={presenter}
-              key={item?.id}
-              item={item}
+              key={client?.id}
+              client={client}
             />
           );
         })}

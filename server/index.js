@@ -352,6 +352,30 @@ app.get(`/allclients`, async (req, res) => {
   }
 });
 
+app.post("/addclient", async (req, res) => {
+  const { business_name, address, email_address, rates_config } = req.body;
+
+  try {
+    await clients_table.create({
+      business_name,
+      address,
+      email_address,
+      rates_config: JSON.stringify(rates_config),
+    });
+
+    res.json({
+      title: "Success",
+      message: "Client added successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "Error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.post("/generatepdfonly/:case_id", async (req, res) => {
   const { case_id } = req.params;
   const caseData = await cases_table.findByPk(case_id);

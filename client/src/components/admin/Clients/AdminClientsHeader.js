@@ -20,29 +20,26 @@ const AdminClientsHeader = ({ presenter }) => {
       <FormControl sx={{ width: "250px" }} variant="filled">
         <NativeSelect
           variant="filled"
-          defaultValue={"receiver_name_surname"}
+          defaultValue={"business_name"}
           onChange={(e) => {
             presenter.handleSortingOptions(e);
           }}
         >
-          <option value={"receiver_name_surname"}>Emri Mbiemri</option>
-          <option value={"receiver_phone_number"}>Nr. Telefonit</option>
-          <option value={"receiver_city"}>Qyteti</option>
-          <option value={"receiver_state"}>Shteti</option>
-          <option value={"receiver_full_address"}>Adresa</option>
+          <option value={"business_name"}>Firm Name</option>
+          <option value={"address"}>Address</option>
+          <option value={"email_address"}>Email Address</option>
         </NativeSelect>
       </FormControl>
       <FormControl sx={{ width: "250px" }} variant="filled">
         <NativeSelect
           variant="filled"
-          defaultValue={"any"}
+          defaultValue={"a-z"}
           onChange={(e) => {
             presenter.handleSortingMode(e);
           }}
         >
-          <option value={"any"}>Çdo status</option>
-          <option value={"request"}>Kërkesë</option>
-          <option value={"cancelled"}>Anuluar</option>
+          <option value={"a-z"}>A-Z</option>
+          <option value={"z-a"}>Z-A</option>
         </NativeSelect>
       </FormControl>
       <Button

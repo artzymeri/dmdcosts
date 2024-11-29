@@ -51,7 +51,7 @@ class AdminSidebarPresenter {
         icon: <InsertDriveFileRounded sx={{ height: "18px", width: "18px" }} />,
       },
       {
-        id: 6,
+        id: 7,
         title: "Reports",
         route: "/reports",
         pathName: "/reports",

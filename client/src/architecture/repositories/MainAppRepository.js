@@ -54,6 +54,10 @@ class MainAppRepository {
   getAllClients = async () => {
     return await this.appGateway.getAllClients();
   };
+
+  addClient = async (client_data) => {
+    return await this.appGateway.addClient(client_data);
+  };
 }
 
 export default MainAppRepository;

@@ -12,7 +12,7 @@ class AdminClientsPresenter {
     deletionModalOpen: false,
     clientToBeDeleted: null,
     sortingOption: "business_name",
-    sortingMode: "any",
+    sortingMode: "a-z",
     searchQuery: "",
     firstDateFilter: null,
     lastDateFilter: null,
@@ -71,28 +71,24 @@ class AdminClientsPresenter {
 
   get allClients() {
     return this.vm.all_clients
-      .map((item) => ({
-        ...item,
-        progress: item.progress ?? "request",
+      .map((client) => ({
+        ...client,
         checked: false,
       }))
-      .filter((item) => {
-        const itemValue =
-          item[this.vm.sortingOption]?.toString().toLowerCase() || "";
-        const matchesSearch = itemValue.includes(this.vm.searchQuery);
-        const matchesSortingMode =
-          this.vm.sortingMode === "any" ||
-          item.progress === this.vm.sortingMode;
-
-        const matchesDateFilter =
-          this.vm?.firstDateFilter && this.vm?.lastDateFilter
-            ? new Date(item?.createdAt).getTime() >=
-                new Date(this.vm?.firstDateFilter).getTime() &&
-              new Date(item?.createdAt).getTime() <=
-                new Date(this.vm?.lastDateFilter).getTime()
-            : true;
-
-        return matchesSearch && matchesSortingMode && matchesDateFilter;
+      .filter((client) => {
+        const clientValue =
+          client[this.vm.sortingOption]?.toString().toLowerCase() || "";
+        return clientValue.includes(this.vm.searchQuery);
+      })
+      .sort((a, b) => {
+        const aValue = a[this.vm.sortingOption]?.toString().toLowerCase() || "";
+        const bValue = b[this.vm.sortingOption]?.toString().toLowerCase() || "";
+        if (this.vm.sortingMode === "a-z") {
+          return aValue.localeCompare(bValue);
+        } else if (this.vm.sortingMode === "z-a") {
+          return bValue.localeCompare(aValue);
+        }
+        return 0;
       });
   }
 

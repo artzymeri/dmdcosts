@@ -5,6 +5,7 @@ import AddClientForm from "./AddClientForm";
 import { useState } from "react";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
+import { PersonAddRounded } from "@mui/icons-material";
 
 const AddClientContent = () => {
   const router = useRouter();
@@ -20,12 +21,18 @@ const AddClientContent = () => {
         <Button
           variant="contained"
           color="success"
-          sx={{ backgroundColor: "#00491e" }}
+          sx={{
+            backgroundColor: "#00491e",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
           onClick={() => {
-            router.push("/addclient");
+            presenter.saveNewClient();
           }}
         >
-          Confirm
+          <PersonAddRounded />
+          <span>Confirm</span>
         </Button>
       </div>
       <AddClientForm presenter={presenter} />

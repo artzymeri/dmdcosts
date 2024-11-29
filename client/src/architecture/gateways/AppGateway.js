@@ -47,6 +47,10 @@ class AppGateway {
   getAllClients = async () => {
     return await axios.get(`http://localhost:8080/allclients`);
   };
+
+  addClient = async (client_data) => {
+    return await axios.post("http://localhost:8080/addclient", client_data);
+  };
 }
 
 export default AppGateway;
