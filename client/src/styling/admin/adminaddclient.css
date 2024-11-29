@@ -1,0 +1,26 @@
+:root {
+    --admin-add-client-content-container--border: 1px solid lightgray;
+    --admin-add-client-content-container--background: whitesmoke;
+    --admin-add-client-header-container--background: white;
+}
+
+.admin-add-client-content-container {
+    padding: 15px;
+    border-top: var(--admin-add-client-content-container--border);
+    border-left: var(--admin-add-client-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--admin-add-client-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.admin-add-client-content-title-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}

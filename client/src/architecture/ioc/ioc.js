@@ -17,6 +17,7 @@ import AdminAddEmployeePresenter from "@/architecture/presenters/admin/AdminAddE
 import AppGateway from "@/architecture/gateways/AppGateway";
 import EmployeeHeaderPresenter from "@/architecture/presenters/employee/EmployeeHeaderPresenter";
 import AdminClientsPresenter from "../presenters/admin/AdminClientsPresenter";
+import AdminAddClientPresenter from "../presenters/admin/AdminAddClientPresenter";
 
 export const container = new Container({
   autoBindInjectable: true,
@@ -56,6 +57,7 @@ container.bind(TYPES.AdminDashboardPresenter).to(AdminDashboardPresenter);
 container.bind(TYPES.AdminEmployeesPresenter).to(AdminEmployeesPresenter);
 container.bind(TYPES.AdminCasesPresenter).to(AdminCasesPresenter);
 container.bind(TYPES.AdminClientsPresenter).to(AdminClientsPresenter);
+container.bind(TYPES.AdminAddClientPresenter).to(AdminAddClientPresenter);
 container.bind(TYPES.AdminCasePresenter).to(AdminCasePresenter);
 container.bind(TYPES.AdminAddEmployeePresenter).to(AdminAddEmployeePresenter);
 container
