@@ -14,7 +14,7 @@ const AddEmployeeForm = (props) => {
   return (
     <div className="admin-add-employee-form-container">
       <TextField
-        label="Firm Name"
+        label="Name Surname"
         onChange={(e) => {
           presenter.handleChangeValues("name_surname", e?.target?.value);
         }}
@@ -22,7 +22,7 @@ const AddEmployeeForm = (props) => {
         focused={presenter.vm?.newEmployeeObject?.name_surname ? true : false}
       />
       <TextField
-        label="Address"
+        label="Username"
         onChange={(e) => {
           presenter.handleChangeValues("username", e?.target?.value);
         }}
@@ -56,10 +56,7 @@ const AddEmployeeForm = (props) => {
         <Select
           labelId="role-select"
           variant="outlined"
-          defaultValue={"employee"}
-          onChange={(e) => {
-            presenter.handleRoleChange(e?.target?.value);
-          }}
+          onChange={presenter.handleRoleChange}
         >
           <MenuItem value={"admin"}>Admin</MenuItem>
           <MenuItem value={"employee"}>Employee</MenuItem>
@@ -71,10 +68,10 @@ const AddEmployeeForm = (props) => {
           presenter.handleChangeBankDetails("account_holder", e?.target?.value);
         }}
         value={
-          presenter.vm?.newEmployeeObject?.rates_config?.account_holder || ""
+          presenter.vm?.newEmployeeObject?.bank_details?.account_holder || ""
         }
         focused={
-          presenter.vm?.newEmployeeObject?.rates_config?.account_holder
+          presenter.vm?.newEmployeeObject?.bank_details?.account_holder
             ? true
             : false
         }
@@ -85,10 +82,10 @@ const AddEmployeeForm = (props) => {
           presenter.handleChangeBankDetails("account_number", e?.target?.value);
         }}
         value={
-          presenter.vm?.newEmployeeObject?.rates_config?.account_number || ""
+          presenter.vm?.newEmployeeObject?.bank_details?.account_number || ""
         }
         focused={
-          presenter.vm?.newEmployeeObject?.rates_config?.account_number
+          presenter.vm?.newEmployeeObject?.bank_details?.account_number
             ? true
             : false
         }
@@ -98,9 +95,9 @@ const AddEmployeeForm = (props) => {
         onChange={(e) => {
           presenter.handleChangeBankDetails("bank_name", e?.target?.value);
         }}
-        value={presenter.vm?.newEmployeeObject?.rates_config?.bank_name || ""}
+        value={presenter.vm?.newEmployeeObject?.bank_details?.bank_name || ""}
         focused={
-          presenter.vm?.newEmployeeObject?.rates_config?.bank_name
+          presenter.vm?.newEmployeeObject?.bank_details?.bank_name
             ? true
             : false
         }

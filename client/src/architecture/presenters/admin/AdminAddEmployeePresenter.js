@@ -35,8 +35,8 @@ class AdminAddEmployeePresenter {
     this.vm.newEmployeeObject[target] = value;
   };
 
-  handleRoleChange = (value) => {
-    this.vm.newEmployeeObject.role = value;
+  handleRoleChange = (event) => {
+    this.vm.newEmployeeObject.role = event?.target?.value;
   };
 
   handleChangeBankDetails = (target, value) => {
@@ -44,21 +44,22 @@ class AdminAddEmployeePresenter {
   };
 
   saveNewEmployee = async () => {
-    const response = await this.mainAppRepository.addEmployee(
-      this.vm.newEmployeeObject
-    );
-    this.vm.newEmployeeObject = {
-      name_surname: null,
-      username: null,
-      email_address: null,
-      password: null,
-      role: null,
-      bank_details: {
-        account_holder: null,
-        account_number: null,
-        bank_name: null,
-      },
-    };
+    console.log(this.vm.newEmployeeObject);
+    // const response = await this.mainAppRepository.addEmployee(
+    //   this.vm.newEmployeeObject
+    // );
+    // this.vm.newEmployeeObject = {
+    //   name_surname: null,
+    //   username: null,
+    //   email_address: null,
+    //   password: null,
+    //   role: null,
+    //   bank_details: {
+    //     account_holder: null,
+    //     account_number: null,
+    //     bank_name: null,
+    //   },
+    // };
   };
 }
 
