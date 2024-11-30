@@ -23,8 +23,8 @@ class MainAppRepository {
     return await this.appGateway.login(user_data);
   };
 
-  getEmployeesData = async () => {
-    return await this.appGateway.getEmployeesData();
+  getAllEmployees = async () => {
+    return await this.appGateway.getAllEmployees();
   };
 
   deleteEmployee = async (employee_id) => {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
 import AdminClientsHeader from "./AdminClientsHeader";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
@@ -9,9 +9,8 @@ import { useRouter } from "next/router";
 const AdminClientsContent = () => {
   const router = useRouter();
 
-  const presenter = useMemo(
-    () => container.get(TYPES.AdminClientsPresenter),
-    []
+  const [presenter, setPresenter] = useState(
+    container.get(TYPES.AdminClientsPresenter)
   );
 
   useEffect(() => {

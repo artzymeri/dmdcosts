@@ -11,8 +11,8 @@
 @import "admin/adminlayout.css";
 @import "admin/admincase.css";
 @import "admin/adminclient.css";
-@import "admin/addemployee.css";
 @import "admin/adminaddclient.css";
+@import "admin/adminaddemployee.css";
 
 :root {
     --primary--font-family: "Lato", sans-serif;

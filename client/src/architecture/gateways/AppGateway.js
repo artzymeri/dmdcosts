@@ -12,8 +12,8 @@ class AppGateway {
     return await axios.post("http://localhost:8080/login", user_data);
   };
 
-  getEmployeesData = async () => {
-    return await axios.get("http://localhost:8080/employees");
+  getAllEmployees = async () => {
+    return await axios.get("http://localhost:8080/allemployees");
   };
 
   deleteEmployee = async (employee_id) => {

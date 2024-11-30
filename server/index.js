@@ -125,7 +125,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/employees", async (req, res) => {
+app.get("/allemployees", async (req, res) => {
   const employees = await users_table.findAll({
     where: { role: "employee" },
   });

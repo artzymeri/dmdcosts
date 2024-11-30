@@ -5,8 +5,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { observer } from "mobx-react-lite";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
-import ShtoShoferContent from "@/components/admin/Shoferet/ShtoShoferContent";
-import ShtoAutomjetContent from "@/components/admin/Automjetet/ShtoAutomjetContent";
+import AddEmployeeContent from "@/components/admin/Employees/AddEmployee/AddEmployeeContent";
 
 const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), {
   ssr: false,

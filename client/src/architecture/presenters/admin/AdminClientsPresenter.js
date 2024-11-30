@@ -22,14 +22,18 @@ class AdminClientsPresenter {
     makeObservable(this, {
       vm: observable,
       allClients: computed,
-      getAllClients: action.bound,
       deletionModalOpen: computed,
+      deleteButtonDisabled: computed,
+      singleToDeleteClient: computed,
+      getAllClients: action.bound,
       deleteClients: action.bound,
+      handleSortingOptions: action.bound,
+      handleSortingMode: action.bound,
+      handleSearchFiltering: action.bound,
+      handleDeleteClientsModal: action.bound,
+      handleSingleDeletionClientsModal: action.bound,
+      handleClientCheck: action.bound,
     });
-  }
-
-  handleDatesChange(newValue, type) {
-    this.vm[type] = newValue;
   }
 
   handleSortingOptions(event) {
@@ -76,10 +80,8 @@ class AdminClientsPresenter {
       this.vm.single_to_delete_client = null;
       await this.getAllClients();
       this.handleDeleteClientsModal(false);
-      console.log("single deletion");
       return;
     }
-    console.log("multiple deletion");
     for (const client of this.vm.all_clients) {
       if (client.checked) {
         await this.mainAppRepository.deleteClient(client?.id);
@@ -114,10 +116,6 @@ class AdminClientsPresenter {
 
   get deletionModalOpen() {
     return this.vm.deletionModalOpen;
-  }
-
-  get printInvoicesButtonDisabled() {
-    return this.allClients.length === 0;
   }
 
   get deleteButtonDisabled() {

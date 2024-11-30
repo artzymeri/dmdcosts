@@ -1,75 +1,113 @@
 :root {
-    --admin-klientet-content-container--border: 1px solid lightgray;
-    --admin-klientet-content-container--background: whitesmoke;
-    --admin-klientet-header-container--background: white;
-    --admin-klientet-list-container--background: white;
-    --admin-klientet-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
-    --admin-klientet-list-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
-    --admin-klientet-header-container--color: darkslategray;
-    --admin-klientet-list-container--color: darkslategray;
-    --admin-klientet-list-item-border: 1px solid lightgray;
+    --admin-employees-content-container--border: 1px solid lightgray;
+    --admin-employees-content-container--background: whitesmoke;
+    --admin-employees-header-container--background: white;
+    --admin-employees-list-container--background: white;
+    --admin-employees-header-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-employees-list-container--box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    --admin-employees-header-container--color: darkslategray;
+    --admin-employees-list-container--color: darkslategray;
+    --admin-employees-list-item-border: 1px solid lightgray;
+    --admin-employees-list-item-cancelled--border: 1px solid rgba(255, 69, 0, 0.5);
+    --admin-employees-list-item-progress-bar-cancelled--background: rgba(255, 69, 0, 0.75);
+    --admin-employees-list-item-progress-bar-cancelled--color: white;
+    --admin-employees-list-item-progress-bar-cancelled--border: 1px solid orangered;
 }
 
-.admin-klientet-content-container {
+.admin-employees-content-container {
     padding: 15px;
-    border-top: var(--admin-klientet-content-container--border);
-    border-left: var(--admin-klientet-content-container--border);
+    border-top: var(--admin-employees-content-container--border);
+    border-left: var(--admin-employees-content-container--border);
     height: 100%;
     width: 100%;
     border-top-left-radius: 15px;
-    background: var(--admin-klientet-content-container--background);
+    background: var(--admin-employees-content-container--background);
     display: flex;
     flex-direction: column;
     gap: 15px;
     overflow-y: auto;
 }
 
-.admin-klientet-header-container {
+.admin-employees-content-title-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-employees-header-container {
     display: flex;
     align-items: center;
     padding: 15px;
     border-radius: 15px;
-    background: var(--admin-klientet-header-container--background);
-    box-shadow: var(--admin-klientet-header-container--box-shadow);
-    color: var(--admin-klientet-header-container--color);
+    background: var(--admin-employees-header-container--background);
+    box-shadow: var(--admin-employees-header-container--box-shadow);
+    color: var(--admin-employees-header-container--color);
     gap: 15px;
+    flex-shrink: 0;
 }
 
 .css-1wd3yy0-MuiInputBase-input-MuiInput-input {
     padding: 4px 8px !important;
 }
 
-.admin-klientet-list-container {
+.admin-employees-list-container {
     display: flex;
     flex-direction: column;
     gap: 7.5px;
     padding: 15px;
     border-radius: 15px;
-    box-shadow: var(--admin-klientet-list-container--box-shadow);
-    background: var(--admin-klientet-list-container--background);
-    color: var(--admin-klientet-list-container--color);
+    box-shadow: var(--admin-employees-list-container--box-shadow);
+    background: var(--admin-employees-list-container--background);
+    color: var(--admin-employees-list-container--color);
     font-weight: 600;
     max-height: 100%;
     overflow-y: auto;
 }
 
-.admin-klientet-list-item {
+.admin-employees-list-item {
     display: grid;
     align-items: center;
-    border: var(--admin-klientet-list-item-border);
+    border: var(--admin-employees-list-item-border);
     padding: 5px 10px;
     border-radius: 10px;
     gap: 10px;
-    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 40px;
+    grid-template-columns: 30px 1fr 1fr 1fr  65px;
+    height: 50px;
+    flex-shrink: 0;
+    cursor: pointer;
 }
 
-.admin-klientet-list-item :nth-child(1) {
-    padding: 0 !important;
+.admin-employees-list-item :nth-child(1) {
+    padding: 0;
 }
 
-.admin-klientet-list-item :is(span) {
+.admin-employees-list-item :is(span) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: min-content;
+}
+
+.admin-employees-list-item-progress-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.admin-employees-list-item-progress-bar {
+    text-align: center;
+    font-weight: 400;
+    padding: 0px 10px 1px 10px !important;
+    border-radius: 100px;
+    border: var(--admin-employees-list-item-border);
+    width: min-content;
+    font-size: 14px;
+}
+
+.admin-employees-list-item-progress-bar-cancelled {
+    background: var(--admin-employees-list-item-progress-bar-cancelled--background);
+    color: var(--admin-employees-list-item-progress-bar-cancelled--color);
+    border: var(--admin-employees-list-item-progress-bar-cancelled--border);
 }
