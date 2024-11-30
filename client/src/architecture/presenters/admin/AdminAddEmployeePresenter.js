@@ -20,6 +20,8 @@ class AdminAddEmployeePresenter {
         bank_name: null,
       },
     },
+    snackbar_boolean: false,
+    snackbar_details: null,
   };
 
   constructor() {
@@ -28,6 +30,9 @@ class AdminAddEmployeePresenter {
       handleChangeValues: action.bound,
       handleChangeBankDetails: action.bound,
       saveNewEmployee: action.bound,
+      setSnackbar: action.bound,
+      snackbarBoolean: computed,
+      snackbarDetails: computed,
     });
   }
 
@@ -44,23 +49,43 @@ class AdminAddEmployeePresenter {
   };
 
   saveNewEmployee = async () => {
-    console.log(this.vm.newEmployeeObject);
-    // const response = await this.mainAppRepository.addEmployee(
-    //   this.vm.newEmployeeObject
-    // );
-    // this.vm.newEmployeeObject = {
-    //   name_surname: null,
-    //   username: null,
-    //   email_address: null,
-    //   password: null,
-    //   role: null,
-    //   bank_details: {
-    //     account_holder: null,
-    //     account_number: null,
-    //     bank_name: null,
-    //   },
-    // };
+    const response = await this.mainAppRepository.registerUser(
+      this.vm.newEmployeeObject
+    );
+    if (response.data.title == "success") {
+      this.vm.newEmployeeObject = {
+        name_surname: null,
+        username: null,
+        email_address: null,
+        password: null,
+        role: null,
+        bank_details: {
+          account_holder: null,
+          account_number: null,
+          bank_name: null,
+        },
+      };
+    }
+
+    return response;
   };
+
+  setSnackbar(value, details) {
+    this.vm.snackbar_boolean = value;
+    this.vm.snackbar_details = details;
+    setTimeout(() => {
+      this.vm.snackbar_boolean = false;
+      this.vm.snackbar_details = null;
+    }, 3000);
+  }
+
+  get snackbarBoolean() {
+    return this.vm.snackbar_boolean;
+  }
+
+  get snackbarDetails() {
+    return this.vm.snackbar_details;
+  }
 }
 
 export default AdminAddEmployeePresenter;

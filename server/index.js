@@ -30,15 +30,23 @@ const db = require("./models");
 const port = 8080;
 
 app.post("/registeruser", async (req, res) => {
+  const {
+    name_surname,
+    username,
+    email_address,
+    password,
+    role,
+    bank_details,
+  } = req.body;
+
+  if (!name_surname || !username || !email_address || !password || !role) {
+    return res.json({
+      title: "error",
+      message: "All fields are required. Please ensure no field is left empty.",
+    });
+  }
+
   try {
-    const {
-      name_surname,
-      username,
-      email_address,
-      password,
-      role,
-      bank_details,
-    } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     const existingUsername = await users_table.findOne({
@@ -58,7 +66,7 @@ app.post("/registeruser", async (req, res) => {
       email_address,
       role,
       password: hashedPassword,
-      bank_details,
+      bank_details: bank_details ? JSON.stringify(bank_details) : null,
     });
 
     res.json({
@@ -66,7 +74,7 @@ app.post("/registeruser", async (req, res) => {
       message: "User added successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.json({
       title: "error",
       message: "Something went wrong",

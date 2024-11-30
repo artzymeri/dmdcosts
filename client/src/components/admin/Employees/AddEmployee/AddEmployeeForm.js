@@ -22,20 +22,20 @@ const AddEmployeeForm = (props) => {
         focused={presenter.vm?.newEmployeeObject?.name_surname ? true : false}
       />
       <TextField
-        label="Username"
-        onChange={(e) => {
-          presenter.handleChangeValues("username", e?.target?.value);
-        }}
-        value={presenter.vm?.newEmployeeObject?.username || ""}
-        focused={presenter.vm?.newEmployeeObject?.username ? true : false}
-      />
-      <TextField
         label="Email Address"
         onChange={(e) => {
           presenter.handleChangeValues("email_address", e?.target?.value);
         }}
         value={presenter.vm?.newEmployeeObject?.email_address || ""}
         focused={presenter.vm?.newEmployeeObject?.email_address ? true : false}
+      />
+      <TextField
+        label="Username"
+        onChange={(e) => {
+          presenter.handleChangeValues("username", e?.target?.value);
+        }}
+        value={presenter.vm?.newEmployeeObject?.username || ""}
+        focused={presenter.vm?.newEmployeeObject?.username ? true : false}
       />
       <TextField
         label="Password"
@@ -56,52 +56,72 @@ const AddEmployeeForm = (props) => {
         <Select
           labelId="role-select"
           variant="outlined"
+          value={presenter?.vm?.newEmployeeObject?.role || ""}
           onChange={presenter.handleRoleChange}
+          focused={
+            presenter.vm?.newEmployeeObject?.role
+              ? true.toString()
+              : false.toString()
+          }
         >
           <MenuItem value={"admin"}>Admin</MenuItem>
           <MenuItem value={"employee"}>Employee</MenuItem>
         </Select>
       </FormControl>
-      <TextField
-        label="Bank Account Holder"
-        onChange={(e) => {
-          presenter.handleChangeBankDetails("account_holder", e?.target?.value);
-        }}
-        value={
-          presenter.vm?.newEmployeeObject?.bank_details?.account_holder || ""
-        }
-        focused={
-          presenter.vm?.newEmployeeObject?.bank_details?.account_holder
-            ? true
-            : false
-        }
-      />
-      <TextField
-        label="Bank Account Number"
-        onChange={(e) => {
-          presenter.handleChangeBankDetails("account_number", e?.target?.value);
-        }}
-        value={
-          presenter.vm?.newEmployeeObject?.bank_details?.account_number || ""
-        }
-        focused={
-          presenter.vm?.newEmployeeObject?.bank_details?.account_number
-            ? true
-            : false
-        }
-      />
-      <TextField
-        label="Bank Name"
-        onChange={(e) => {
-          presenter.handleChangeBankDetails("bank_name", e?.target?.value);
-        }}
-        value={presenter.vm?.newEmployeeObject?.bank_details?.bank_name || ""}
-        focused={
-          presenter.vm?.newEmployeeObject?.bank_details?.bank_name
-            ? true
-            : false
-        }
-      />
+      {presenter?.vm?.newEmployeeObject?.role == "admin" && (
+        <>
+          <TextField
+            label="Bank Account Holder"
+            onChange={(e) => {
+              presenter.handleChangeBankDetails(
+                "account_holder",
+                e?.target?.value
+              );
+            }}
+            value={
+              presenter.vm?.newEmployeeObject?.bank_details?.account_holder ||
+              ""
+            }
+            focused={
+              presenter.vm?.newEmployeeObject?.bank_details?.account_holder
+                ? true
+                : false
+            }
+          />
+          <TextField
+            label="Bank Account Number"
+            onChange={(e) => {
+              presenter.handleChangeBankDetails(
+                "account_number",
+                e?.target?.value
+              );
+            }}
+            value={
+              presenter.vm?.newEmployeeObject?.bank_details?.account_number ||
+              ""
+            }
+            focused={
+              presenter.vm?.newEmployeeObject?.bank_details?.account_number
+                ? true
+                : false
+            }
+          />
+          <TextField
+            label="Bank Name"
+            onChange={(e) => {
+              presenter.handleChangeBankDetails("bank_name", e?.target?.value);
+            }}
+            value={
+              presenter.vm?.newEmployeeObject?.bank_details?.bank_name || ""
+            }
+            focused={
+              presenter.vm?.newEmployeeObject?.bank_details?.bank_name
+                ? true
+                : false
+            }
+          />
+        </>
+      )}
     </div>
   );
 };

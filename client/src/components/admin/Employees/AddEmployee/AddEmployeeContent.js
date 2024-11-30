@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
 import AddEmployeeForm from "./AddEmployeeForm";
@@ -15,28 +15,41 @@ const AddEmployeeContent = () => {
   );
 
   return (
-    <div className="admin-add-employee-content-container">
-      <div className="admin-add-employee-content-title-container">
-        <h2>Add Employee</h2>
-        <Button
-          variant="contained"
-          color="success"
-          sx={{
-            backgroundColor: "#00491e",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-          onClick={() => {
-            presenter.saveNewEmployee();
-          }}
+    <>
+      <Snackbar open={presenter?.snackbarBoolean} autoHideDuration={3000}>
+        <Alert
+          severity={presenter?.snackbarDetails?.title}
+          variant="filled"
+          sx={{ width: "100%" }}
         >
-          <PersonAddRounded />
-          <span>Confirm</span>
-        </Button>
+          {presenter?.snackbarDetails?.message}
+        </Alert>
+      </Snackbar>
+      <div className="admin-add-employee-content-container">
+        <div className="admin-add-employee-content-title-container">
+          <h2>Add Employee</h2>
+          <Button
+            variant="contained"
+            color="success"
+            sx={{
+              backgroundColor: "#00491e",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+            onClick={() => {
+              presenter.saveNewEmployee().then((res) => {
+                presenter.setSnackbar(true, res.data);
+              });
+            }}
+          >
+            <PersonAddRounded />
+            <span>Confirm</span>
+          </Button>
+        </div>
+        <AddEmployeeForm presenter={presenter} />
       </div>
-      <AddEmployeeForm presenter={presenter} />
-    </div>
+    </>
   );
 };
 
