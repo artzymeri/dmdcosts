@@ -134,9 +134,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/allemployees", async (req, res) => {
-  const employees = await users_table.findAll({
-    where: { role: "employee" },
-  });
+  const employees = await users_table.findAll();
   res.json(employees);
 });
 
@@ -146,7 +144,6 @@ app.post(`/deleteemployee:employee_id`, async (req, res) => {
     const employeeToDelete = await users_table.findOne({
       where: { id: employee_id },
     });
-    console.log(employeeToDelete);
     await employeeToDelete.destroy();
     res.json({
       title: "success",

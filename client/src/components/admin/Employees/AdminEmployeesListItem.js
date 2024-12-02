@@ -5,34 +5,37 @@ import { DeleteOutlineRounded } from "@mui/icons-material";
 const AdminEmployeesListItem = (props) => {
   const { item, presenter } = props;
 
+  function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   return (
     <div>
       <div className="admin-employees-list-item">
         <Checkbox
           onChange={() => {
-            presenter.selectEmployeeToDelete(item?.id);
+            presenter.handleEmployeeCheck(item?.id);
           }}
         />
+        <Tooltip placement="top-start" title={item?.username} arrow>
+          {item?.username ? item.username : "No Data"}
+        </Tooltip>
         <Tooltip placement="top-start" title={item?.name_surname} arrow>
-          <span>{item?.name_surname}</span>
-        </Tooltip>
-        <Tooltip placement="top-start" title={item?.business_name} arrow>
-          <span>{item?.business_name}</span>
-        </Tooltip>
-        <Tooltip placement="top-start" title={item?.location} arrow>
-          <span>{item?.location}</span>
-        </Tooltip>
-        <Tooltip placement="top-start" title={item?.phone_number} arrow>
-          <span>{item?.phone_number}</span>
+          {item?.name_surname ? item.name_surname : "No Data"}
         </Tooltip>
         <Tooltip placement="top-start" title={item?.email_address} arrow>
-          <span>{item?.email_address}</span>
+          {item?.email_address ? item.email_address : "No Data"}
+        </Tooltip>
+        <Tooltip placement="top-start" title={item?.role} arrow>
+          <span>
+            {item?.role ? capitalizeFirstLetter(item.role) : "No Data"}
+          </span>
         </Tooltip>
         <Tooltip placement="top" title="Kliko për të fshirë llogarinë" arrow>
           <IconButton
             color="error"
             onClick={() => {
-              presenter.setDeletionModal(true);
+              presenter.handleSingleDeletionEmployeesModal( item?.id, true);
             }}
           >
             <DeleteOutlineRounded />

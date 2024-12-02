@@ -10,7 +10,7 @@ class AdminEmployeesPresenter {
   vm = {
     all_employees: [],
     deletionModalOpen: false,
-    sortingOption: "name_surname",
+    sortingOption: "username",
     sortingMode: "a-z",
     searchQuery: "",
     firstDateFilter: null,
