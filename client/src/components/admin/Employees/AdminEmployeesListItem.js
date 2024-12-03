@@ -31,11 +31,11 @@ const AdminEmployeesListItem = (props) => {
             {item?.role ? capitalizeFirstLetter(item.role) : "No Data"}
           </span>
         </Tooltip>
-        <Tooltip placement="top" title="Kliko për të fshirë llogarinë" arrow>
+        <Tooltip placement="top" title="Click to delete employee" arrow>
           <IconButton
             color="error"
             onClick={() => {
-              presenter.handleSingleDeletionEmployeesModal( item?.id, true);
+              presenter.handleSingleDeletionEmployeesModal(item?.id, true);
             }}
           >
             <DeleteOutlineRounded />

@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import UserHeader from "@/components/employee/Header/EmployeeHeader";
-import BejPorosiContent from "@/components/employee/BejPorosi/BejPorosiContent";
 import { observer } from "mobx-react-lite";
+import AdminHeader from "@/components/admin/Header/AdminHeader";
+import AdminAddCaseContent from "@/components/admin/Cases/AddCase/AdminAddCaseContent";
 
 const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), {
   ssr: false,
@@ -26,6 +26,17 @@ const AddCasePage = () => {
   }, []);
   return (
     <>
+      {token === "admin" && (
+        <>
+          <Head>
+            <title>Add Case | DMD Costs</title>
+          </Head>
+          <AdminHOC>
+            <AdminHeader />
+            <AdminAddCaseContent />
+          </AdminHOC>
+        </>
+      )}
       {token === "employee" && (
         <>
           <Head>
@@ -33,7 +44,6 @@ const AddCasePage = () => {
           </Head>
           <EmployeeHOC>
             <EmployeeHeader />
-            <AddCaseContent />
           </EmployeeHOC>
         </>
       )}

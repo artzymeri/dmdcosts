@@ -25,6 +25,7 @@ export const TYPES = {
   AdminClientsPresenter: Symbol.for("AdminClientsPresenter"),
   AdminClientViewPresenter: Symbol.for("AdminClientViewPresenter"),
   AdminAddClientPresenter: Symbol.for("AdminAddClientPresenter"),
+  AdminAddCasePresenter: Symbol.for("AdminAddCasePresenter"),
   AdminCasePresenter: Symbol.for("AdminCasePresenter"),
   AdminAddEmployeePresenter: Symbol.for("AdminAddEmployeePresenter"),
   AdminHeaderPresenter: Symbol.for("AdminHeaderPresenter"),

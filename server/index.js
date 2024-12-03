@@ -160,39 +160,24 @@ app.post(`/deleteemployee:employee_id`, async (req, res) => {
 
 app.post("/createcase", async (req, res) => {
   const {
-    sender_id,
-    sender_name_surname,
-    sender_business_name,
-    sender_email_address,
-    sender_phone_number,
-    receiver_name_surname,
-    receiver_phone_number,
-    receiver_phone_number_2,
-    receiver_city,
-    receiver_state,
-    receiver_full_address,
-    product_price,
-    product_description,
-    comment,
+    client_id,
+    assignee_id,
+    reference_number,
+    status,
+    paid,
+    served,
+    last_offer_date,
   } = req.body;
 
   try {
     const newCase = await cases_table.create({
-      sender_id,
-      sender_name_surname,
-      sender_business_name,
-      sender_email_address,
-      sender_phone_number,
-      receiver_name_surname,
-      receiver_phone_number,
-      receiver_phone_number_2,
-      receiver_city,
-      receiver_state,
-      receiver_full_address,
-      product_price,
-      product_description,
-      comment,
-      progress: "request",
+      client_id,
+      assignee_id,
+      reference_number,
+      status,
+      paid,
+      served,
+      last_offer_date,
       qr_code: null,
     });
 

@@ -28,6 +28,12 @@
     overflow-y: auto;
 }
 
+.admin-cases-content-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .admin-cases-header-container {
     display: flex;
     align-items: center;

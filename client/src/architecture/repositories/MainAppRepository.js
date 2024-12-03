@@ -10,6 +10,19 @@ class MainAppRepository {
   constructor() {
     makeObservable(this, {
       registerUser: action.bound,
+      login: action.bound,
+      getAllEmployees: action.bound,
+      deleteEmployee: action.bound,
+      createCase: action.bound,
+      deleteCase: action.bound,
+      getAllCases: action.bound,
+      getCaseDetails: action.bound,
+      getCaseDetailsAsAdmin: action.bound,
+      getAllClients: action.bound,
+      addClient: action.bound,
+      saveEditedClient: action.bound,
+      deleteClient: action.bound,
+      getClientDetails: action.bound,
     });
   }
 
