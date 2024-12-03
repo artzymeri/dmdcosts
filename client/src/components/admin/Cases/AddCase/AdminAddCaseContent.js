@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Alert, Button, Snackbar } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,28 +19,41 @@ const AdminAddCaseContent = () => {
   }, []);
 
   return (
-    <div className="admin-add-client-content-container">
-      <div className="admin-add-client-content-title-container">
-        <h2>Add Client</h2>
-        <Button
-          variant="contained"
-          color="success"
-          sx={{
-            backgroundColor: "#00491e",
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-          }}
-          onClick={() => {
-            presenter.saveNewCase();
-          }}
+    <>
+      <Snackbar open={presenter?.snackbarBoolean} autoHideDuration={3000}>
+        <Alert
+          severity={presenter?.snackbarDetails?.title}
+          variant="filled"
+          sx={{ width: "100%" }}
         >
-          <PersonAddRounded />
-          <span>Confirm</span>
-        </Button>
+          {presenter?.snackbarDetails?.message}
+        </Alert>
+      </Snackbar>
+      <div className="admin-add-case-content-container">
+        <div className="admin-add-case-content-title-container">
+          <h2>Add Case</h2>
+          <Button
+            variant="contained"
+            color="success"
+            sx={{
+              backgroundColor: "#00491e",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+            onClick={() => {
+              presenter.saveNewCase().then((res) => {
+                presenter.setSnackbar(true, res.data);
+              });
+            }}
+          >
+            <PersonAddRounded />
+            <span>Add Case</span>
+          </Button>
+        </div>
+        <AdminAddCaseForm presenter={presenter} />
       </div>
-      <AdminAddCaseForm presenter={presenter} />
-    </div>
+    </>
   );
 };
 

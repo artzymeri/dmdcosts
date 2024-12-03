@@ -169,6 +169,24 @@ app.post("/createcase", async (req, res) => {
     last_offer_date,
   } = req.body;
 
+  if (!client_id || !assignee_id || !reference_number) {
+    return res.json({
+      title: "error",
+      message: "Client, Assignee or Reference Number cannot be null.",
+    });
+  }
+
+  const existingReferenceNumber = await cases_table.findOne({
+    where: { reference_number: reference_number },
+  });
+
+  if (existingReferenceNumber) {
+    return res.json({
+      title: "error",
+      message: "Reference Number is already taken",
+    });
+  }
+
   try {
     const newCase = await cases_table.create({
       client_id,
@@ -186,13 +204,13 @@ app.post("/createcase", async (req, res) => {
     await newCase.update({ qr_code: qrCodeData });
 
     res.json({
-      title: "Success",
+      title: "success",
       message: "Request done successfully",
     });
   } catch (e) {
     console.log(e);
     res.json({
-      title: "Error",
+      title: "error",
       message: "Something went wrong",
     });
   }
@@ -354,13 +372,13 @@ app.post("/addclient", async (req, res) => {
     });
 
     res.json({
-      title: "Success",
+      title: "success",
       message: "Client added successfully",
     });
   } catch (e) {
     console.log(e);
     res.json({
-      title: "Error",
+      title: "error",
       message: "Something went wrong",
     });
   }

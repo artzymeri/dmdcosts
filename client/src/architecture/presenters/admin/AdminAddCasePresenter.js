@@ -20,6 +20,8 @@ class AdminAddCasePresenter {
     },
     clients_list: [],
     employees_list: [],
+    snackbar_boolean: false,
+    snackbar_details: null,
   };
 
   constructor() {
@@ -31,6 +33,9 @@ class AdminAddCasePresenter {
       getClientsEmployeesList: action.bound,
       saveNewCase: action.bound,
       clientsList: computed,
+      setSnackbar: action.bound,
+      snackbarBoolean: computed,
+      snackbarDetails: computed,
     });
   }
 
@@ -60,19 +65,33 @@ class AdminAddCasePresenter {
   saveNewCase = async () => {
     let newCase = {
       ...this.vm.newCaseObject,
-      last_offer_date: this.vm.newCaseObject.last_offer_date.toDate(),
+      last_offer_date: this.vm?.newCaseObject?.last_offer_date
+        ? this.vm.newCaseObject.last_offer_date.toDate()
+        : null,
     };
     const response = await this.mainAppRepository.createCase(newCase);
-    this.vm.newCaseObject = {
-      client_id: null,
-      assignee_id: null,
-      reference_number: null,
-      status: null,
-      paid: false,
-      served: false,
-      last_offer_date: null,
-    };
+    if (response.data.title == "success") {
+      this.vm.newCaseObject = {
+        client_id: null,
+        assignee_id: null,
+        reference_number: null,
+        status: null,
+        paid: false,
+        served: false,
+        last_offer_date: null,
+      };
+    }
+    return response;
   };
+
+  setSnackbar(value, details) {
+    this.vm.snackbar_boolean = value;
+    this.vm.snackbar_details = details;
+    setTimeout(() => {
+      this.vm.snackbar_boolean = false;
+      this.vm.snackbar_details = null;
+    }, 3000);
+  }
 
   get clientsList() {
     return this.vm.clients_list;
@@ -80,6 +99,14 @@ class AdminAddCasePresenter {
 
   get employeesList() {
     return this.vm.employees_list;
+  }
+
+  get snackbarBoolean() {
+    return this.vm.snackbar_boolean;
+  }
+
+  get snackbarDetails() {
+    return this.vm.snackbar_details;
   }
 }
 

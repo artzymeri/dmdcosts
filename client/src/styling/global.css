@@ -12,6 +12,7 @@
 @import "admin/admincase.css";
 @import "admin/adminclient.css";
 @import "admin/adminaddclient.css";
+@import "admin/adminaddcase.css";
 @import "admin/adminaddemployee.css";
 
 :root {

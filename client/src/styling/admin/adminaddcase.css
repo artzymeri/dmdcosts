@@ -1,0 +1,38 @@
+:root {
+    --admin-add-case-content-container--border: 1px solid lightgray;
+    --admin-add-case-content-container--background: whitesmoke;
+    --admin-add-case-header-container--background: white;
+}
+
+.admin-add-case-content-container {
+    padding: 15px;
+    border-top: var(--admin-add-case-content-container--border);
+    border-left: var(--admin-add-case-content-container--border);
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 15px;
+    background: var(--admin-add-case-content-container--background);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    align-items: center;
+}
+
+.admin-add-case-content-title-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-add-case-form-container {
+    display: grid;
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.1);
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 50%;
+}

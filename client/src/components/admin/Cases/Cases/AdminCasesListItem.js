@@ -1,87 +1,68 @@
-import {observer} from "mobx-react-lite";
-import {Button, Checkbox, IconButton, Tooltip} from "@mui/material";
-import {DeleteOutlineRounded} from "@mui/icons-material";
-import {useRouter} from "next/router";
+import { observer } from "mobx-react-lite";
+import { Button, Checkbox, IconButton, Tooltip } from "@mui/material";
+import { DeleteOutlineRounded } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 const AdminCasesListItem = (props) => {
+  const { item, presenter } = props;
 
-    const {item, presenter} = props;
+  const router = useRouter();
 
-    const router = useRouter();
-
-    const progressCheck = (progress) => {
-        if (progress === "request") {
-            return 'Kërkesë'
-        }
-        if (progress === 'cancelled') {
-            return 'Anuluar'
-        }
+  const statusCheck = (status) => {
+    if (status == "to-do") {
+      return "To Do";
+    } else if (status == "to-fix") {
+      return "To Fix";
+    } else if (status == "done") {
+      return "Done";
     }
+  };
 
-    const progressClassCheck = (progress) => {
-        if (progress === null) {
-            return;
-        }
-        if (progress === 'cancelled') {
-            return 'admin-cases-list-item-progress-bar-cancelled';
-        }
-    }
-
-
-    return (
-        <div
-            onClick={() => {
-                router.push(`/case/${item?.id}`);
-            }}
-            className={`admin-cases-list-item ${item?.progress == 'cancelled' && 'admin-cases-list-item-cancelled'}`}>
-            <Checkbox onClick={(e) => {
-                e.stopPropagation();
-                presenter.handleOrderCheck(item?.id)
-            }}/>
-            <Tooltip placement="top-start" title={item?.receiver_name_surname} arrow>
-                <span>
-                        {item?.receiver_name_surname}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_phone_number} arrow>
-                <span>
-                        {item?.receiver_phone_number}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_city} arrow>
-                <span>
-                        {item?.receiver_city}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_state} arrow>
-                <span>
-                        {item?.receiver_state}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_full_address} arrow>
-                <span>
-                        {item?.receiver_full_address}
-                </span>
-            </Tooltip>
-            <div className="admin-cases-list-item-progress-bar-container">
-                <span
-                    className={`admin-cases-list-item-progress-bar ${progressClassCheck(item?.progress)}`}>{progressCheck(item?.progress)}</span>
-            </div>
-            {
-                item?.progress == "request" &&
-                <Tooltip placement="top" title="Kliko për të anuluar llogarinë" arrow>
-                    <Button variant="outlined" color="error" disabled={!item?.progress == 'request'}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                cancelOrder(true, item?.id);
-                            }}>
-                        Anulo
-                    </Button>
-                </Tooltip>
-            }
-        </div>
-    )
-
-}
+  return (
+    <div
+      onClick={() => {
+        router.push(`/case/${item?.id}`);
+      }}
+      className={`admin-cases-list-item`}
+    >
+      <Checkbox
+        onClick={(e) => {
+          e.stopPropagation();
+          presenter.handleCaseCheck(item?.id);
+        }}
+      />
+      <Tooltip placement="top-start" title={`#${item?.reference_number}`} arrow>
+        <span>{`#${item?.reference_number}`}</span>
+      </Tooltip>
+      <Tooltip placement="top-start" title={item?.client_business_name} arrow>
+        <span>{item?.client_business_name}</span>
+      </Tooltip>
+      <Tooltip placement="top-start" title={item?.assignee_name_surname} arrow>
+        <span>{item?.assignee_name_surname}</span>
+      </Tooltip>
+      <Tooltip placement="top-start" title={statusCheck(item?.status)} arrow>
+        <span>{statusCheck(item?.status)}</span>
+      </Tooltip>
+      <Tooltip
+        placement="top-start"
+        title={item?.paid ? "Paid" : "Unpaid"}
+        arrow
+      >
+        <span>{item?.paid ? "Paid" : "Unpaid"}</span>
+      </Tooltip>
+      <Tooltip placement="top" title="Click to delete case" arrow>
+        <IconButton
+          color="error"
+          onClick={(e) => {
+            e.stopPropagation();
+            presenter.handleSingleDeletionCasesModal(item?.id, true);
+          }}
+        >
+          <DeleteOutlineRounded />
+        </IconButton>
+      </Tooltip>
+    </div>
+  );
+};
 
 export default observer(AdminCasesListItem);

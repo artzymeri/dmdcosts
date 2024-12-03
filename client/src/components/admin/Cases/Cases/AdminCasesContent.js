@@ -16,7 +16,7 @@ const AdminCasesContent = () => {
   );
 
   useEffect(() => {
-    // presenter.getAllCases();
+    presenter.init();
   }, []);
 
   return (

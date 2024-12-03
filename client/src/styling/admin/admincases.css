@@ -71,14 +71,10 @@
     padding: 5px 10px;
     border-radius: 10px;
     gap: 10px;
-    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 65px;
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 65px;
     height: 50px;
     flex-shrink: 0;
     cursor: pointer;
-}
-
-.admin-cases-list-item-cancelled {
-    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 65px;
 }
 
 .admin-cases-list-item :nth-child(1) {
