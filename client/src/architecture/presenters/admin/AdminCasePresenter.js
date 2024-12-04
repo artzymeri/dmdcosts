@@ -10,31 +10,31 @@ class AdminCasePresenter {
     @inject(TYPES.MainAppRepository) mainAppRepository;
 
     vm = {
-        order_details: null,
+        case_details: null,
         refresh_state: 1,
     }
 
     constructor() {
         makeObservable(this, {
             vm: observable,
-            getOrderDetailsAsAdmin: action.bound,
-            orderDetails: computed
+            getCaseDetailsAsAdmin: action.bound,
+            caseDetails: computed
         });
     }
 
-    getOrderDetailsAsAdmin = async (employee_id, order_id) => {
-        const response = await this.mainAppRepository.getOrderDetailsAsAdmin(employee_id ,order_id);
-        this.vm.order_details = response.data;
+    getCaseDetailsAsAdmin = async (case_id) => {
+        const response = await this.mainAppRepository.getCaseDetailsAsAdmin(case_id);
+        this.vm.case_details = response.data;
     }
 
-    cancelOrder = async (order_id) => {
-        const response = await this.mainAppRepository.cancelOrder(order_id);
+    cancelOrder = async (case_id) => {
+        const response = await this.mainAppRepository.cancelCase(case_id);
         this.vm.refresh_state += 1;
         return response;
     }
 
-    get orderDetails() {
-        return this.vm.order_details?.order;
+    get caseDetails() {
+        return this.vm.case_details?.case;
     }
 
 }

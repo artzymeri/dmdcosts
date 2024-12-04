@@ -363,6 +363,24 @@ app.get(`/allclients`, async (req, res) => {
 app.post("/addclient", async (req, res) => {
   const { business_name, address, email_address, rates_config } = req.body;
 
+  if (!business_name || !address || !email_address || !rates_config) {
+    return res.json({
+      title: "error",
+      message: "Values cannot be null.",
+    });
+  }
+
+  const existingFirmName = await clients_table.findOne({
+    where: { business_name: business_name },
+  });
+
+  if (existingFirmName) {
+    return res.json({
+      title: "error",
+      message: "Firm Name already exists!",
+    });
+  }
+
   try {
     await clients_table.create({
       business_name,

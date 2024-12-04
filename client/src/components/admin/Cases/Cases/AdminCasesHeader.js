@@ -17,7 +17,7 @@ const AdminCasesHeader = ({ presenter }) => {
           presenter.handleSearchFiltering(e);
         }}
       />
-      <FormControl sx={{ width: "250px" }} variant="filled">
+      <FormControl sx={{ width: "275px" }} variant="filled">
         <NativeSelect
           variant="filled"
           defaultValue={"reference_number"}

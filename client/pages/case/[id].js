@@ -4,8 +4,6 @@ import { getTokenType } from "@/utils/auth";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import AdminHeader from "@/components/admin/Header/AdminHeader";
-import UserHeader from "@/components/employee/Header/EmployeeHeader";
-import UserCaseView from "@/components/employee/Cases/Case/EmployeeCaseView";
 import { observer } from "mobx-react-lite";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
@@ -49,7 +47,7 @@ const CasePage = () => {
         try {
           if (token === "employee") {
             const employeeData = JSON.parse(Cookies.get("employeeData"));
-            await presenter.getOrderDetails(employeeData?.id, parseInt(id));
+            await presenter.getCaseDetails(parseInt(id));
             if (
               presenter.caseDetails?.title !== "error" &&
               presenter.caseDetails !== undefined &&
@@ -58,7 +56,7 @@ const CasePage = () => {
               setSuccessfulLoad(true);
             }
           } else if (token === "admin") {
-            await presenter.getOrderDetailsAsAdmin(parseInt(id));
+            await presenter.getCaseDetailsAsAdmin(parseInt(id));
             if (
               presenter.caseDetails?.title !== "error" &&
               presenter.caseDetails
