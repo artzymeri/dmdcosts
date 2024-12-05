@@ -19,11 +19,14 @@
     --admin-case-details-middle--border-left: 1px dashed rgba(47, 79, 79, 0.33);
     --admin-case-details-left-side-title-after--background: rgba(47, 79, 79, 0.33);
     --admin-case-details-right-side-qr-code-container--border: 1px solid lightgray;
-    --admin-case-status-banner-request--border: 1px dashed lightgray;
-    --admin-case-status-banner-request--color: gray;
-    --admin-case-status-banner-cancelled--border: 1px dashed red;
-    --admin-case-status-banner-cancelled--color: darkslategray;
-    --admin-case-status-banner-cancelled--background: rgba(255, 69, 0, 0.25);
+    --admin-case-status-banner-to-do--border: 1px dashed lightgray;
+    --admin-case-status-banner-to-do--color: gray;
+    --admin-case-status-banner-to-fix--border: 1px dashed red;
+    --admin-case-status-banner-to-fix--color: darkslategray;
+    --admin-case-status-banner-to-fix--background: rgba(255, 69, 0, 0.25);
+    --admin-case-status-banner-done--border: 1px dashed var(--dmd-costs--background-color);
+    --admin-case-status-banner-done--color: black;
+    --admin-case-status-banner-done--background: #00491e77;
     --no-access-order-view--color: darkslategray;
     --admin-case-details-right-side-employees-involved--background: whitesmoke;
     --admin-case-details-right-side-employees-involved--color: darkslategray;
@@ -234,15 +237,21 @@
     gap: 8px;
 }
 
-.admin-case-status-banner-request {
-    border: var(--admin-case-status-banner-request--border);
-    color: var(--admin-case-status-banner-request--color);
+.admin-case-status-banner-to-do {
+    border: var(--admin-case-status-banner-to-do--border);
+    color: var(--admin-case-status-banner-to-do--color);
+} 
+
+.admin-case-status-banner-to-fix {
+    border: var(--admin-case-status-banner-to-fix--border);
+    color: var(--admin-case-status-banner-to-fix--color);
+    background: var(--admin-case-status-banner-to-fix--background);
 }
 
-.admin-case-status-banner-cancelled {
-    border: var(--admin-case-status-banner-cancelled--border);
-    color: var(--admin-case-status-banner-cancelled--color);
-    background: var(--admin-case-status-banner-cancelled--background);
+.admin-case-status-banner-done {
+    border: var(--admin-case-status-banner-done--border);
+    color: var(--admin-case-status-banner-done--color);
+    background: var(--admin-case-status-banner-done--background);
 }
 
 .no-access-order-view {

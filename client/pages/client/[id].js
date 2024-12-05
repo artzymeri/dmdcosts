@@ -69,8 +69,10 @@ const ClientPage = () => {
           <AdminHOC>
             <AdminHeader />
             {loading && (
-              <div className="backdrop-container">
-                <CircularProgress />
+              <div className="admin-case-content-container">
+                <div className="backdrop-container">
+                  <CircularProgress />
+                </div>
               </div>
             )}
             {!loading && successfulLoad && (

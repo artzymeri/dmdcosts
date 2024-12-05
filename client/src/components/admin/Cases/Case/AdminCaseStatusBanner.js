@@ -1,56 +1,66 @@
-import {Close, MovingRounded} from "@mui/icons-material";
-import {Tooltip} from "@mui/material";
-import {observer} from "mobx-react-lite";
+import { Close, Done, MovingRounded } from "@mui/icons-material";
+import { Tooltip } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
 const AdminCaseStatusBanner = (props) => {
-    const {progress} = props;
+  const { status } = props;
 
-    const checkProgressText = (progress_type) => {
-        if (progress_type == 'request') {
-            return "Kërkesë";
-        }
-        if (progress_type == 'cancelled') {
-            return "Anuluar";
-        }
+  const checkProgressText = (status) => {
+    if (status == "to-do") {
+      return "To Do";
     }
-
-    const checkProgressIcon = (progress_type) => {
-        if (progress_type == 'request') {
-            return <MovingRounded/>
-        }
-        if (progress_type == 'cancelled') {
-            return <Close/>
-        }
+    if (status == "to-fix") {
+      return "To Fix";
     }
-
-    const checkProgressClass = (progress_type) => {
-        if (progress_type == 'request') {
-            return 'employee-case-status-banner employee-case-status-banner-request'
-        }
-        if (progress_type == 'cancelled') {
-            return 'employee-case-status-banner employee-case-status-banner-cancelled'
-        }
+    if (status == "done") {
+      return "Done";
     }
+  };
 
-    const checkProgressContent = (progress_type) => {
-        if (progress_type == 'request') {
-            return "Case është në pritje për tu mbledhur!"
-        }
-        if (progress_type == 'cancelled') {
-            return "Case është anuluar!"
-        }
+  const checkProgressIcon = (status) => {
+    if (status == "to-do") {
+      return <MovingRounded />;
     }
+    if (status == "to-fix") {
+      return <Close />;
+    }
+    if (status == "done") {
+      return <Done />;
+    }
+  };
 
-    return (
-        <Tooltip title={checkProgressContent(progress)} arrow>
-            <div className={checkProgressClass(progress)}>
-                {checkProgressIcon(progress)}
-                <span>
-                {checkProgressText(progress)}
-            </span>
-            </div>
-        </Tooltip>
-    )
-}
+  const checkProgressClass = (status) => {
+    if (status == "to-do") {
+      return "admin-case-status-banner admin-case-status-banner-to-do";
+    }
+    if (status == "to-fix") {
+      return "admin-case-status-banner admin-case-status-banner-to-fix";
+    }
+    if (status == "done") {
+      return "admin-case-status-banner admin-case-status-banner-done";
+    }
+  };
+
+  const checkProgressContent = (status) => {
+    if (status == "to-do") {
+      return "Case is yet to be done!";
+    }
+    if (status == "to-fix") {
+      return "Case beeds to get fixed!";
+    }
+    if (status == "done") {
+      return "Case is done!";
+    }
+  };
+
+  return (
+    <Tooltip title={checkProgressContent(status)} arrow>
+      <div className={checkProgressClass(status)}>
+        {checkProgressIcon(status)}
+        <span>{checkProgressText(status)}</span>
+      </div>
+    </Tooltip>
+  );
+};
 
 export default observer(AdminCaseStatusBanner);
