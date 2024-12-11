@@ -286,6 +286,51 @@ app.post(`/deletecase:case_id`, async (req, res) => {
   }
 });
 
+app.post(`/changecasestatus:case_id`, async (req, res) => {
+  const { case_id } = req.params;
+  const { status } = req.body;
+  try {
+    const caseToUpdate = await cases_table.findOne({
+      where: { id: case_id },
+    });
+    caseToUpdate.status = status;
+    await caseToUpdate.save();
+    res.json({
+      title: "success",
+      message: "Case status changed successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/changecasepayment:case_id`, async (req, res) => {
+  const { case_id } = req.params;
+  const { boolean } = req.body;
+  try {
+    const caseToUpdate = await cases_table.findOne({
+      where: { id: case_id },
+    });
+    console.log(boolean)
+    caseToUpdate.paid = boolean;
+    await caseToUpdate.save();
+    res.json({
+      title: "success",
+      message: "Case payment status changed successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.get("/employees/:employee_id/cases/:case_id", async (req, res) => {
   const { employee_id, case_id } = req.params;
   try {

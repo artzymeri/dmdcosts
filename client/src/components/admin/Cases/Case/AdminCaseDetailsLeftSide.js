@@ -5,7 +5,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
   const details = [
     { label: "Client Firm Name:", value: presenter.caseClient?.business_name },
     {
-      label: "Employee Assigned",
+      label: "Employee Assigned:",
       value: presenter.assignedEmployee?.name_surname,
     },
     {
@@ -13,6 +13,10 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
       value: dayjs(presenter.caseDetails?.createdAt).format(
         "MM:HH, DD/MM/YYYY"
       ),
+    },
+    {
+      label: "Payment Status:",
+      value: presenter.caseDetails?.paid ? 'Paid' : 'Unpaid',
     },
   ];
 

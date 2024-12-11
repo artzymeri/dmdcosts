@@ -52,6 +52,14 @@ class MainAppRepository {
     return await this.appGateway.deleteCase(case_id);
   };
 
+  changeCaseStatus = async (case_id, status) => {
+    return await this.appGateway.changeCaseStatus(case_id, status)
+  }
+
+  changeCasePayment = async (case_id, boolean) => {
+    return await this.appGateway.changeCasePayment(case_id, boolean)
+  }
+
   getAllCases = async () => {
     return await this.appGateway.getAllCases();
   };

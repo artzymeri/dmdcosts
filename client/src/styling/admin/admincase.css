@@ -263,23 +263,3 @@
     gap: 10px;
     color: var(--no-access-order-view--color);
 }
-
-.admin-case-details-right-side-employees-involved {
-    display: flex;
-    width: 100%;
-    flex-shrink: 0;
-    padding: 15px;
-    border-radius: 15px;
-    background: var(--admin-case-details-right-side-employees-involved--background);
-    color: var(--admin-case-details-right-side-employees-involved--color);
-    flex-direction: column;
-    gap: 7.5px;
-    border: var(--admin-case-details-right-side-employees-involved--border);
-}
-
-.admin-case-details-right-side-employee-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
