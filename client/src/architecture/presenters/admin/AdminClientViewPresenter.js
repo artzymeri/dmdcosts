@@ -11,6 +11,7 @@ class AdminClientViewPresenter {
     client_details: null,
     edit_form: false,
     editable_client_details: null,
+    cases_list: [],
   };
 
   constructor() {
@@ -19,6 +20,7 @@ class AdminClientViewPresenter {
       clientDetails: computed,
       editableClientDetails: computed,
       editForm: computed,
+      client_cases: computed,
       getClientDetails: action.bound,
       switchEditForm: action.bound,
       saveEditedClientDetails: action.bound,
@@ -29,8 +31,10 @@ class AdminClientViewPresenter {
 
   getClientDetails = async (id) => {
     const response = await this.mainAppRepository.getClientDetails(id);
+    const cases_response = await this.mainAppRepository.getAllCases();
     this.vm.client_details = response?.data?.client;
     this.vm.editable_client_details = response?.data?.client;
+    this.vm.cases_list = cases_response.data;
   };
 
   switchEditForm(value) {
@@ -64,6 +68,14 @@ class AdminClientViewPresenter {
 
   get editForm() {
     return this.vm.edit_form;
+  }
+
+  get client_cases() {
+    return this.vm.cases_list.map((case_details) => {
+      if (case_details.client_id == this.clientDetails.id) {
+        return case_details;
+      }
+    })
   }
 }
 

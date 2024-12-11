@@ -8,7 +8,15 @@ const AdminClientViewContent = (props) => {
       <AdminClientViewContentLeftSide presenter={presenter} />
       <div className="admin-client-view-content-middle"></div>
       <div className="admin-client-view-content-right-side">
-        cases linked to this client displayed here
+          {
+              presenter.client_cases && presenter.client_cases.map((case_details) => {
+                  return (
+                      <div key={case_details.id}>
+                          {case_details.id}
+                      </div>
+                  )
+              })
+          }
       </div>
     </div>
   );
