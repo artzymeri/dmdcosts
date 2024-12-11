@@ -71,11 +71,9 @@ class AdminClientViewPresenter {
   }
 
   get client_cases() {
-    return this.vm.cases_list.map((case_details) => {
-      if (case_details.client_id == this.clientDetails.id) {
-        return case_details;
-      }
-    })
+    return this.vm.cases_list.filter(
+      (caseDetails) => caseDetails.client_id == this.clientDetails.id
+    );
   }
 }
 

@@ -163,7 +163,6 @@ app.post("/createcase", async (req, res) => {
     client_id,
     assignee_id,
     reference_number,
-    status,
     paid,
     served,
     last_offer_date,
@@ -192,7 +191,7 @@ app.post("/createcase", async (req, res) => {
       client_id,
       assignee_id,
       reference_number,
-      status,
+      status: "to-do",
       paid,
       served,
       last_offer_date,
@@ -315,7 +314,7 @@ app.post(`/changecasepayment:case_id`, async (req, res) => {
     const caseToUpdate = await cases_table.findOne({
       where: { id: case_id },
     });
-    console.log(boolean)
+    console.log(boolean);
     caseToUpdate.paid = boolean;
     await caseToUpdate.save();
     res.json({

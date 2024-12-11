@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import AdminClientViewContentLeftSide from "./AdminClientViewContentLeftSide";
+import AdminClientViewContentRightSide from "./AdminClientViewRightSide";
 
 const AdminClientViewContent = (props) => {
   const { presenter } = props;
@@ -7,17 +8,7 @@ const AdminClientViewContent = (props) => {
     <div className="admin-client-view-content-container">
       <AdminClientViewContentLeftSide presenter={presenter} />
       <div className="admin-client-view-content-middle"></div>
-      <div className="admin-client-view-content-right-side">
-          {
-              presenter.client_cases && presenter.client_cases.map((case_details) => {
-                  return (
-                      <div key={case_details.id}>
-                          {case_details.id}
-                      </div>
-                  )
-              })
-          }
-      </div>
+      <AdminClientViewContentRightSide presenter={presenter} />
     </div>
   );
 };

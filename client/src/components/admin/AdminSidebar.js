@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
 import { observer } from "mobx-react-lite";
+import { Button } from "@mui/material";
 
 const AdminSidebar = () => {
   const router = useRouter();
@@ -34,8 +35,10 @@ const AdminSidebar = () => {
         })}
       </div>
       <div className="admin-sidebar-logout-container">
-        <button
-          className="admin-sidebar-logout-button"
+        <Button
+          color="error"
+          variant="outlined"
+          fullWidth
           onClick={() => {
             presenter.logout().then(() => {
               router.push("/login");
@@ -43,8 +46,8 @@ const AdminSidebar = () => {
           }}
         >
           <LogoutRounded sx={{ height: "18px", width: "18px" }} />
-          Logout
-        </button>
+          <span>Logout</span>
+        </Button>
       </div>
     </div>
   );

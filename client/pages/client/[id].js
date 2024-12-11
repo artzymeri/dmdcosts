@@ -80,7 +80,7 @@ const ClientPage = () => {
             )}
             {!loading && !successfulLoad && (
               <div className="admin-client-content-container">
-                <div className="no-access-order-view">
+                <div className="no-access-client-view">
                   <WarningOutlined />
                   <span>Something went wrong!</span>
                 </div>
