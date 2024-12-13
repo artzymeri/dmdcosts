@@ -31,12 +31,24 @@ class AppGateway {
   };
 
   changeCaseStatus = async (case_id, status) => {
-    return await axios.post(`http://localhost:8080/changecasestatus${case_id}`, { status });
+    return await axios.post(
+      `http://localhost:8080/changecasestatus${case_id}`,
+      { status }
+    );
   };
 
   changeCasePayment = async (case_id, boolean) => {
-    console.log(case_id, boolean)
-    return await axios.post(`http://localhost:8080/changecasepayment${case_id}`, { boolean });
+    return await axios.post(
+      `http://localhost:8080/changecasepayment${case_id}`,
+      { boolean }
+    );
+  };
+
+  changeCaseServing = async (case_id, date) => {
+    return await axios.post(
+      `http://localhost:8080/changecaseserving${case_id}`,
+      { date }
+    );
   };
 
   getAllCases = async () => {

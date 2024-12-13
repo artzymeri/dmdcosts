@@ -263,3 +263,11 @@
     gap: 10px;
     color: var(--no-access-order-view--color);
 }
+
+.admin-case-details-right-side-last-offer-date-picker .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root {
+    height: 42px !important;
+}
+
+.admin-case-details-right-side-last-offer-date-picker :is(input)::placeholder {
+    content: "custom placeholder";
+}

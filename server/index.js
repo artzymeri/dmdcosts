@@ -144,7 +144,7 @@ app.post(`/deleteemployee:employee_id`, async (req, res) => {
     const employeeToDelete = await users_table.findOne({
       where: { id: employee_id },
     });
-    console.log(employee_id)
+    console.log(employee_id);
     await employeeToDelete.destroy();
     res.json({
       title: "success",
@@ -194,7 +194,7 @@ app.post("/createcase", async (req, res) => {
       reference_number,
       status: "to-do",
       paid,
-      served,
+      served: last_offer_date ? true : false,
       last_offer_date,
       qr_code: null,
     });
@@ -315,12 +315,40 @@ app.post(`/changecasepayment:case_id`, async (req, res) => {
     const caseToUpdate = await cases_table.findOne({
       where: { id: case_id },
     });
-    console.log(boolean);
     caseToUpdate.paid = boolean;
     await caseToUpdate.save();
     res.json({
       title: "success",
       message: "Case payment status changed successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/changecaseserving:case_id`, async (req, res) => {
+  const { case_id } = req.params;
+  const { date } = req.body;
+  console.log(date);
+  try {
+    const caseToUpdate = await cases_table.findOne({
+      where: { id: case_id },
+    });
+    if (date) {
+      caseToUpdate.served = true;
+      caseToUpdate.last_offer_date = date;
+    } else {
+      caseToUpdate.last_offer_date = null;
+      caseToUpdate.served = false;
+    }
+    await caseToUpdate.save();
+    res.json({
+      title: "success",
+      message: "Case serving status changed successfully",
     });
   } catch (e) {
     console.log(e);

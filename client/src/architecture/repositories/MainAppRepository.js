@@ -53,12 +53,17 @@ class MainAppRepository {
   };
 
   changeCaseStatus = async (case_id, status) => {
-    return await this.appGateway.changeCaseStatus(case_id, status)
-  }
+    return await this.appGateway.changeCaseStatus(case_id, status);
+  };
 
   changeCasePayment = async (case_id, boolean) => {
-    return await this.appGateway.changeCasePayment(case_id, boolean)
-  }
+    return await this.appGateway.changeCasePayment(case_id, boolean);
+  };
+
+  changeCaseServing = async (case_id, new_date) => {
+    console.log(new_date);
+    return await this.appGateway.changeCaseServing(case_id, new_date);
+  };
 
   getAllCases = async () => {
     return await this.appGateway.getAllCases();

@@ -50,6 +50,13 @@ const AdminCasesListItem = (props) => {
       >
         <span>{item?.paid ? "Paid" : "Unpaid"}</span>
       </Tooltip>
+      <Tooltip
+        placement="top-start"
+        title={item?.served ? "Served" : "Unserved"}
+        arrow
+      >
+        <span>{item?.served ? "Served" : "Unserved"}</span>
+      </Tooltip>
       <Tooltip placement="top" title="Click to delete case" arrow>
         <IconButton
           color="error"
