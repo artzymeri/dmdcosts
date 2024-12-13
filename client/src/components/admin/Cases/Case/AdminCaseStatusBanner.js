@@ -46,7 +46,7 @@ const AdminCaseStatusBanner = (props) => {
       return "Case is yet to be done!";
     }
     if (status == "to-fix") {
-      return "Case beeds to get fixed!";
+      return "Case needs to get fixed!";
     }
     if (status == "done") {
       return "Case is done!";

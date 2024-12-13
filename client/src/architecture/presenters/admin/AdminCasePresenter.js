@@ -43,19 +43,22 @@ class AdminCasePresenter {
         ],
         snackbar_boolean: false,
         snackbar_details: null,
+        deletion_confirmation_modal: false
     };
 
     constructor() {
         makeObservable(this, {
             vm: observable,
             getCaseDetailsAsAdmin: action.bound,
-            cancelOrder: action.bound,
+            deleteCase: action.bound,
+            setDeletionConfirmationModal: action.bound,
             caseDetails: computed,
             assignedEmployee: computed,
             caseClient: computed,
             setSnackbar: action.bound,
             snackbarBoolean: computed,
             snackbarDetails: computed,
+            deletionConfirmationModal: computed
         });
     }
 
@@ -70,7 +73,7 @@ class AdminCasePresenter {
         this.vm.employees_list = employees_response.data;
     };
 
-    cancelOrder = async () => {
+    deleteCase = async () => {
         const response = await this.mainAppRepository.deleteCase(this.vm.case_details?.case?.id);
         this.vm.refresh_state += 1;
         return response;
@@ -97,6 +100,10 @@ class AdminCasePresenter {
         }, 3000);
     }
 
+    setDeletionConfirmationModal(boolean) {
+        this.vm.deletion_confirmation_modal = boolean;
+    }
+
     get assignedEmployee() {
         return this.vm.employees_list.find(
             (employee) => employee.id == this.vm.case_details.case.assignee_id
@@ -119,6 +126,10 @@ class AdminCasePresenter {
 
     get snackbarDetails() {
         return this.vm.snackbar_details;
+    }
+
+    get deletionConfirmationModal() {
+        return this.vm.deletion_confirmation_modal;
     }
 }
 

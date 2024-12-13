@@ -144,6 +144,7 @@ app.post(`/deleteemployee:employee_id`, async (req, res) => {
     const employeeToDelete = await users_table.findOne({
       where: { id: employee_id },
     });
+    console.log(employee_id)
     await employeeToDelete.destroy();
     res.json({
       title: "success",

@@ -48,7 +48,7 @@ const AdminEmployeesHeader = ({ presenter }) => {
         onClick={() => {
           presenter.handleDeleteEmployeesModal(true);
         }}
-        disabled={presenter?.bulkDeletionButtonDisabled}
+        disabled={presenter?.deleteButtonDisabled}
       >
         <DeleteOutlineRounded />
       </Button>
