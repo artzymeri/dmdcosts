@@ -70,8 +70,8 @@ class AdminCasePresenter {
         this.vm.employees_list = employees_response.data;
     };
 
-    cancelOrder = async (case_id) => {
-        const response = await this.mainAppRepository.cancelCase(case_id);
+    cancelOrder = async () => {
+        const response = await this.mainAppRepository.deleteCase(this.vm.case_details?.case?.id);
         this.vm.refresh_state += 1;
         return response;
     };
