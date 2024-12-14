@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    rates_config: {
-      type: DataTypes.TEXT("long"), // it is going to be an object parsed
+    initials: {
+      type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,

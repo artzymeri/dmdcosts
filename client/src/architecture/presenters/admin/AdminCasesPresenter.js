@@ -100,7 +100,9 @@ class AdminCasesPresenter {
         return {
           ...item,
           checked: false,
+          reference_number: `${client?.initials}.${item?.type}.${item?.id}`,
           client_business_name: client?.business_name || "Unknown",
+          client_initials: client?.initials,
           assignee_name_surname: employee
             ? employee.name_surname
             : "Unassigned",

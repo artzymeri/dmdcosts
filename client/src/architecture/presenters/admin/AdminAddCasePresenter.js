@@ -12,11 +12,16 @@ class AdminAddCasePresenter {
     newCaseObject: {
       client_id: null,
       assignee_id: null,
-      reference_number: null,
-      status: "to-do",
-      paid: false,
-      served: false,
-      last_offer_date: null,
+      claimant_name: null,
+      client_reference_number: null,
+      defendant_name: null,
+      defendant_reference_number: null,
+      defendant_email: null,
+      rate_per_hour: null,
+      status: "to-draft",
+      type: null,
+      negotiable: false,
+      date_instructed: null,
     },
     clients_list: [],
     employees_list: [],
@@ -31,6 +36,7 @@ class AdminAddCasePresenter {
       handleClientChange: action.bound,
       handleDateChange: action.bound,
       getClientsEmployeesList: action.bound,
+      handleNegotiableChange: action.bound,
       saveNewCase: action.bound,
       clientsList: computed,
       setSnackbar: action.bound,
@@ -58,15 +64,23 @@ class AdminAddCasePresenter {
     this.vm.newCaseObject.assignee_id = event?.target?.value;
   };
 
-  handleDateChange = (value) => {
-    this.vm.newCaseObject.last_offer_date = value;
+  handleCaseTypeChange = (event) => {
+    this.vm.newCaseObject.type = event?.target?.value;
   };
+
+  handleDateChange = (value) => {
+    this.vm.newCaseObject.date_instructed = value;
+  };
+
+  handleNegotiableChange = (event) => {
+    this.vm.newCaseObject.negotiable = event.target.checked
+  }
 
   saveNewCase = async () => {
     let newCase = {
       ...this.vm.newCaseObject,
-      last_offer_date: this.vm?.newCaseObject?.last_offer_date
-        ? this.vm.newCaseObject.last_offer_date.toDate()
+      date_instructed: this.vm?.newCaseObject?.date_instructed
+        ? this.vm.newCaseObject.date_instructed.toDate()
         : null,
     };
     const response = await this.mainAppRepository.createCase(newCase);
@@ -74,11 +88,16 @@ class AdminAddCasePresenter {
       this.vm.newCaseObject = {
         client_id: null,
         assignee_id: null,
-        reference_number: null,
-        status: null,
-        paid: false,
-        served: false,
-        last_offer_date: null,
+        claimant_name: null,
+        client_reference_number: null,
+        defendant_name: null,
+        defendant_reference_number: null,
+        defendant_email: null,
+        rate_per_hour: null,
+        status: "to-draft",
+        type: null,
+        negotiable: false,
+        date_instructed: null,
       };
     }
     return response;

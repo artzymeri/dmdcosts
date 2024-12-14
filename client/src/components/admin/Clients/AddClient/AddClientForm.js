@@ -32,16 +32,15 @@ const AddClientForm = (props) => {
         focused={presenter.vm?.newClientObject?.email_address ? true : false}
       />
       <TextField
-        label="Price Per Hour"
-        type="number"
+        label="Client Firm Initials"
         onChange={(e) => {
-          presenter.handleChangeRatesConfig("per_hour_price", e?.target?.value);
+            presenter.handleChangeValues("initials", e?.target?.value);
         }}
         value={
-          presenter.vm?.newClientObject?.rates_config?.per_hour_price || ""
+          presenter.vm?.newClientObject?.initials || ""
         }
         focused={
-          presenter.vm?.newClientObject?.rates_config?.per_hour_price
+          presenter.vm?.newClientObject?.initials
             ? true
             : false
         }

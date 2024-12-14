@@ -14,7 +14,42 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    reference_number: {
+    claimant_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    client_reference_number: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    defendant_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    defendant_reference_number: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    defendant_email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    rate_per_hour: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
@@ -28,18 +63,32 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    paid: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: false,
-    },
-    served: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: false,
-    },
-    last_offer_date: {
+    type: {
       type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    negotiable: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
+    pod_checked: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
+    date_instructed: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    offers: {
+      type: DataTypes.TEXT("long"), // it is going to be an image base64 format
       allowNull: true,
       validate: {
         notEmpty: false,

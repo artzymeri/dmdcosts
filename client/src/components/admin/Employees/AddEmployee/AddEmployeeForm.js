@@ -106,15 +106,15 @@ const AddEmployeeForm = (props) => {
             }
           />
           <TextField
-            label="Bank Name"
+            label="Sort Code"
             onChange={(e) => {
-              presenter.handleChangeBankDetails("bank_name", e?.target?.value);
+              presenter.handleChangeBankDetails("sort_code", e?.target?.value);
             }}
             value={
-              presenter.vm?.newEmployeeObject?.bank_details?.bank_name || ""
+              presenter.vm?.newEmployeeObject?.bank_details?.sort_code || ""
             }
             focused={
-              presenter.vm?.newEmployeeObject?.bank_details?.bank_name
+              presenter.vm?.newEmployeeObject?.bank_details?.sort_code
                 ? true
                 : false
             }

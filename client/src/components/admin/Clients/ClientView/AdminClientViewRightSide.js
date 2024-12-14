@@ -8,37 +8,73 @@ const AdminClientViewContentRightSide = (props) => {
   const router = useRouter();
 
   const checkProgressIcon = (status) => {
-    if (status == "to-do") {
+    if (status == "to-draft") {
       return <MovingRounded sx={{ width: "10px", height: "10px" }} />;
     }
-    if (status == "to-fix") {
+    if (status == "drafted") {
       return <CloseRounded sx={{ width: "10px", height: "10px" }} />;
     }
-    if (status == "done") {
+    if (status == "to-amend") {
+      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+    }
+    if (status == "checked") {
+      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+    }
+    if (status == "served") {
+      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+    }
+    if (status == "settled") {
+      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+    }
+    if (status == "paid") {
       return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
     }
   };
 
   const checkProgressClass = (status) => {
-    if (status == "to-do") {
+    if (status == "to-draft") {
       return "admin-case-status-banner-to-do";
     }
-    if (status == "to-fix") {
+    if (status == "drafted") {
       return "admin-case-status-banner-to-fix";
     }
-    if (status == "done") {
+    if (status == "to-amend") {
+      return "admin-case-status-banner-done";
+    }
+    if (status == "checked") {
+      return "admin-case-status-banner-done";
+    }
+    if (status == "served") {
+      return "admin-case-status-banner-done";
+    }
+    if (status == "settled") {
+      return "admin-case-status-banner-done";
+    }
+    if (status == "paid") {
       return "admin-case-status-banner-done";
     }
   };
 
   const checkProgressContent = (status) => {
-    if (status == "to-do") {
+    if (status == "to-draft") {
       return "Case is yet to be done!";
     }
-    if (status == "to-fix") {
+    if (status == "drafted") {
       return "Case needs to get fixed!";
     }
-    if (status == "done") {
+    if (status == "to-amend") {
+      return "Case is done!";
+    }
+    if (status == "checked") {
+      return "Case is done!";
+    }
+    if (status == "served") {
+      return "Case is done!";
+    }
+    if (status == "settled") {
+      return "Case is done!";
+    }
+    if (status == "paid") {
       return "Case is done!";
     }
   };

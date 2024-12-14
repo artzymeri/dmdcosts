@@ -12,9 +12,7 @@ class AdminAddClientPresenter {
             business_name: null,
             address: null,
             email_address: null,
-            rates_config: {
-                per_hour_price: null,
-            },
+            initials: null
         },
         snackbar_boolean: false,
         snackbar_details: null,
@@ -24,7 +22,6 @@ class AdminAddClientPresenter {
         makeObservable(this, {
             vm: observable,
             handleChangeValues: action.bound,
-            handleChangeRatesConfig: action.bound,
             saveNewClient: action.bound,
             setSnackbar: action.bound,
             snackbarBoolean: computed,
@@ -36,10 +33,6 @@ class AdminAddClientPresenter {
         this.vm.newClientObject[target] = value;
     };
 
-    handleChangeRatesConfig = (target, value) => {
-        this.vm.newClientObject.rates_config[target] = parseInt(value);
-    };
-
     saveNewClient = async () => {
         const response = await this.mainAppRepository.addClient(
             this.vm.newClientObject
@@ -49,9 +42,7 @@ class AdminAddClientPresenter {
                 business_name: null,
                 address: null,
                 email_address: null,
-                rates_config: {
-                    per_hour_price: null,
-                },
+                initials: null
             };
         }
         return response;

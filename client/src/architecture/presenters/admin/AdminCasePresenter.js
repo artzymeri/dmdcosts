@@ -15,29 +15,49 @@ class AdminCasePresenter {
     status_options: [
       {
         id: 1,
-        title: "To Get Done",
-        value: "to-do",
+        title: "To Draft",
+        value: "to-draft",
       },
       {
         id: 2,
-        title: "To Get Fixed",
-        value: "to-fix",
+        title: "Mark as To Amend",
+        value: "to-amend",
       },
       {
         id: 3,
-        title: "Mark as Done",
+        title: "Mark as Drafted",
+        value: "drafted",
+      },
+      {
+        id: 4,
+        title: "Mark as Checked",
+        value: "checked",
+      },
+      {
+        id: 3,
+        title: "Mark as Served",
+        value: "served",
+      },
+      {
+        id: 3,
+        title: "Mark as Settled",
+        value: "settled",
+      },
+      {
+        id: 3,
+        title: "Mark as Paid",
         value: "done",
       },
     ],
-    payment_options: [
+    pod_options: [
       {
         id: 1,
-        title: "Mark as Paid",
+        title: "POD Checked",
         value: true,
       },
       {
         id: 2,
-        title: "Mark as Unpaid",
+        title: "POD Unchecked",
         value: false,
       },
     ],

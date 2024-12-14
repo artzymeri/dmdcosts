@@ -54,10 +54,6 @@ class AdminClientViewPresenter {
     this.vm.editable_client_details[target] = value;
   };
 
-  changeEditableClientDetailsRatesConfig = (target, value) => {
-    this.vm.editable_client_details.rates_config[target] = value;
-  };
-
   get clientDetails() {
     return this.vm.client_details;
   }

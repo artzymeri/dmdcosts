@@ -6,49 +6,97 @@ const AdminCaseStatusBanner = (props) => {
   const { status } = props;
 
   const checkProgressText = (status) => {
-    if (status == "to-do") {
-      return "To Do";
+    if (status == "to-draft") {
+      return "To Draft";
     }
-    if (status == "to-fix") {
-      return "To Fix";
+    if (status == "drafted") {
+      return "Drafted";
     }
-    if (status == "done") {
-      return "Done";
+    if (status == "to-amend") {
+      return "To Amend";
+    }
+    if (status == "checked") {
+      return "Checked";
+    }
+    if (status == "served") {
+      return "Served";
+    }
+    if (status == "settled") {
+      return "Settled";
+    }
+    if (status == "paid") {
+      return "Paid";
     }
   };
 
   const checkProgressIcon = (status) => {
-    if (status == "to-do") {
+    if (status == "to-draft") {
       return <MovingRounded />;
     }
-    if (status == "to-fix") {
+    if (status == "drafted") {
       return <Close />;
     }
-    if (status == "done") {
+    if (status == "to-amend") {
+      return <Done />;
+    }
+    if (status == "checked") {
+      return <Done />;
+    }
+    if (status == "served") {
+      return <Done />;
+    }
+    if (status == "settled") {
+      return <Done />;
+    }
+    if (status == "paid") {
       return <Done />;
     }
   };
 
   const checkProgressClass = (status) => {
-    if (status == "to-do") {
+    if (status == "to-draft") {
       return "admin-case-status-banner admin-case-status-banner-to-do";
     }
-    if (status == "to-fix") {
+    if (status == "drafted") {
       return "admin-case-status-banner admin-case-status-banner-to-fix";
     }
-    if (status == "done") {
+    if (status == "checked") {
+      return "admin-case-status-banner admin-case-status-banner-done";
+    }
+    if (status == "to-amend") {
+      return "admin-case-status-banner admin-case-status-banner-done";
+    }
+    if (status == "served") {
+      return "admin-case-status-banner admin-case-status-banner-done";
+    }
+    if (status == "settled") {
+      return "admin-case-status-banner admin-case-status-banner-done";
+    }
+    if (status == "paid") {
       return "admin-case-status-banner admin-case-status-banner-done";
     }
   };
 
   const checkProgressContent = (status) => {
-    if (status == "to-do") {
+    if (status == "to-draft") {
       return "Case is yet to be done!";
     }
-    if (status == "to-fix") {
+    if (status == "drafted") {
       return "Case needs to get fixed!";
     }
-    if (status == "done") {
+    if (status == "to-amend") {
+      return "Case is done!";
+    }
+    if (status == "checked") {
+      return "Case is done!";
+    }
+    if (status == "served") {
+      return "Case is done!";
+    }
+    if (status == "settled") {
+      return "Case is done!";
+    }
+    if (status == "paid") {
       return "Case is done!";
     }
   };

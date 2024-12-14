@@ -17,7 +17,7 @@ class AdminAddEmployeePresenter {
       bank_details: {
         account_holder: null,
         account_number: null,
-        bank_name: null,
+        sort_code: null,
       },
     },
     snackbar_boolean: false,
@@ -62,7 +62,7 @@ class AdminAddEmployeePresenter {
         bank_details: {
           account_holder: null,
           account_number: null,
-          bank_name: null,
+          sort_code: null,
         },
       };
     }

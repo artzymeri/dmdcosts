@@ -87,20 +87,20 @@ const AdminClientViewContentLeftSide = (props) => {
             sx={{ width: "250px" }}
             variant="standard"
             value={
-              presenter?.editableClientDetails?.rates_config?.per_hour_price
+              presenter?.editableClientDetails?.initials
             }
             placeholder="Per hour rate"
             type="number"
             onChange={(e) => {
-              presenter.changeEditableClientDetailsRatesConfig(
-                "per_hour_price",
-                e?.target?.value
-              );
+                presenter.changeEditableClientDetails(
+                    "initials",
+                    e?.target?.value
+                );
             }}
           />
         ) : (
           <span className="admin-client-view-content-left-side-row-value">
-            {`£${presenter?.clientDetails?.rates_config?.per_hour_price}`}
+            {`£${presenter?.clientDetails?.initials}`}
           </span>
         )}
       </div>
