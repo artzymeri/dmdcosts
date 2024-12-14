@@ -21,7 +21,7 @@ const AdminCaseTitle = ({ presenter }) => {
       </Button>
       <div className="admin-case-title-container">
         <span>Reference Number</span>
-        <span className="admin-case-id-banner">{`#${presenter.caseDetails?.id}`}</span>
+        <span className="admin-case-id-banner">{`#${presenter.caseDetails?.client_initials}.${presenter.caseDetails?.type}.${presenter.caseDetails?.id}`}</span>
       </div>
     </div>
   );

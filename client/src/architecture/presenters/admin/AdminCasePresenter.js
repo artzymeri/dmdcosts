@@ -46,7 +46,7 @@ class AdminCasePresenter {
       {
         id: 3,
         title: "Mark as Paid",
-        value: "done",
+        value: "paid",
       },
     ],
     pod_options: [
@@ -165,7 +165,7 @@ class AdminCasePresenter {
   }
 
   get caseDetails() {
-    return this.vm.case_details?.case;
+    return {...this.vm.case_details?.case, client_initials: this.caseClient?.initials}
   }
 
   get snackbarBoolean() {

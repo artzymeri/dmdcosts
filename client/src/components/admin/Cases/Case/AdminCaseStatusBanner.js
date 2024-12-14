@@ -97,7 +97,7 @@ const AdminCaseStatusBanner = (props) => {
       return "Case is done!";
     }
     if (status == "paid") {
-      return "Case is done!";
+      return "Case is paid!";
     }
   };
 

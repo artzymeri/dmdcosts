@@ -84,7 +84,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
             generatePDF(presenter?.caseDetails);
           }}
         >
-          Download Invoice
+          Create Invoice
         </Button>
       </div>
       <div
@@ -92,7 +92,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
           display: "grid",
           gap: "10px",
           width: "100%",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: "1fr",
         }}
       >
         <FormControl fullWidth size="small">
@@ -124,79 +124,6 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
               })}
           </Select>
         </FormControl>
-        <Tooltip title="Click to change payment status" arrow>
-          <Button
-            size="large"
-            fullWidth
-            variant="contained"
-            color={presenter.caseDetails?.paid ? "error" : "success"}
-            onClick={() => {
-              presenter
-                .handleCasePaymentChange(!presenter.caseDetails.paid)
-                .then((res) => {
-                  presenter.setSnackbar(true, res.data);
-                });
-            }}
-          >
-            {presenter.caseDetails?.paid ? "Mark as Unpaid" : "Mark as Paid"}
-          </Button>
-        </Tooltip>
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gap: "10px",
-          width: "100%",
-          gridTemplateColumns: "1fr 1fr",
-        }}
-      >
-        {!presenter?.caseDetails?.served && (
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              className="admin-case-details-right-side-last-offer-date-picker"
-              sx={{ width: "100%", height: "42px" }}
-              value={presenter.vm?.case_details?.last_offer_date}
-              slotProps={{
-                field: {
-                  clearable: true,
-                  onClear: () => {
-                    presenter.handleLastOfferDateChange(null);
-                  },
-                },
-                textField: {
-                  helperText: "Change Last Date Offer",
-                },
-              }}
-              format={"DD/MM/YYYY"}
-              onChange={(newValue) => {
-                presenter.handleLastOfferDateChange(newValue);
-              }}
-            />
-          </LocalizationProvider>
-        )}
-        <Tooltip title="Click to change serving status" arrow>
-          <Button
-            size="large"
-            fullWidth
-            style={{
-              gridColumn: presenter?.caseDetails?.served ? "span 2" : undefined,
-            }}
-            variant="contained"
-            color={presenter.caseDetails?.served ? "error" : "success"}
-            disabled={presenter.servingButtonDisabled}
-            onClick={() => {
-              presenter
-                .handleCaseServingChange(!presenter.caseDetails.served)
-                .then((res) => {
-                  presenter.setSnackbar(true, res.data);
-                });
-            }}
-          >
-            {presenter.caseDetails?.served
-              ? "Mark as Unserved"
-              : "Mark as Served"}
-          </Button>
-        </Tooltip>
       </div>
     </div>
   );
