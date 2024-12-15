@@ -92,26 +92,32 @@ class AdminClientsPresenter {
   };
 
   get allClients() {
-    return this.vm.all_clients
-      .map((client) => ({
-        ...client,
-        checked: false,
-      }))
-      .filter((client) => {
-        const clientValue =
-          client[this.vm.sortingOption]?.toString().toLowerCase() || "";
-        return clientValue.includes(this.vm.searchQuery);
-      })
-      .sort((a, b) => {
-        const aValue = a[this.vm.sortingOption]?.toString().toLowerCase() || "";
-        const bValue = b[this.vm.sortingOption]?.toString().toLowerCase() || "";
-        if (this.vm.sortingMode === "a-z") {
-          return aValue.localeCompare(bValue);
-        } else if (this.vm.sortingMode === "z-a") {
-          return bValue.localeCompare(aValue);
-        }
-        return 0;
-      });
+    if (this.vm.all_clients.length > 0) {
+      return this.vm.all_clients
+        .map((client) => ({
+          ...client,
+          checked: false,
+        }))
+        .filter((client) => {
+          const clientValue =
+            client[this.vm.sortingOption]?.toString().toLowerCase() || "";
+          return clientValue.includes(this.vm.searchQuery);
+        })
+        .sort((a, b) => {
+          const aValue =
+            a[this.vm.sortingOption]?.toString().toLowerCase() || "";
+          const bValue =
+            b[this.vm.sortingOption]?.toString().toLowerCase() || "";
+          if (this.vm.sortingMode === "a-z") {
+            return aValue.localeCompare(bValue);
+          } else if (this.vm.sortingMode === "z-a") {
+            return bValue.localeCompare(aValue);
+          }
+          return 0;
+        });
+    } else {
+      return [];
+    }
   }
 
   get deletionModalOpen() {
@@ -119,7 +125,11 @@ class AdminClientsPresenter {
   }
 
   get deleteButtonDisabled() {
-    return !this.vm.all_clients.some((client) => client.checked);
+    if (this.vm.all_clients.length > 0) {
+      return !this.vm.all_clients.some((client) => client.checked);
+    } else {
+      return true;
+    }
   }
 
   get singleToDeleteClient() {

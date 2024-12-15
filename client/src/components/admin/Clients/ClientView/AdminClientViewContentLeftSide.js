@@ -79,28 +79,25 @@ const AdminClientViewContentLeftSide = (props) => {
       </div>
       <div className="admin-client-view-content-left-side-row">
         <span className="admin-client-view-content-left-side-row-label">
-          Per hour rate:
+          Initials:
         </span>
         {presenter?.editForm ? (
           <TextField
             size="small"
             sx={{ width: "250px" }}
             variant="standard"
-            value={
-              presenter?.editableClientDetails?.initials
-            }
-            placeholder="Per hour rate"
-            type="number"
+            value={presenter?.editableClientDetails?.initials}
+            placeholder="Initials"
             onChange={(e) => {
-                presenter.changeEditableClientDetails(
-                    "initials",
-                    e?.target?.value
-                );
+              presenter.changeEditableClientDetails(
+                "initials",
+                e?.target?.value
+              );
             }}
           />
         ) : (
           <span className="admin-client-view-content-left-side-row-value">
-            {`£${presenter?.clientDetails?.initials}`}
+            {presenter?.clientDetails?.initials}
           </span>
         )}
       </div>

@@ -64,6 +64,11 @@ class AdminCasePresenter {
     snackbar_boolean: false,
     snackbar_details: null,
     deletion_confirmation_modal: false,
+    new_offer_value: null,
+    new_offer_date: null,
+    add_offer_modal_open: false,
+    type_of_offer_modal: null,
+    offer_to_edit_id: null,
   };
 
   constructor() {
@@ -79,7 +84,9 @@ class AdminCasePresenter {
       snackbarBoolean: computed,
       snackbarDetails: computed,
       deletionConfirmationModal: computed,
-      servingButtonDisabled: computed,
+      caseOffers: computed,
+      eligbleToCreateOffer: computed,
+      addOfferModalOpen: computed,
     });
   }
 
@@ -102,38 +109,22 @@ class AdminCasePresenter {
     return response;
   };
 
-  handleLastOfferDateChange = (value) => {
+  handleNewOfferDateChange = (value) => {
     if (value) {
-      this.vm.case_details.case.last_offer_date = value.toDate();
+      this.vm.new_offer_date = value;
     } else {
       console.warn("Something is wrong with the date!");
     }
+  };
+
+  handleNewOfferValueChange = (event) => {
+    this.vm.new_offer_value = event.target.value;
   };
 
   handleCaseStatusChange = async (event) => {
     const response = await this.mainAppRepository.changeCaseStatus(
       this.vm.case_details?.case?.id,
       event.target.value
-    );
-    this.vm.refresh_state += 1;
-    return response;
-  };
-
-  handleCasePaymentChange = async (boolean) => {
-    const response = await this.mainAppRepository.changeCasePayment(
-      this.vm.case_details?.case?.id,
-      boolean
-    );
-    this.vm.refresh_state += 1;
-    return response;
-  };
-
-  handleCaseServingChange = async () => {
-    const response = await this.mainAppRepository.changeCaseServing(
-      this.vm.case_details?.case?.id,
-      this.vm.case_details?.case?.served
-        ? null
-        : this.vm.case_details?.case?.last_offer_date
     );
     this.vm.refresh_state += 1;
     return response;
@@ -152,6 +143,48 @@ class AdminCasePresenter {
     this.vm.deletion_confirmation_modal = boolean;
   }
 
+  setAddOfferModal(boolean, type, offer_id) {
+    if (boolean == false) {
+      this.vm.offer_to_edit_id = null;
+      this.vm.type_of_offer_modal = null;
+      this.vm.new_offer_date = null;
+      this.vm.new_offer_value = null;
+      this.vm.add_offer_modal_open = boolean;
+    }
+    this.vm.offer_to_edit_id = offer_id;
+    this.vm.type_of_offer_modal = type;
+    this.vm.add_offer_modal_open = boolean;
+  }
+
+  confirmNewOffer = async () => {
+    if (this.vm.new_offer_date && this.vm.new_offer_value) {
+      const response = await this.mainAppRepository.addNewCaseOffer(
+        this.caseDetails?.id,
+        this.vm.new_offer_date.toDate(),
+        this.vm.new_offer_value,
+        this.vm.type_of_offer_modal,
+        this.vm.offer_to_edit_id
+      );
+      this.vm.refresh_state += 1;
+      return response;
+    } else {
+      this.setSnackbar(true, {
+        title: "error",
+        message: "You must fill both values before confirming!",
+      });
+    }
+  };
+
+  deleteOffer = async (offer_id) => {
+    const response = await this.mainAppRepository.deleteCaseOffer(
+      this.caseDetails?.id,
+      offer_id
+    );
+    this.setSnackbar(true, response.data);
+    this.vm.refresh_state += 1;
+    return response;
+  };
+
   get assignedEmployee() {
     return this.vm.employees_list.find(
       (employee) => employee.id == this.vm.case_details.case.assignee_id
@@ -165,7 +198,10 @@ class AdminCasePresenter {
   }
 
   get caseDetails() {
-    return {...this.vm.case_details?.case, client_initials: this.caseClient?.initials}
+    return {
+      ...this.vm.case_details?.case,
+      client_initials: this.caseClient?.initials,
+    };
   }
 
   get snackbarBoolean() {
@@ -180,8 +216,30 @@ class AdminCasePresenter {
     return this.vm.deletion_confirmation_modal;
   }
 
-  get servingButtonDisabled() {
-    return !this.vm.case_details?.case?.last_offer_date;
+  get caseOffers() {
+    if (this.vm.case_details.case.offers) {
+      return JSON.parse(this.vm.case_details.case.offers);
+    } else {
+      return [];
+    }
+  }
+
+  get eligbleToCreateOffer() {
+    if (
+      this.caseDetails?.status == "checked" ||
+      this.caseDetails?.status == "served"
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  get addOfferModalOpen() {
+    return this.vm.add_offer_modal_open;
+  }
+
+  get typeOfOfferModal() {
+    return this.vm.type_of_offer_modal;
   }
 }
 

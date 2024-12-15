@@ -271,3 +271,55 @@
 .admin-case-details-right-side-last-offer-date-picker :is(input)::placeholder {
     content: "custom placeholder";
 }
+
+.admin-case-details-negotiation-details-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    border: 1px solid lightgray;
+    overflow-y: auto;
+}
+
+.admin-case-details-negotiation-details-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid lightgray;
+    flex-shrink: 0;
+}
+
+.admin-case-details-negotiation-details-no-offers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.admin-case-details-offers-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.admin-case-details-negotiation-offer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 40px;
+    gap: 10px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.33);
+    flex-shrink: 0;
+    cursor: pointer;
+}

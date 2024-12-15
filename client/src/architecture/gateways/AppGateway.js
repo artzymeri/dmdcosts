@@ -37,18 +37,26 @@ class AppGateway {
     );
   };
 
-  changeCasePayment = async (case_id, boolean) => {
-    return await axios.post(
-      `http://localhost:8080/changecasepayment${case_id}`,
-      { boolean }
-    );
+  addNewCaseOffer = async (
+    case_id,
+    new_offer_date,
+    new_offer_value,
+    type,
+    offer_id
+  ) => {
+    return await axios.post(`http://localhost:8080/addnewcaseoffer${case_id}`, {
+      new_offer_date,
+      new_offer_value,
+      type,
+      offer_id,
+    });
   };
 
-  changeCaseServing = async (case_id, date) => {
-    return await axios.post(
-      `http://localhost:8080/changecaseserving${case_id}`,
-      { date }
-    );
+  deleteCaseOffer = async (case_id, offer_id) => {
+    console.log(case_id, offer_id);
+    return await axios.post(`http://localhost:8080/delete-case-offer${case_id}`, {
+      offer_id,
+    });
   };
 
   getAllCases = async () => {

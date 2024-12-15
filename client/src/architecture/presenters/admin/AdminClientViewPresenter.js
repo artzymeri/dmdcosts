@@ -25,7 +25,6 @@ class AdminClientViewPresenter {
       switchEditForm: action.bound,
       saveEditedClientDetails: action.bound,
       changeEditableClientDetails: action.bound,
-      changeEditableClientDetailsRatesConfig: action.bound,
     });
   }
 

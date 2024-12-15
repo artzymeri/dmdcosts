@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Button, Checkbox, IconButton, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
+import { DeleteOutlineRounded } from "@mui/icons-material";
 
 const AdminClientsListItem = (props) => {
   const { client, presenter } = props;
@@ -29,17 +30,16 @@ const AdminClientsListItem = (props) => {
       <Tooltip placement="top-start" title={client?.email_address} arrow>
         <span>{client?.email_address}</span>
       </Tooltip>
-      <Tooltip placement="top" title="Click to delete client" arrow>
-        <Button
-          variant="outlined"
+      <Tooltip placement="top" title="Click to delete case" arrow>
+        <IconButton
           color="error"
           onClick={(e) => {
             e.stopPropagation();
             presenter.handleSingleDeletionClientsModal(client?.id, true);
           }}
         >
-          Delete
-        </Button>
+          <DeleteOutlineRounded />
+        </IconButton>
       </Tooltip>
     </div>
   );
