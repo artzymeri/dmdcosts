@@ -1,4 +1,13 @@
-import { Close, Done, MovingRounded } from "@mui/icons-material";
+import {
+  Close,
+  CurrencyPound,
+  Description,
+  Done,
+  DoneAll,
+  DriveFileRenameOutline,
+  MovingRounded,
+  WavingHand,
+} from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import { observer } from "mobx-react-lite";
 
@@ -34,67 +43,67 @@ const AdminCaseStatusBanner = (props) => {
       return <MovingRounded />;
     }
     if (status == "drafted") {
-      return <Close />;
+      return <Description />;
     }
     if (status == "to-amend") {
-      return <Done />;
+      return <DriveFileRenameOutline />;
     }
     if (status == "checked") {
       return <Done />;
     }
     if (status == "served") {
-      return <Done />;
+      return <WavingHand />;
     }
     if (status == "settled") {
-      return <Done />;
+      return <CurrencyPound />;
     }
     if (status == "paid") {
-      return <Done />;
+      return <DoneAll />;
     }
   };
 
   const checkProgressClass = (status) => {
     if (status == "to-draft") {
-      return "admin-case-status-banner admin-case-status-banner-to-do";
+      return "admin-case-status-banner admin-case-status-banner-to-draft";
     }
     if (status == "drafted") {
-      return "admin-case-status-banner admin-case-status-banner-to-fix";
+      return "admin-case-status-banner admin-case-status-banner-drafted";
     }
     if (status == "checked") {
-      return "admin-case-status-banner admin-case-status-banner-done";
+      return "admin-case-status-banner admin-case-status-banner-checked";
     }
     if (status == "to-amend") {
-      return "admin-case-status-banner admin-case-status-banner-done";
+      return "admin-case-status-banner admin-case-status-banner-to-amend";
     }
     if (status == "served") {
-      return "admin-case-status-banner admin-case-status-banner-done";
+      return "admin-case-status-banner admin-case-status-banner-served";
     }
     if (status == "settled") {
-      return "admin-case-status-banner admin-case-status-banner-done";
+      return "admin-case-status-banner admin-case-status-banner-served";
     }
     if (status == "paid") {
-      return "admin-case-status-banner admin-case-status-banner-done";
+      return "admin-case-status-banner admin-case-status-banner-paid";
     }
   };
 
   const checkProgressContent = (status) => {
     if (status == "to-draft") {
-      return "Case is yet to be done!";
+      return "Case is yet to be drafted!";
     }
     if (status == "drafted") {
-      return "Case needs to get fixed!";
+      return "Case is drafted!";
     }
     if (status == "to-amend") {
-      return "Case is done!";
+      return "Case needs to amend!";
     }
     if (status == "checked") {
-      return "Case is done!";
+      return "Case is checked!";
     }
     if (status == "served") {
-      return "Case is done!";
+      return "Case is served!";
     }
     if (status == "settled") {
-      return "Case is done!";
+      return "Case is settled!";
     }
     if (status == "paid") {
       return "Case is paid!";

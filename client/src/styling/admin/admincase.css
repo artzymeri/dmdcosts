@@ -19,14 +19,23 @@
     --admin-case-details-middle--border-left: 1px dashed rgba(47, 79, 79, 0.33);
     --admin-case-details-left-side-title-after--background: rgba(47, 79, 79, 0.33);
     --admin-case-details-right-side-qr-code-container--border: 1px solid lightgray;
-    --admin-case-status-banner-to-do--border: 1px dashed lightgray;
-    --admin-case-status-banner-to-do--color: gray;
-    --admin-case-status-banner-to-fix--border: 1px dashed red;
-    --admin-case-status-banner-to-fix--color: darkslategray;
-    --admin-case-status-banner-to-fix--background: rgba(255, 69, 0, 0.25);
-    --admin-case-status-banner-done--border: 1px dashed var(--dmd-costs--background-color);
-    --admin-case-status-banner-done--color: black;
-    --admin-case-status-banner-done--background: #00491e77;
+    --admin-case-status-banner-to-draft--border: 1px dashed lightgray;
+    --admin-case-status-banner-to-draft--color: gray;
+    --admin-case-status-banner-drafted--border: 1px dashed red;
+    --admin-case-status-banner-drafted--color: darkslategray;
+    --admin-case-status-banner-drafted--background: rgba(255, 69, 0, 0.25);
+    --admin-case-status-banner-checked--border: 1px dashed green;
+    --admin-case-status-banner-checked--color: green;
+    --admin-case-status-banner-checked--background: rgba(0, 128, 0, 0.25);
+    --admin-case-status-banner-to-amend--border: 1px dashed lightblue;
+    --admin-case-status-banner-to-amend--color: rgba(0, 0, 255, 0.5);
+    --admin-case-status-banner-to-amend--background: rgba(173, 216, 230, 0.25);
+    --admin-case-status-banner-served--border: 1px dashed green;
+    --admin-case-status-banner-served--color: green;
+    --admin-case-status-banner-served--background: rgba(0, 128, 0, 0.25);
+    --admin-case-status-banner-paid--border: 1px dashed var(--dmd-costs--background-color);
+    --admin-case-status-banner-paid--color: white;
+    --admin-case-status-banner-paid--background: #00491e77;
     --no-access-order-view--color: darkslategray;
     --admin-case-details-right-side-employees-involved--background: whitesmoke;
     --admin-case-details-right-side-employees-involved--color: darkslategray;
@@ -237,21 +246,39 @@
     gap: 8px;
 }
 
-.admin-case-status-banner-to-do {
-    border: var(--admin-case-status-banner-to-do--border);
-    color: var(--admin-case-status-banner-to-do--color);
+.admin-case-status-banner-to-draft {
+    border: var(--admin-case-status-banner-to-draft--border);
+    color: var(--admin-case-status-banner-to-draft--color);
 } 
 
-.admin-case-status-banner-to-fix {
-    border: var(--admin-case-status-banner-to-fix--border);
-    color: var(--admin-case-status-banner-to-fix--color);
-    background: var(--admin-case-status-banner-to-fix--background);
+.admin-case-status-banner-drafted {
+    border: var(--admin-case-status-banner-drafted--border);
+    color: var(--admin-case-status-banner-drafted--color);
+    background: var(--admin-case-status-banner-drafted--background);
 }
 
-.admin-case-status-banner-done {
-    border: var(--admin-case-status-banner-done--border);
-    color: var(--admin-case-status-banner-done--color);
-    background: var(--admin-case-status-banner-done--background);
+.admin-case-status-banner-checked {
+    border: var(--admin-case-status-banner-checked--border);
+    color: var(--admin-case-status-banner-checked--color);
+    background: var(--admin-case-status-banner-checked--background);
+}
+
+.admin-case-status-banner-to-amend {
+    border: var(--admin-case-status-banner-to-amend--border);
+    color: var(--admin-case-status-banner-to-amend--color);
+    background: var(--admin-case-status-banner-to-amend--background);
+}
+
+.admin-case-status-banner-served {
+    border: var(--admin-case-status-banner-served--border);
+    color: var(--admin-case-status-banner-served--color);
+    background: var(--admin-case-status-banner-served--background);
+}
+
+.admin-case-status-banner-paid {
+    border: var(--admin-case-status-banner-paid--border);
+    color: var(--admin-case-status-banner-paid--color);
+    background: var(--admin-case-status-banner-paid--background);
 }
 
 .no-access-order-view {
