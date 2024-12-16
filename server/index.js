@@ -174,7 +174,6 @@ app.post("/createcase", async (req, res) => {
     date_instructed,
   } = req.body;
 
-  console.log(req.body);
 
   if (
     !client_id ||
@@ -384,6 +383,30 @@ app.post(`/delete-case-offer:case_id`, async (req, res) => {
     res.json({
       title: "success",
       message: "Case offer deleted successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/change-case-pod-status:case_id`, async (req, res) => {
+  const { case_id } = req.params;
+  const { boolean } = req.body;
+  try {
+    const foundCase = await cases_table.findOne({
+      where: { id: case_id },
+    });
+
+    foundCase.pod_checked = boolean;
+
+    await foundCase.save();
+    res.json({
+      title: "success",
+      message: "Case POD Status changed successfully",
     });
   } catch (e) {
     console.log(e);

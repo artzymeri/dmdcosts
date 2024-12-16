@@ -53,11 +53,16 @@ class AppGateway {
   };
 
   deleteCaseOffer = async (case_id, offer_id) => {
-    console.log(case_id, offer_id);
     return await axios.post(`http://localhost:8080/delete-case-offer${case_id}`, {
       offer_id,
     });
   };
+
+  changeCasePODStatus = async (case_id, boolean) => {
+    return await axios.post(`http://localhost:8080/change-case-pod-status${case_id}`, {
+      boolean,
+    });
+  }
 
   getAllCases = async () => {
     return await axios.get(`http://localhost:8080/allcases`);

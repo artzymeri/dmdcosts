@@ -87,6 +87,7 @@ class AdminCasePresenter {
       caseOffers: computed,
       eligbleToCreateOffer: computed,
       addOfferModalOpen: computed,
+      POD: computed
     });
   }
 
@@ -185,6 +186,13 @@ class AdminCasePresenter {
     return response;
   };
 
+  changePODStatus = async () => {
+    const response = await this.mainAppRepository.changeCasePODStatus(this.caseDetails?.id, !this.POD)
+    this.setSnackbar(true, response.data);
+    this.vm.refresh_state += 1;
+    return response;
+  }
+
   get assignedEmployee() {
     return this.vm.employees_list.find(
       (employee) => employee.id == this.vm.case_details.case.assignee_id
@@ -240,6 +248,10 @@ class AdminCasePresenter {
 
   get typeOfOfferModal() {
     return this.vm.type_of_offer_modal;
+  }
+
+  get POD() {
+    return this.vm.case_details?.case?.pod_checked;
   }
 }
 

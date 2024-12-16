@@ -76,6 +76,10 @@ class MainAppRepository {
     return await this.appGateway.deleteCaseOffer(case_id, offer_id);
   };
 
+  changeCasePODStatus = async (case_id, boolean) => {
+    return await this.appGateway.changeCasePODStatus(case_id, boolean);
+  }
+
   getAllCases = async () => {
     return await this.appGateway.getAllCases();
   };

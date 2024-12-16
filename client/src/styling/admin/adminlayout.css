@@ -206,6 +206,19 @@
     flex-direction: column;
 }
 
+.admin-header-menu-container :is(ul) {
+    padding: 10px 10px 0px 10px !important;
+}
+
+.admin-header-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px !important;
+    border: 1px solid rgba(255, 0, 0, 0.5) !important;
+    margin-bottom: 10px !important;
+}
+
 .admin-header-menu-item:focus-visible {
     background: none !important;
 }
