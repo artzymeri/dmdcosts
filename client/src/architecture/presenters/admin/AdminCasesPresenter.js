@@ -28,6 +28,7 @@ class AdminCasesPresenter {
       getAllCases: action.bound,
       deletionModalOpen: computed,
       init: action.bound,
+      singleToDeleteCase: computed
     });
   }
 
@@ -75,6 +76,12 @@ class AdminCasesPresenter {
   handleCaseCheck = (case_id) => {
     const caseToCheck = this.vm.all_cases.find((item) => item.id == case_id);
     caseToCheck.checked = !caseToCheck.checked;
+  };
+
+  deleteSingleCase = async () => {
+    await this.mainAppRepository.deleteCase(this.singleToDeleteCase);
+    await this.getAllCases();
+    this.handleDeleteCasesModal(false);
   };
 
   deleteCases = async () => {
@@ -128,6 +135,10 @@ class AdminCasesPresenter {
 
   get deletionModalOpen() {
     return this.vm.deletionModalOpen;
+  }
+
+  get singleToDeleteCase() {
+    return this.vm.single_to_delete_case;
   }
 
   get printInvoicesButtonDisabled() {

@@ -6,8 +6,10 @@ import AdminCaseStatusBanner from "@/components/admin/Cases/Case/AdminCaseStatus
 import axios from "axios";
 import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import AdminCaseDetailsNegotiationDetails from "@/components/admin/Cases/Case/AdminCaseDetailsNegotiationDetails";
 
 const AdminCaseDetailsRightSide = ({presenter}) => {
+
     const generatePDF = async (caseData) => {
         const dateObject = new Date(caseData?.createdAt);
         const formattedDate = dateObject.toLocaleString();
@@ -26,22 +28,38 @@ const AdminCaseDetailsRightSide = ({presenter}) => {
         }
     };
 
+    const customStatusText = (case_status) => {
+        if (case_status == 'checked') {
+            return 'Serve'
+        }
+        if (case_status == 'served') {
+            return 'Settle'
+        }
+        if (case_status == 'settled') {
+            return 'Mark as Paid'
+        }
+    }
+
+    const changeCaseStatus = (case_status) => {
+        if (case_status == 'checked') {
+            if (presenter.caseDetails.negotiable) {
+                presenter.setAddOfferModal(true, 'sent')
+            } else {
+                presenter.changeCaseStatus(presenter.caseDetails.id, 'served')
+            }
+        }
+        if (case_status == 'served') {
+            presenter.changeCaseStatus(presenter.caseDetails.id, 'settled')
+        }
+        if (case_status == 'settled') {
+            presenter.changeCaseStatus(presenter.caseDetails.id, 'paid')
+        }
+    }
+
     return (<div className="admin-case-details-right-side">
         <div className="admin-case-details-status-container">
             <span style={{fontWeight: "bold"}}>Case Status:</span>
             <AdminCaseStatusBanner status={presenter.caseDetails?.status}/>
-        </div>
-        <div className="admin-case-details-right-side-qr-code-container">
-            <div className="admin-case-details-right-side-qr-code-container-description">
-          <span className="admin-case-details-right-side-qr-code-container-description-title">
-            Scan QR-CODE
-          </span>
-                <p>
-                    Using your smartphone, you can scan this <b>QR-CODE</b> anytime to
-                    view the details and progress of this case!{" "}
-                </p>
-            </div>
-            <img src={presenter.caseDetails?.qr_code} height="200px"/>
         </div>
         <div
             style={{
@@ -76,39 +94,54 @@ const AdminCaseDetailsRightSide = ({presenter}) => {
                 display: "grid", gap: "10px", width: "100%", gridTemplateColumns: "1fr",
             }}
         >
-            <FormControl fullWidth size="small">
-                <InputLabel
-                    sx={{padding: "0px 5px", background: "white"}}
-                    id="status-select"
-                >
-                    Change Case Status
-                </InputLabel>
-                <Select
-                    size="small"
-                    labelId="status-select"
-                    variant="outlined"
-                    onChange={(event) => {
-                        presenter.handleCaseStatusChange(event).then((res) => {
-                            presenter.setSnackbar(true, res.data);
-                        });
-                    }}
-                >
-                    {presenter?.vm?.status_options && presenter?.vm?.status_options.map((option) => {
-                        if (option.value !== presenter.caseDetails?.status) {
-                            return (<MenuItem key={option?.id} value={option?.value}>
-                                {option?.title}
-                            </MenuItem>);
-                        }
-                    })}
-                </Select>
-            </FormControl>
+            {
+                presenter.showStatusDropdown ? (
+                    <FormControl fullWidth size="small">
+                        <InputLabel
+                            sx={{padding: "0px 5px", background: "white"}}
+                            id="status-select"
+                        >
+                            Change Case Status
+                        </InputLabel>
+                        <Select
+                            size="small"
+                            labelId="status-select"
+                            variant="outlined"
+                            onChange={(event) => {
+                                presenter.handleCaseStatusChange(event).then((res) => {
+                                    presenter.setSnackbar(true, res.data);
+                                });
+                            }}
+                        >
+                            {presenter?.vm?.status_options && presenter?.vm?.status_options.map((option) => {
+                                if (option.value !== presenter.caseDetails?.status && option.value !== 'served' && option.value !== 'settled' && option.value !== 'paid') {
+                                    return (<MenuItem key={option?.id} value={option?.value}>
+                                        {option?.title}
+                                    </MenuItem>);
+                                }
+                            })}
+                        </Select>
+                    </FormControl>
+
+                ) : presenter.caseDetails.status !== 'paid' && (
+                    <Button variant="contained" onClick={() => {
+                        changeCaseStatus(presenter.caseDetails.status)
+                    }}>{customStatusText(presenter.caseDetails.status)}</Button>
+                )
+            }
         </div>
-        {presenter.caseDetails.negotiable && (
+        {presenter.caseDetails?.negotiable && (
+            <AdminCaseDetailsNegotiationDetails presenter={presenter} />
+        )}
+        {presenter.caseDetails.negotiable && presenter.caseOffers.length > 0 && presenter.caseOffers[0].sent.formality && (
             <div className="admin-case-details-right-side-pod-panel">
                 <span className="admin-case-details-pod-banner">
                     {presenter.POD ? 'POD Checked' : 'POD Unchecked'}
                 </span>
-                <Button onClick={() => {presenter.changePODStatus()}} variant="contained" color={presenter.POD ? 'error' : 'success'}>{presenter.POD ? 'Uncheck POD' : 'Check POD'}</Button>
+                <Button onClick={() => {
+                    presenter.changePODStatus()
+                }} variant="contained"
+                        color={presenter.POD ? 'error' : 'success'}>{presenter.POD ? 'Uncheck POD' : 'Check POD'}</Button>
             </div>
         )
         }

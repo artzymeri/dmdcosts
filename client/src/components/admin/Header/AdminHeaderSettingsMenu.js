@@ -41,8 +41,8 @@ const AdminHeaderSettingsMenu = () => {
                     horizontal: 'right',
                 }}
             >
-                <MenuItem className="admin-header-menu-item" onClick={handleClose}>Settings</MenuItem>
-                <MenuItem className="admin-header-menu-item" onClick={handleClose}>Switch Dark Mode</MenuItem>
+                <MenuItem className="admin-header-settings-item" onClick={handleClose}>Settings</MenuItem>
+                <MenuItem className="admin-header-settings-item" onClick={handleClose}>Switch Dark Mode</MenuItem>
             </Menu>
         </>
     )

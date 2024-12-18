@@ -210,7 +210,7 @@
     padding: 10px 10px 0px 10px !important;
 }
 
-.admin-header-menu-item {
+.admin-header-reminders-item {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -219,6 +219,7 @@
     margin-bottom: 10px !important;
 }
 
-.admin-header-menu-item:focus-visible {
+.admin-header-settings-item:focus-visible,
+.admin-header-reminders-item:focus-visible {
     background: none !important;
 }

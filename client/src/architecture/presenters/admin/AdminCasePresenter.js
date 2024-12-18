@@ -66,6 +66,7 @@ class AdminCasePresenter {
     deletion_confirmation_modal: false,
     new_offer_value: null,
     new_offer_date: null,
+    new_offer_formality: false,
     add_offer_modal_open: false,
     type_of_offer_modal: null,
     offer_to_edit_id: null,
@@ -87,7 +88,8 @@ class AdminCasePresenter {
       caseOffers: computed,
       eligbleToCreateOffer: computed,
       addOfferModalOpen: computed,
-      POD: computed
+      POD: computed,
+      showStatusDropdown: computed
     });
   }
 
@@ -122,6 +124,10 @@ class AdminCasePresenter {
     this.vm.new_offer_value = event.target.value;
   };
 
+  changeNewOfferFormality = (event) => {
+    this.vm.new_offer_formality = event.target.checked;
+  }
+
   handleCaseStatusChange = async (event) => {
     const response = await this.mainAppRepository.changeCaseStatus(
       this.vm.case_details?.case?.id,
@@ -130,6 +136,12 @@ class AdminCasePresenter {
     this.vm.refresh_state += 1;
     return response;
   };
+
+  changeCaseStatus = async (case_id, status) => {
+    const response = await this.mainAppRepository.changeCaseStatus(case_id, status);
+    this.vm.refresh_state += 1;
+    return response;
+  }
 
   setSnackbar(value, details) {
     this.vm.snackbar_boolean = value;
@@ -163,8 +175,10 @@ class AdminCasePresenter {
         this.caseDetails?.id,
         this.vm.new_offer_date.toDate(),
         this.vm.new_offer_value,
+        this.vm.new_offer_formality,
         this.vm.type_of_offer_modal,
-        this.vm.offer_to_edit_id
+        this.vm.offer_to_edit_id,
+        this.firstOffer
       );
       this.vm.refresh_state += 1;
       return response;
@@ -195,13 +209,13 @@ class AdminCasePresenter {
 
   get assignedEmployee() {
     return this.vm.employees_list.find(
-      (employee) => employee.id == this.vm.case_details.case.assignee_id
+      (employee) => employee.id == this.vm?.case_details?.case?.assignee_id
     );
   }
 
   get caseClient() {
     return this.vm.clients_list.find(
-      (client) => client.id == this.vm.case_details.case.client_id
+      (client) => client.id == this.vm?.case_details?.case?.client_id
     );
   }
 
@@ -225,11 +239,15 @@ class AdminCasePresenter {
   }
 
   get caseOffers() {
-    if (this.vm.case_details.case.offers) {
+    if (this.vm.case_details?.case?.offers) {
       return JSON.parse(this.vm.case_details.case.offers);
     } else {
       return [];
     }
+  }
+
+  get firstOffer() {
+    return this.caseOffers.length == 0;
   }
 
   get eligbleToCreateOffer() {
@@ -252,6 +270,10 @@ class AdminCasePresenter {
 
   get POD() {
     return this.vm.case_details?.case?.pod_checked;
+  }
+
+  get showStatusDropdown() {
+    return this.vm.case_details?.case?.status == 'to-draft' || this.vm.case_details?.case?.status == 'drafted' || this.vm.case_details?.case?.status == 'to-amend'
   }
 }
 

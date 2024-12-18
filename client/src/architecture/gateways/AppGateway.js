@@ -41,14 +41,18 @@ class AppGateway {
     case_id,
     new_offer_date,
     new_offer_value,
+    formality,
     type,
-    offer_id
+    offer_id,
+    first_offer
   ) => {
     return await axios.post(`http://localhost:8080/addnewcaseoffer${case_id}`, {
       new_offer_date,
       new_offer_value,
+      formality,
       type,
       offer_id,
+      first_offer
     });
   };
 

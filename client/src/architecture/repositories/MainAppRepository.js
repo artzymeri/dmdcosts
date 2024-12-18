@@ -60,15 +60,19 @@ class MainAppRepository {
     case_id,
     new_offer_date,
     new_offer_value,
+    formality,
     type,
-    offer_id
+    offer_id,
+    first_offer
   ) => {
     return await this.appGateway.addNewCaseOffer(
       case_id,
       new_offer_date,
       new_offer_value,
+      formality,
       type,
-      offer_id
+      offer_id,
+      first_offer
     );
   };
 

@@ -12,7 +12,7 @@ const AdminCaseDetailsNegotiationDetails = ({ presenter }) => {
         <div className="admin-case-details-offers-list-container">
           {presenter.caseOffers.map((offer) => {
             return (
-              <AdminCaseDetailsOfferItem presenter={presenter} offer={offer} />
+              <AdminCaseDetailsOfferItem key={offer.id} presenter={presenter} offer={offer} />
             );
           })}
           <Button
@@ -32,20 +32,9 @@ const AdminCaseDetailsNegotiationDetails = ({ presenter }) => {
         <div className="admin-case-details-negotiation-details-no-offers-container">
           <span>
             {presenter?.eligbleToCreateOffer
-              ? "You have not yet sent an offer, click to create the first one!"
+              ? "You have to serve the case in order to create the initial offer!"
               : "The case must reach at least the checked status first to make an offer"}
           </span>
-          {presenter?.eligbleToCreateOffer && (
-            <Button
-              onClick={() => {
-                presenter.setAddOfferModal(true, "sent");
-              }}
-              variant="contained"
-              sx={{ background: "lightgray", color: "black" }}
-            >
-              Create First Offer
-            </Button>
-          )}
         </div>
       )}
     </div>

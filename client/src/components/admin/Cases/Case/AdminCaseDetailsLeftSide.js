@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
-import AdminCaseDetailsNegotiationDetails from "./AdminCaseDetailsNegotiationDetails";
 
 const AdminCaseDetailsLeftSide = ({ presenter }) => {
   const details = [
@@ -36,9 +35,6 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
           <span className="admin-case-details-left-side-info">{value}</span>
         </div>
       ))}
-      {presenter.caseDetails?.negotiable && (
-        <AdminCaseDetailsNegotiationDetails presenter={presenter} />
-      )}
     </div>
   );
 };

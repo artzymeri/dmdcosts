@@ -188,7 +188,7 @@ app.post("/createcase", async (req, res) => {
   ) {
     return res.json({
       title: "error",
-      message: "Client, Assignee or Reference Number cannot be null.",
+      message: "Please fill out all the values.",
     });
   }
 
@@ -321,13 +321,36 @@ app.post(`/changecasestatus:case_id`, async (req, res) => {
 
 app.post(`/addnewcaseoffer:case_id`, async (req, res) => {
   const { case_id } = req.params;
-  const { new_offer_date, new_offer_value, type, offer_id } = req.body;
+  const { new_offer_date, new_offer_value, formality, type, offer_id, first_offer } = req.body;
   try {
     const caseToUpdate = await cases_table.findOne({
       where: { id: case_id },
     });
 
     let previousArray = JSON.parse(caseToUpdate.offers) || [];
+
+    console.log({first_offer})
+
+    if (first_offer) {
+      console.log({formality})
+      previousArray.push({
+        id: new Date().getTime(),
+        sent: {
+          date: new_offer_date,
+          value: new_offer_value,
+          formality: formality,
+        },
+      });
+      caseToUpdate.offers = JSON.stringify(previousArray);
+      caseToUpdate.status = 'served';
+
+      await caseToUpdate.save();
+      res.json({
+        title: "success",
+        message: "Case marked as served successfully"
+      });
+      return;
+    }
 
     if (type == "sent") {
       previousArray.push({

@@ -59,7 +59,7 @@ const AdminHeaderNotificationsMenu = ({presenter}) => {
                         presenter.notificationsMenuList.length > 0 ?
                             presenter.notificationsMenuList.map((item) => {
                                 return (
-                                    <MenuItem key={item.id} className="admin-header-menu-item"
+                                    <MenuItem key={item.id} className="admin-header-reminders-item"
                                               onClick={() => {
                                                   redirectToCase(item.id)
                                               }}>
@@ -70,7 +70,7 @@ const AdminHeaderNotificationsMenu = ({presenter}) => {
                                     </MenuItem>
                                 )
                             })
-                            : <MenuItem className="admin-header-menu-item" onClick={handleClose}>No Reminders</MenuItem>
+                            : <MenuItem className="admin-header-reminders-item" onClick={handleClose}>No Reminders</MenuItem>
                     }
                 </Menu>
             </Badge>

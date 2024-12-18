@@ -58,8 +58,7 @@ const CasePage = () => {
           } else if (token === "admin") {
             await presenter.getCaseDetailsAsAdmin(parseInt(id));
             if (
-              presenter.caseDetails?.title !== "error" &&
-              presenter.caseDetails
+              presenter.vm.case_details?.title !== "error"
             ) {
               setSuccessfulLoad(true);
             }
