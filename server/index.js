@@ -329,10 +329,7 @@ app.post(`/addnewcaseoffer:case_id`, async (req, res) => {
 
     let previousArray = JSON.parse(caseToUpdate.offers) || [];
 
-    console.log({first_offer})
-
     if (first_offer) {
-      console.log({formality})
       previousArray.push({
         id: new Date().getTime(),
         sent: {

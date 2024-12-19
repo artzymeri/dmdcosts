@@ -28,7 +28,6 @@ class AdminHeaderPresenter {
         await this.getUserData();
         await this.getCases();
         await this.getClientsData();
-
     }
 
     async getCases() {
@@ -54,7 +53,7 @@ class AdminHeaderPresenter {
         return this.vm.cases_list
             .filter((case_details) => {
                 const parsedOffersArray = JSON.parse(case_details.offers) || [];
-                if (case_details.negotiable && !case_details.pod_checked && parsedOffersArray.length > 0) {
+                if (case_details.negotiable && !case_details.pod_checked && parsedOffersArray.length > 0 && parsedOffersArray[0]?.sent?.formality) {
                     const sentDate = new Date(parsedOffersArray[0].sent.date);
                     const diffInTime = todayDate - sentDate;
                     const diffInDays = diffInTime / (1000 * 3600 * 24);
