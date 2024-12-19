@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 
 const db = require("./models");
 
-const port = 8080;
+const port = 7070;
 
 app.post("/registeruser", async (req, res) => {
   const {

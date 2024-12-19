@@ -1,10 +1,10 @@
-import {NotificationsRounded, Warning} from "@mui/icons-material";
-import {Alert, Badge, Fade, Menu, MenuItem} from "@mui/material";
-import {useState} from "react";
-import {observer} from "mobx-react-lite";
-import {useRouter} from "next/router";
+import { NotificationsRounded, Warning } from "@mui/icons-material";
+import { Badge, Fade, Menu, MenuItem } from "@mui/material";
+import { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { useRouter } from "next/router";
 
-const AdminHeaderNotificationsMenu = ({presenter}) => {
+const AdminHeaderNotificationsMenu = ({ presenter }) => {
 
     const router = useRouter();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -18,7 +18,31 @@ const AdminHeaderNotificationsMenu = ({presenter}) => {
 
     const customAlertMessage = (case_details) => {
         if (case_details.alert == 'pod-expiring') {
-            return `Case ${case_details.client_initials}.${case_details.type}.${case_details.id} has awaiting POD to check`
+            return {
+                case_reference: `${case_details.client_initials}.${case_details.type}.${case_details.id}`,
+                alert: 'has awaiting POD to check.'
+            }
+        }
+
+        if (case_details.alert == 'pod-deadline') {
+            return {
+                case_reference: `${case_details.client_initials}.${case_details.type}.${case_details.id}`,
+                alert: 'POD check expires today!'
+            }
+        }
+
+        if (case_details.alert == 'pod-expired') {
+            return {
+                case_reference: `${case_details.client_initials}.${case_details.type}.${case_details.id}`,
+                alert: 'POD check expired!'
+            }
+        }
+
+        if (case_details.alert == 'last-offer-reminder') {
+            return {
+                case_reference: `${case_details.client_initials}.${case_details.type}.${case_details.id}`,
+                alert: 'client has not returned an offer.'
+            }
         }
     }
 
@@ -60,12 +84,17 @@ const AdminHeaderNotificationsMenu = ({presenter}) => {
                             presenter.notificationsMenuList.map((item) => {
                                 return (
                                     <MenuItem key={item.id} className="admin-header-reminders-item"
-                                              onClick={() => {
-                                                  redirectToCase(item.id)
-                                              }}>
-                                        <Warning color="error"/>
+                                        onClick={() => {
+                                            redirectToCase(item.id)
+                                        }}>
+                                        <Warning color="error" />
                                         <span>
-                                            {customAlertMessage(item)}
+                                            Case
+                                            <b>
+                                                {
+                                                    ` ${customAlertMessage(item).case_reference}`
+                                                }
+                                            </b>, {`${customAlertMessage(item).alert}`}
                                         </span>
                                     </MenuItem>
                                 )

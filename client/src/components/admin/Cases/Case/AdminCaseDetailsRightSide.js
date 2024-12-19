@@ -14,7 +14,7 @@ const AdminCaseDetailsRightSide = ({presenter}) => {
         const dateObject = new Date(caseData?.createdAt);
         const formattedDate = dateObject.toLocaleString();
         try {
-            const response = await axios.post(`http://localhost:8080/generatepdfonly/${caseData?.id}`, {caseData}, {responseType: "blob"});
+            const response = await axios.post(`http://localhost:7070/generatepdfonly/${caseData?.id}`, {caseData}, {responseType: "blob"});
 
             const downloadLink = document.createElement("a");
             const blob = new Blob([response.data], {type: "application/pdf"});
