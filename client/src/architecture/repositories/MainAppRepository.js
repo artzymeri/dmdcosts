@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { TYPES } from "@/architecture/ioc/types";
 import "reflect-metadata";
-import { action, computed, makeObservable, observable } from "mobx";
+import { action, makeObservable } from "mobx";
 
 @injectable()
 class MainAppRepository {
@@ -52,8 +52,8 @@ class MainAppRepository {
     return await this.appGateway.deleteCase(case_id);
   };
 
-  changeCaseStatus = async (case_id, status) => {
-    return await this.appGateway.changeCaseStatus(case_id, status);
+  changeCaseStatus = async (case_id, status, date) => {
+    return await this.appGateway.changeCaseStatus(case_id, status, date);
   };
 
   addNewCaseOffer = async (
@@ -61,6 +61,7 @@ class MainAppRepository {
     new_offer_date,
     new_offer_value,
     formality,
+    pod_due_date,
     type,
     offer_id,
     first_offer
@@ -70,6 +71,7 @@ class MainAppRepository {
       new_offer_date,
       new_offer_value,
       formality,
+      pod_due_date,
       type,
       offer_id,
       first_offer
@@ -82,7 +84,11 @@ class MainAppRepository {
 
   changeCasePODStatus = async (case_id, boolean) => {
     return await this.appGateway.changeCasePODStatus(case_id, boolean);
-  }
+  };
+
+  extendCasePodDueDate = async (case_id, date) => {
+    return await this.appGateway.extendCasePodDueDate(case_id, date);
+  };
 
   getAllCases = async () => {
     return await this.appGateway.getAllCases();

@@ -147,7 +147,7 @@ const AdminAddCaseForm = (props) => {
         focused={presenter.vm?.newCaseObject?.defendant_email ? true : false}
       />
       <TextField
-        label="Rate Per Hour"
+        label="DMD Rate"
         onChange={(e) => {
           presenter.handleChangeValues("rate_per_hour", e?.target?.value);
         }}

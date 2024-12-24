@@ -70,6 +70,12 @@ class AdminCasePresenter {
     add_offer_modal_open: false,
     type_of_offer_modal: null,
     offer_to_edit_id: null,
+    pod_due_date: null,
+    extended_pod_due_date: null,
+    checked_status_modal: null,
+    checked_date: null,
+    settled_status_modal: null,
+    settled_date: null,
   };
 
   constructor() {
@@ -89,7 +95,7 @@ class AdminCasePresenter {
       eligbleToCreateOffer: computed,
       addOfferModalOpen: computed,
       POD: computed,
-      showStatusDropdown: computed
+      showStatusDropdown: computed,
     });
   }
 
@@ -103,6 +109,24 @@ class AdminCasePresenter {
     this.vm.clients_list = clients_response.data;
     this.vm.employees_list = employees_response.data;
   };
+
+  setCheckedCaseStatusModal(boolean) {
+    if (boolean == false) {
+      this.vm.checked_date = null;
+      this.vm.checked_status_modal = boolean;
+    } else {
+      this.vm.checked_status_modal = boolean;
+    }
+  }
+
+  setSettledCaseStatusModal(boolean) {
+    if (boolean == false) {
+      this.vm.settled_date = null;
+      this.vm.settled_status_modal = boolean;
+    } else {
+      this.vm.settled_status_modal = boolean;
+    }
+  }
 
   deleteCase = async () => {
     const response = await this.mainAppRepository.deleteCase(
@@ -120,15 +144,57 @@ class AdminCasePresenter {
     }
   };
 
+  handleCheckedCaseDate = (value) => {
+    if (value) {
+      this.vm.checked_date = value;
+    } else {
+      console.warn("Something is wrong with the date!");
+    }
+  };
+
+  handleSettledCaseDate = (value) => {
+    if (value) {
+      this.vm.settled_date = value;
+    } else {
+      console.warn("Something is wrong with the date!");
+    }
+  };
+
   handleNewOfferValueChange = (event) => {
     this.vm.new_offer_value = event.target.value;
   };
 
+  handlePodDueDate = (value) => {
+    if (value) {
+      this.vm.pod_due_date = value;
+    } else {
+      console.warn("Something is wrong with the date!");
+    }
+  };
+
+  handleExtendedPodDueDate = async (value) => {
+    if (value) {
+      this.vm.extended_pod_due_date = value;
+      const response = await this.mainAppRepository.extendCasePodDueDate(
+        this.vm.case_details?.case?.id,
+        this.vm.extended_pod_due_date
+      );
+      this.vm.refresh_state += 1;
+      return response;
+    } else {
+      console.warn("Something is wrong with the date!");
+    }
+  };
+
   changeNewOfferFormality = (event) => {
     this.vm.new_offer_formality = event.target.checked;
-  }
+  };
 
   handleCaseStatusChange = async (event) => {
+    if (event.target.value == "checked") {
+      this.vm.checked_status_modal = true;
+      return;
+    }
     const response = await this.mainAppRepository.changeCaseStatus(
       this.vm.case_details?.case?.id,
       event.target.value
@@ -137,11 +203,42 @@ class AdminCasePresenter {
     return response;
   };
 
-  changeCaseStatus = async (case_id, status) => {
-    const response = await this.mainAppRepository.changeCaseStatus(case_id, status);
+  confirmSettleCase = async () => {
+    const response = await this.mainAppRepository.changeCaseStatus(
+      this.vm.case_details?.case?.id,
+      "settled",
+      this.vm.settled_date
+    );
+    this.vm.settled_status_modal = false;
+    this.vm.settled_date = null;
     this.vm.refresh_state += 1;
     return response;
-  }
+  };
+
+  confirmCheckCase = async () => {
+    const response = await this.mainAppRepository.changeCaseStatus(
+      this.vm.case_details?.case?.id,
+      "checked",
+      this.vm.checked_date
+    );
+    this.vm.checked_status_modal = false;
+    this.vm.checked_date = null;
+    this.vm.refresh_state += 1;
+    return response;
+  };
+
+  changeCaseStatus = async (case_id, status) => {
+    if (status == "settled") {
+      this.vm.settled_status_modal = true;
+      return;
+    }
+    const response = await this.mainAppRepository.changeCaseStatus(
+      case_id,
+      status
+    );
+    this.vm.refresh_state += 1;
+    return response;
+  };
 
   setSnackbar(value, details) {
     this.vm.snackbar_boolean = value;
@@ -176,6 +273,7 @@ class AdminCasePresenter {
         this.vm.new_offer_date.toDate(),
         this.vm.new_offer_value,
         this.vm.new_offer_formality,
+        this.vm.pod_due_date,
         this.vm.type_of_offer_modal,
         this.vm.offer_to_edit_id,
         this.firstOffer
@@ -201,11 +299,14 @@ class AdminCasePresenter {
   };
 
   changePODStatus = async () => {
-    const response = await this.mainAppRepository.changeCasePODStatus(this.caseDetails?.id, !this.POD)
+    const response = await this.mainAppRepository.changeCasePODStatus(
+      this.caseDetails?.id,
+      !this.POD
+    );
     this.setSnackbar(true, response.data);
     this.vm.refresh_state += 1;
     return response;
-  }
+  };
 
   get assignedEmployee() {
     return this.vm.employees_list.find(
@@ -236,6 +337,14 @@ class AdminCasePresenter {
 
   get deletionConfirmationModal() {
     return this.vm.deletion_confirmation_modal;
+  }
+
+  get checkedStatusModal() {
+    return this.vm.checked_status_modal;
+  }
+
+  get settledStatusModal() {
+    return this.vm.settled_status_modal;
   }
 
   get caseOffers() {
@@ -273,7 +382,11 @@ class AdminCasePresenter {
   }
 
   get showStatusDropdown() {
-    return this.vm.case_details?.case?.status == 'to-draft' || this.vm.case_details?.case?.status == 'drafted' || this.vm.case_details?.case?.status == 'to-amend'
+    return (
+      this.vm.case_details?.case?.status == "to-draft" ||
+      this.vm.case_details?.case?.status == "drafted" ||
+      this.vm.case_details?.case?.status == "to-amend"
+    );
   }
 }
 

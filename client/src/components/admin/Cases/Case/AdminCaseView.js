@@ -5,6 +5,8 @@ import AdminCaseDetailsRightSide from "@/components/admin/Cases/Case/AdminCaseDe
 import { Alert, Snackbar } from "@mui/material";
 import AdminCaseViewDeletionModal from "@/components/admin/Cases/Case/AdminCaseViewDeletionModal";
 import AdminCaseDetailsAddOfferModal from "./AdminCaseDetailsAddOfferModal";
+import AdminCaseCheckedModal from "./AdminCaseCheckedModal";
+import AdminCaseSettledModal from "./AdminCaseSettledModal";
 
 const AdminCaseView = ({ presenter }) => {
   return (
@@ -22,6 +24,8 @@ const AdminCaseView = ({ presenter }) => {
         </Snackbar>
         <AdminCaseDetailsAddOfferModal presenter={presenter} />
         <AdminCaseViewDeletionModal presenter={presenter} />
+        <AdminCaseCheckedModal presenter={presenter} />
+        <AdminCaseSettledModal presenter={presenter} />
         <AdminCaseDetailsLeftSide presenter={presenter} />
         <div className="admin-case-details-middle"></div>
         <AdminCaseDetailsRightSide presenter={presenter} />

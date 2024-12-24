@@ -30,10 +30,10 @@ class AppGateway {
     return await axios.post(`http://localhost:7070/deletecase${case_id}`);
   };
 
-  changeCaseStatus = async (case_id, status) => {
+  changeCaseStatus = async (case_id, status, date) => {
     return await axios.post(
       `http://localhost:7070/changecasestatus${case_id}`,
-      { status }
+      { status, date }
     );
   };
 
@@ -42,6 +42,7 @@ class AppGateway {
     new_offer_date,
     new_offer_value,
     formality,
+    pod_due_date,
     type,
     offer_id,
     first_offer
@@ -50,23 +51,39 @@ class AppGateway {
       new_offer_date,
       new_offer_value,
       formality,
+      pod_due_date,
       type,
       offer_id,
-      first_offer
+      first_offer,
     });
   };
 
   deleteCaseOffer = async (case_id, offer_id) => {
-    return await axios.post(`http://localhost:7070/delete-case-offer${case_id}`, {
-      offer_id,
-    });
+    return await axios.post(
+      `http://localhost:7070/delete-case-offer${case_id}`,
+      {
+        offer_id,
+      }
+    );
   };
 
   changeCasePODStatus = async (case_id, boolean) => {
-    return await axios.post(`http://localhost:7070/change-case-pod-status${case_id}`, {
-      boolean,
-    });
-  }
+    return await axios.post(
+      `http://localhost:7070/change-case-pod-status${case_id}`,
+      {
+        boolean,
+      }
+    );
+  };
+
+  extendCasePodDueDate = async (case_id, date) => {
+    return await axios.post(
+      `http://localhost:7070/extend-pod-due-date${case_id}`,
+      {
+        date,
+      }
+    );
+  };
 
   getAllCases = async () => {
     return await axios.get(`http://localhost:7070/allcases`);

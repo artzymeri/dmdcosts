@@ -174,7 +174,6 @@ app.post("/createcase", async (req, res) => {
     date_instructed,
   } = req.body;
 
-
   if (
     !client_id ||
     !assignee_id ||
@@ -299,11 +298,17 @@ app.post(`/deletecase:case_id`, async (req, res) => {
 
 app.post(`/changecasestatus:case_id`, async (req, res) => {
   const { case_id } = req.params;
-  const { status } = req.body;
+  const { status, date } = req.body;
   try {
     const caseToUpdate = await cases_table.findOne({
       where: { id: case_id },
     });
+    if (status == "checked") {
+      caseToUpdate.checked_date = date;
+    }
+    if (status == "settled") {
+      caseToUpdate.settled_date = date;
+    }
     caseToUpdate.status = status;
     await caseToUpdate.save();
     res.json({
@@ -321,7 +326,15 @@ app.post(`/changecasestatus:case_id`, async (req, res) => {
 
 app.post(`/addnewcaseoffer:case_id`, async (req, res) => {
   const { case_id } = req.params;
-  const { new_offer_date, new_offer_value, formality, type, offer_id, first_offer } = req.body;
+  const {
+    new_offer_date,
+    new_offer_value,
+    formality,
+    pod_due_date,
+    type,
+    offer_id,
+    first_offer,
+  } = req.body;
   try {
     const caseToUpdate = await cases_table.findOne({
       where: { id: case_id },
@@ -338,13 +351,16 @@ app.post(`/addnewcaseoffer:case_id`, async (req, res) => {
           formality: formality,
         },
       });
+      if (formality) {
+        caseToUpdate.pod_due_date = pod_due_date;
+      }
       caseToUpdate.offers = JSON.stringify(previousArray);
-      caseToUpdate.status = 'served';
+      caseToUpdate.status = "served";
 
       await caseToUpdate.save();
       res.json({
         title: "success",
-        message: "Case marked as served successfully"
+        message: "Case marked as served successfully",
       });
       return;
     }
@@ -427,6 +443,30 @@ app.post(`/change-case-pod-status:case_id`, async (req, res) => {
     res.json({
       title: "success",
       message: "Case POD Status changed successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/extend-pod-due-date:case_id`, async (req, res) => {
+  const { case_id } = req.params;
+  const { date } = req.body;
+  try {
+    const foundCase = await cases_table.findOne({
+      where: { id: case_id },
+    });
+
+    foundCase.pod_due_date = date;
+
+    await foundCase.save();
+    res.json({
+      title: "success",
+      message: "Case POD Date changed successfully",
     });
   } catch (e) {
     console.log(e);
