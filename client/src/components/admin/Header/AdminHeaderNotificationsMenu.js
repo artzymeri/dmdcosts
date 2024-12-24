@@ -54,6 +54,13 @@ const AdminHeaderNotificationsMenu = ({ presenter }) => {
         alert: "Bill needs to get drafted!",
       };
     }
+
+    if (case_details.alert == "bill-needs-to-be-served") {
+      return {
+        case_reference: `${case_details.client_initials}.${case_details.type}.${case_details.id}`,
+        alert: "Bill needs to get served!",
+      };
+    }
   };
 
   const redirectToCase = (case_id) => {

@@ -110,6 +110,32 @@ class AdminHeaderPresenter {
       });
   }
 
+  get billNeedsToBeServedReminders() {
+    const todayDate = new Date();
+    const daysThreshold = 5;
+
+    return this.vm.cases_list
+      .filter((case_details) => {
+        if (case_details.status == "checked" && case_details.negotiable) {
+          const checkedDate = new Date(case_details.checked_date);
+          const diffInTime = todayDate - checkedDate;
+          const diffInDays = Math.floor(diffInTime / (1000 * 3600 * 24));
+
+          return diffInDays >= daysThreshold;
+        }
+      })
+      .map((case_details) => {
+        const linkedClient = this.vm.clients_list.find(
+          (client) => client.id == case_details.client_id
+        );
+        return {
+          ...case_details,
+          client_initials: linkedClient?.initials,
+          alert: "bill-needs-to-be-served",
+        };
+      });
+  }
+
   get podCaseReminders() {
     const todayDate = new Date();
 
@@ -158,7 +184,8 @@ class AdminHeaderPresenter {
     return (
       this.podCaseReminders.length +
       this.lastOfferReminders.length +
-      this.billNeedsToBeDraftedReminders.length
+      this.billNeedsToBeDraftedReminders.length +
+      this.billNeedsToBeServedReminders.length
     );
   }
 
@@ -167,6 +194,7 @@ class AdminHeaderPresenter {
       ...this.podCaseReminders,
       ...this.lastOfferReminders,
       ...this.billNeedsToBeDraftedReminders,
+      ...this.billNeedsToBeServedReminders,
     ];
   }
 }
