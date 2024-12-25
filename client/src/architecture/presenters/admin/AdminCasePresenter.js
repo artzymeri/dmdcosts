@@ -141,7 +141,6 @@ class AdminCasePresenter {
     const employees_response = await this.mainAppRepository.getAllEmployees();
     this.vm.case_details = response.data;
     this.vm.editable_case_fields = response?.data?.case;
-    console.log(this.vm.editable_case_fields);
     this.vm.clients_list = clients_response.data;
     this.vm.employees_list = employees_response.data;
   };
