@@ -48,6 +48,10 @@ class MainAppRepository {
     return await this.appGateway.createCase(case_object);
   };
 
+  editCase = async (case_object) => {
+    return await this.appGateway.editCase(case_object);
+  };
+
   deleteCase = async (case_id) => {
     return await this.appGateway.deleteCase(case_id);
   };

@@ -33,6 +33,9 @@ const AdminCaseStatusBanner = (props) => {
     if (status == "settled") {
       return "Settled";
     }
+    if (status == "sent-to-client") {
+      return "Sent To Client";
+    }
     if (status == "paid") {
       return "Paid";
     }
@@ -57,6 +60,9 @@ const AdminCaseStatusBanner = (props) => {
     if (status == "settled") {
       return <CurrencyPound />;
     }
+    if (status == "sent-to-client") {
+      return <WavingHand />;
+    }
     if (status == "paid") {
       return <DoneAll />;
     }
@@ -79,6 +85,9 @@ const AdminCaseStatusBanner = (props) => {
       return "admin-case-status-banner admin-case-status-banner-served";
     }
     if (status == "settled") {
+      return "admin-case-status-banner admin-case-status-banner-served";
+    }
+    if (status == "sent-to-client") {
       return "admin-case-status-banner admin-case-status-banner-served";
     }
     if (status == "paid") {

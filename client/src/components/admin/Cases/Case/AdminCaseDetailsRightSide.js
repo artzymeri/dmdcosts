@@ -133,6 +133,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
               }}
             >
               {presenter?.vm?.status_options &&
+                presenter.caseDetails.negotiable &&
                 presenter?.vm?.status_options.map((option) => {
                   if (
                     option.value !== presenter.caseDetails?.status &&
@@ -140,6 +141,17 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
                     option.value !== "settled" &&
                     option.value !== "paid"
                   ) {
+                    return (
+                      <MenuItem key={option?.id} value={option?.value}>
+                        {option?.title}
+                      </MenuItem>
+                    );
+                  }
+                })}
+              {presenter?.vm?.non_negotiable_status_options &&
+                !presenter.caseDetails.negotiable &&
+                presenter?.vm?.non_negotiable_status_options.map((option) => {
+                  if (option.value !== presenter.caseDetails?.status) {
                     return (
                       <MenuItem key={option?.id} value={option?.value}>
                         {option?.title}

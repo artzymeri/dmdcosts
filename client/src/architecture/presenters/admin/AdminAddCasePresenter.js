@@ -2,7 +2,6 @@ import { TYPES } from "@/architecture/ioc/types";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { makeObservable, action, observable, computed } from "mobx";
-import dayjs from "dayjs";
 
 @injectable()
 class AdminAddCasePresenter {
@@ -73,8 +72,8 @@ class AdminAddCasePresenter {
   };
 
   handleNegotiableChange = (event) => {
-    this.vm.newCaseObject.negotiable = event.target.checked
-  }
+    this.vm.newCaseObject.negotiable = event.target.checked;
+  };
 
   saveNewCase = async () => {
     let newCase = {

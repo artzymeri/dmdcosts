@@ -55,7 +55,7 @@ const AdminHeaderNotificationsMenu = ({ presenter }) => {
       };
     }
 
-    if (case_details.alert == "bill-needs-to-be-served") {
+    if (case_details.alert == "bill-needs-to-be-served") {1
       return {
         case_reference: `${case_details.client_initials}.${case_details.type}.${case_details.id}`,
         alert: "Bill needs to get served!",

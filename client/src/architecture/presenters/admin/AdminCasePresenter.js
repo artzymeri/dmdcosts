@@ -34,17 +34,49 @@ class AdminCasePresenter {
         value: "checked",
       },
       {
-        id: 3,
+        id: 5,
         title: "Mark as Served",
         value: "served",
       },
       {
-        id: 3,
+        id: 6,
         title: "Mark as Settled",
         value: "settled",
       },
       {
+        id: 7,
+        title: "Mark as Paid",
+        value: "paid",
+      },
+    ],
+    non_negotiable_status_options: [
+      {
+        id: 1,
+        title: "To Draft",
+        value: "to-draft",
+      },
+      {
+        id: 2,
+        title: "Mark as To Amend",
+        value: "to-amend",
+      },
+      {
         id: 3,
+        title: "Mark as Drafted",
+        value: "drafted",
+      },
+      {
+        id: 4,
+        title: "Mark as Checked",
+        value: "checked",
+      },
+      {
+        id: 5,
+        title: "Mark as Sent to Client",
+        value: "sent-to-client",
+      },
+      {
+        id: 6,
         title: "Mark as Paid",
         value: "paid",
       },
@@ -76,6 +108,8 @@ class AdminCasePresenter {
     checked_date: null,
     settled_status_modal: null,
     settled_date: null,
+    editable_case_fields: null,
+    edit_view: false,
   };
 
   constructor() {
@@ -106,6 +140,8 @@ class AdminCasePresenter {
     const clients_response = await this.mainAppRepository.getAllClients();
     const employees_response = await this.mainAppRepository.getAllEmployees();
     this.vm.case_details = response.data;
+    this.vm.editable_case_fields = response?.data?.case;
+    console.log(this.vm.editable_case_fields);
     this.vm.clients_list = clients_response.data;
     this.vm.employees_list = employees_response.data;
   };
@@ -308,6 +344,54 @@ class AdminCasePresenter {
     return response;
   };
 
+  switchEditView = () => {
+    if (!this.vm.edit_view == false) {
+      this.vm.editable_case_fields = this.vm.case_details.case;
+    }
+    this.vm.edit_view = !this.vm.edit_view;
+  };
+
+  handleClientEditChange = (event) => {
+    this.vm.editable_case_fields.client_id = event.target.value;
+  };
+
+  handleEmployeeEditChange = (event) => {
+    this.vm.editable_case_fields.assignee_id = event.target.value;
+  };
+
+  handleDateInstructedChange = (value) => {
+    this.vm.editable_case_fields.date_instructed = value;
+  };
+
+  handleDateCheckedChange = (value) => {
+    this.vm.editable_case_fields.checked_date = value;
+  };
+
+  handleDateSettledChange = (value) => {
+    this.vm.editable_case_fields.settled_date = value;
+  };
+
+  handleTypeEditChange = (event) => {
+    this.vm.editable_case_fields.type = event.target.value;
+  };
+
+  handleNegotiableChange = (event) => {
+    this.vm.editable_case_fields.negotiable = event.target.checked;
+  };
+
+  changeEditTextDetails = (value, target) => {
+    this.vm.editable_case_fields[target] = value;
+  };
+
+  saveEditValues = async () => {
+    const response = await this.mainAppRepository.editCase(
+      this.vm.editable_case_fields
+    );
+    this.setSnackbar(true, response.data);
+    this.vm.edit_view = false;
+    this.vm.refresh_state += 1;
+  };
+
   get assignedEmployee() {
     return this.vm.employees_list.find(
       (employee) => employee.id == this.vm?.case_details?.case?.assignee_id
@@ -382,11 +466,15 @@ class AdminCasePresenter {
   }
 
   get showStatusDropdown() {
-    return (
-      this.vm.case_details?.case?.status == "to-draft" ||
-      this.vm.case_details?.case?.status == "drafted" ||
-      this.vm.case_details?.case?.status == "to-amend"
-    );
+    if (this.caseDetails.negotiable) {
+      return (
+        this.vm.case_details?.case?.status == "to-draft" ||
+        this.vm.case_details?.case?.status == "drafted" ||
+        this.vm.case_details?.case?.status == "to-amend"
+      );
+    } else {
+      return true;
+    }
   }
 }
 

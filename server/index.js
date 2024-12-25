@@ -226,6 +226,73 @@ app.post("/createcase", async (req, res) => {
   }
 });
 
+app.post("/editcase", async (req, res) => {
+  const {
+    id: case_id,
+    client_id,
+    assignee_id,
+    claimant_name,
+    client_reference_number,
+    defendant_name,
+    defendant_reference_number,
+    defendant_email,
+    rate_per_hour,
+    type,
+    negotiable,
+    date_instructed,
+    checked_date,
+    settled_date,
+  } = req.body;
+
+  if (
+    !client_id ||
+    !assignee_id ||
+    !claimant_name ||
+    !client_reference_number ||
+    !defendant_name ||
+    !defendant_reference_number ||
+    !rate_per_hour ||
+    !type ||
+    !date_instructed
+  ) {
+    return res.json({
+      title: "error",
+      message: "Please fill out all the values.",
+    });
+  }
+
+  try {
+    const caseToEdit = await cases_table.findOne({
+      where: { id: case_id },
+    });
+    caseToEdit.client_id = client_id;
+    caseToEdit.assignee_id = assignee_id;
+    caseToEdit.claimant_name = claimant_name;
+    caseToEdit.client_reference_number = client_reference_number;
+    caseToEdit.defendant_name = defendant_name;
+    caseToEdit.defendant_reference_number = defendant_reference_number;
+    caseToEdit.defendant_email = defendant_email;
+    caseToEdit.rate_per_hour = rate_per_hour;
+    caseToEdit.type = type;
+    caseToEdit.negotiable = negotiable;
+    caseToEdit.date_instructed = date_instructed;
+    caseToEdit.checked_date = checked_date;
+    caseToEdit.settled_date = settled_date;
+
+    await caseToEdit.save();
+    res.json({
+      title: "success",
+      message: "Case Edited successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.get(`/allcases`, async (req, res) => {
   try {
     const cases_array = await cases_table.findAll();

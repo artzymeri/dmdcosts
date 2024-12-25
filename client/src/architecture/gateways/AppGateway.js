@@ -26,6 +26,10 @@ class AppGateway {
     return await axios.post("http://localhost:7070/createcase", case_object);
   };
 
+  editCase = async (case_object) => {
+    return await axios.post("http://localhost:7070/editcase", case_object);
+  };
+
   deleteCase = async (case_id) => {
     return await axios.post(`http://localhost:7070/deletecase${case_id}`);
   };
