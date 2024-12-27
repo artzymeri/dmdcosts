@@ -103,6 +103,14 @@ class AppGateway {
     return await axios.get(`http://localhost:7070/case${case_id}`);
   };
 
+  insertInvoiceToDatabase = async (cases_array, admin_id, client_id) => {
+    return await axios.post(`http://localhost:7070/insert-invoices${admin_id}`, {cases_array, client_id});
+  };
+
+  getAllInvoices = async () => {
+    return await axios.get(`http://localhost:7070/allinvoices`);
+  };
+
   getAllClients = async () => {
     return await axios.get(`http://localhost:7070/allclients`);
   };

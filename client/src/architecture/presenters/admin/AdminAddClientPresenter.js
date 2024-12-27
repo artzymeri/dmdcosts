@@ -10,7 +10,11 @@ class AdminAddClientPresenter {
     vm = {
         newClientObject: {
             business_name: null,
-            address: null,
+            address1: null,
+            address2: null,
+            address3: null,
+            city: null,
+            post_code: null,
             email_address: null,
             initials: null
         },
@@ -40,7 +44,11 @@ class AdminAddClientPresenter {
         if (response.data.title == "success") {
             this.vm.newClientObject = {
                 business_name: null,
-                address: null,
+                address1: null,
+                address2: null,
+                address3: null,
+                city: null,
+                post_code: null,
                 email_address: null,
                 initials: null
             };

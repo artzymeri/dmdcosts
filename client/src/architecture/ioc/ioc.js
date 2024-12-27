@@ -20,6 +20,7 @@ import AdminClientsPresenter from "../presenters/admin/AdminClientsPresenter";
 import AdminAddClientPresenter from "../presenters/admin/AdminAddClientPresenter";
 import AdminClientViewPresenter from "../presenters/admin/AdminClientViewPresenter";
 import AdminAddCasePresenter from "../presenters/admin/AdminAddCasePresenter";
+import InvoicesPresenter from "../presenters/admin/InvoicesPresenter";
 
 export const container = new Container({
   autoBindInjectable: true,
@@ -64,6 +65,7 @@ container.bind(TYPES.AdminAddClientPresenter).to(AdminAddClientPresenter);
 container.bind(TYPES.AdminAddCasePresenter).to(AdminAddCasePresenter);
 container.bind(TYPES.AdminCasePresenter).to(AdminCasePresenter);
 container.bind(TYPES.AdminAddEmployeePresenter).to(AdminAddEmployeePresenter);
+container.bind(TYPES.InvoicesPresenter).to(InvoicesPresenter);
 container
   .bind(TYPES.AdminHeaderPresenter)
   .to(AdminHeaderPresenter)

@@ -98,7 +98,8 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
           size="large"
           fullWidth
           onClick={() => {
-            generatePDF(presenter?.caseDetails);
+            presenter.insertInvoiceToDatabase()
+            // generatePDF(presenter?.caseDetails);
           }}
         >
           Create Invoice

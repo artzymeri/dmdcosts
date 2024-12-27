@@ -1,14 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const invoices_table = sequelize.define("invoices_table", {
-    reference_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        notEmpty: false,
-      },
-    },
-    cases_invovled: {
-      type: DataTypes.STRING,
+    cases_involved: {
+      type: DataTypes.TEXT("long"),
       allowNull: true,
       validate: {
         notEmpty: false,

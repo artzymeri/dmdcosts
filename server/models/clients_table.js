@@ -7,7 +7,35 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    address: {
+    address1: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    address2: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    address3: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    post_code: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {

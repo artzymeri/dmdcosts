@@ -31,25 +31,121 @@ const AdminClientViewContentLeftSide = (props) => {
       </div>
       <div className="admin-client-view-content-left-side-row">
         <span className="admin-client-view-content-left-side-row-label">
-          Address:
+          Address 1:
         </span>
         {presenter?.editForm ? (
           <TextField
             size="small"
             sx={{ width: "250px" }}
             variant="standard"
-            value={presenter?.editableClientDetails?.address}
-            placeholder="Address"
+            value={presenter?.editableClientDetails?.address1}
+            placeholder="Address 1"
             onChange={(e) => {
               presenter.changeEditableClientDetails(
-                "address",
+                "address1",
                 e?.target?.value
               );
             }}
           />
         ) : (
           <span className="admin-client-view-content-left-side-row-value">
-            {presenter?.clientDetails?.address}
+            {presenter?.clientDetails?.address1}
+          </span>
+        )}
+      </div>
+      <div className="admin-client-view-content-left-side-row">
+        <span className="admin-client-view-content-left-side-row-label">
+          Address 2:
+        </span>
+        {presenter?.editForm ? (
+          <TextField
+            size="small"
+            sx={{ width: "250px" }}
+            variant="standard"
+            value={presenter?.editableClientDetails?.address2}
+            placeholder="Address 2"
+            onChange={(e) => {
+              presenter.changeEditableClientDetails(
+                "address2",
+                e?.target?.value
+              );
+            }}
+          />
+        ) : (
+          <span className="admin-client-view-content-left-side-row-value">
+            {presenter?.clientDetails?.address2}
+          </span>
+        )}
+      </div>
+      <div className="admin-client-view-content-left-side-row">
+        <span className="admin-client-view-content-left-side-row-label">
+          Address 3:
+        </span>
+        {presenter?.editForm ? (
+          <TextField
+            size="small"
+            sx={{ width: "250px" }}
+            variant="standard"
+            value={presenter?.editableClientDetails?.address3}
+            placeholder="Address 3"
+            onChange={(e) => {
+              presenter.changeEditableClientDetails(
+                "address3",
+                e?.target?.value
+              );
+            }}
+          />
+        ) : (
+          <span className="admin-client-view-content-left-side-row-value">
+            {presenter?.clientDetails?.address3}
+          </span>
+        )}
+      </div>
+      <div className="admin-client-view-content-left-side-row">
+        <span className="admin-client-view-content-left-side-row-label">
+          City:
+        </span>
+        {presenter?.editForm ? (
+          <TextField
+            size="small"
+            sx={{ width: "250px" }}
+            variant="standard"
+            value={presenter?.editableClientDetails?.city}
+            placeholder="City"
+            onChange={(e) => {
+              presenter.changeEditableClientDetails(
+                "city",
+                e?.target?.value
+              );
+            }}
+          />
+        ) : (
+          <span className="admin-client-view-content-left-side-row-value">
+            {presenter?.clientDetails?.city}
+          </span>
+        )}
+      </div>
+      <div className="admin-client-view-content-left-side-row">
+        <span className="admin-client-view-content-left-side-row-label">
+          Post Code:
+        </span>
+        {presenter?.editForm ? (
+          <TextField
+            size="small"
+            sx={{ width: "250px" }}
+            variant="standard"
+            value={presenter?.editableClientDetails?.post_code}
+            placeholder="Post Code"
+            onChange={(e) => {
+              presenter.changeEditableClientDetails(
+                "post_code",
+                e?.target?.value
+              );
+            }}
+          />
+        ) : (
+          <span className="admin-client-view-content-left-side-row-value">
+            {presenter?.clientDetails?.post_code}
           </span>
         )}
       </div>

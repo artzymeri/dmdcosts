@@ -106,6 +106,14 @@ class MainAppRepository {
     return await this.appGateway.getCaseDetailsAsAdmin(case_id);
   };
 
+  insertInvoiceToDatabase = async (cases_array, admin_id, client_id) => {
+    return await this.appGateway.insertInvoiceToDatabase(cases_array, admin_id, client_id);
+  }
+
+  getAllInvoices = async () => {
+    return await this.appGateway.getAllInvoices();
+  };
+
   getAllClients = async () => {
     return await this.appGateway.getAllClients();
   };

@@ -605,6 +605,44 @@ app.get("/case:case_id", async (req, res) => {
   }
 });
 
+app.post(`/insert-invoices:admin_id`, async (req, res) => {
+  const { admin_id } = req.params;
+  const {cases_array, client_id} = req.body;
+  try {
+    await invoices_table.create({
+      cases_involved: JSON.stringify(cases_array),
+      client_id,
+      admin_id,
+      paid: false,
+      sent: false,
+    });
+
+    res.json({
+      title: "success",
+      message: "Invoice added successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get(`/allinvoices`, async (req, res) => {
+  try {
+    const invoices_array = await invoices_table.findAll();
+    res.send(invoices_array);
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.get(`/allclients`, async (req, res) => {
   try {
     const clients_array = await clients_table.findAll();
@@ -619,9 +657,9 @@ app.get(`/allclients`, async (req, res) => {
 });
 
 app.post("/addclient", async (req, res) => {
-  const { business_name, address, email_address, initials } = req.body;
+  const { business_name, address1, address2, address3, city, post_code, email_address, initials } = req.body;
 
-  if (!business_name || !address || !email_address || !initials) {
+  if (!business_name || !address1 || !email_address || !initials) {
     return res.json({
       title: "error",
       message: "Values cannot be null.",
@@ -642,7 +680,11 @@ app.post("/addclient", async (req, res) => {
   try {
     await clients_table.create({
       business_name,
-      address,
+      address1,
+      address2,
+      address3,
+      city,
+      post_code,
       email_address,
       initials,
     });
@@ -662,7 +704,7 @@ app.post("/addclient", async (req, res) => {
 
 app.post(`/updateclient:client_id`, async (req, res) => {
   const { client_id } = req.params;
-  const { business_name, address, email_address, initials } = req.body;
+  const { business_name, address1, address2, address3, city, post_code, email_address, initials } = req.body;
   try {
     const clientToUpdate = await clients_table.findOne({
       where: { id: client_id },
@@ -676,7 +718,11 @@ app.post(`/updateclient:client_id`, async (req, res) => {
     }
 
     clientToUpdate.business_name = business_name;
-    clientToUpdate.address = address;
+    clientToUpdate.address1 = address1;
+    clientToUpdate.address2 = address2;
+    clientToUpdate.address3 = address3;
+    clientToUpdate.city = city;
+    clientToUpdate.post_code = post_code;
     clientToUpdate.email_address = email_address;
     clientToUpdate.initials = initials;
 

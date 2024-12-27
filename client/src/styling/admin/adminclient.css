@@ -67,6 +67,7 @@
     gap: 15px;
     flex-shrink: 0;
     width: calc(50% - 16px);
+    overflow-y: auto;
 }
 
 .admin-client-view-content-left-side-row {

@@ -65,7 +65,7 @@ const LoginPage = () => {
           <Button
             variant="contained"
             size="large"
-            sx={{ backgroundColor: "#00491e" }}
+            
             onClick={() => {
               presenter.login().then(() => {
                 router.push("./");

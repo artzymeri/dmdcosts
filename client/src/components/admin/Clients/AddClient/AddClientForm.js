@@ -16,12 +16,44 @@ const AddClientForm = (props) => {
         focused={presenter.vm?.newClientObject?.business_name ? true : false}
       />
       <TextField
-        label="Address"
+        label="Address 1"
         onChange={(e) => {
-          presenter.handleChangeValues("address", e?.target?.value);
+          presenter.handleChangeValues("address1", e?.target?.value);
         }}
-        value={presenter.vm?.newClientObject?.address || ""}
-        focused={presenter.vm?.newClientObject?.address ? true : false}
+        value={presenter.vm?.newClientObject?.address1 || ""}
+        focused={presenter.vm?.newClientObject?.address1 ? true : false}
+      />
+      <TextField
+        label="Address 2"
+        onChange={(e) => {
+          presenter.handleChangeValues("address2", e?.target?.value);
+        }}
+        value={presenter.vm?.newClientObject?.address2 || ""}
+        focused={presenter.vm?.newClientObject?.address2 ? true : false}
+      />
+      <TextField
+        label="Address 3"
+        onChange={(e) => {
+          presenter.handleChangeValues("address3", e?.target?.value);
+        }}
+        value={presenter.vm?.newClientObject?.address3 || ""}
+        focused={presenter.vm?.newClientObject?.address3 ? true : false}
+      />
+      <TextField
+        label="City"
+        onChange={(e) => {
+          presenter.handleChangeValues("city", e?.target?.value);
+        }}
+        value={presenter.vm?.newClientObject?.city || ""}
+        focused={presenter.vm?.newClientObject?.city ? true : false}
+      />
+      <TextField
+        label="Post Code"
+        onChange={(e) => {
+          presenter.handleChangeValues("post_code", e?.target?.value);
+        }}
+        value={presenter.vm?.newClientObject?.post_code || ""}
+        focused={presenter.vm?.newClientObject?.post_code ? true : false}
       />
       <TextField
         label="Email Address"

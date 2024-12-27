@@ -25,7 +25,7 @@ const AdminClientsContent = () => {
           <Button
             variant="contained"
             color="success"
-            sx={{ backgroundColor: "#00491e" }}
+            
             onClick={() => {
               router.push("/addclient");
             }}

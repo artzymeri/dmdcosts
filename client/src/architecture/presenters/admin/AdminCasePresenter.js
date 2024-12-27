@@ -1,6 +1,7 @@
 import { TYPES } from "@/architecture/ioc/types";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
+import Cookies from "js-cookie";
 import { makeObservable, action, observable, computed } from "mobx";
 
 @injectable()
@@ -390,6 +391,13 @@ class AdminCasePresenter {
     this.vm.edit_view = false;
     this.vm.refresh_state += 1;
   };
+
+  insertInvoiceToDatabase = async () => {
+    const adminData = JSON.parse(Cookies.get("employeeData"))
+    const response = await this.mainAppRepository.insertInvoiceToDatabase([this.caseDetails?.id], adminData?.id, this.caseDetails?.client_id);
+    this.setSnackbar(true, response.data);
+    this.vm.refresh_state += 1;
+  }
 
   get assignedEmployee() {
     return this.vm.employees_list.find(

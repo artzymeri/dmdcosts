@@ -2,13 +2,13 @@ import { observer } from "mobx-react-lite";
 import { useEffect, useMemo, useState } from "react";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
-import AdminCasesHeader from "@/components/admin/Cases/Cases/AdminCasesHeader";
-import AdminCasesList from "@/components/admin/Cases/Cases/AdminCasesList";
-import AdminSecondHeader from "@/components/admin/Cases/Cases/AdminCasesSecondHeader";
 import { Button, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
+import InvoicesHeader from "./InvoicesHeader";
+import InvoicesSecondHeader from "./InvoicesSecondHeader";
+import InvoicesList from "./InvoicesList";
 
-const AdminCasesContent = () => {
+const InvoicesContent = () => {
   const router = useRouter();
 
   const [presenter, setPresenter] = useState(
@@ -22,25 +22,24 @@ const AdminCasesContent = () => {
   return (
     <div className="admin-cases-content-container">
       <div className="admin-cases-content-title-container">
-        <h2>Cases</h2>
-        <Tooltip title="Add Case Form Redirection" arrow>
+        <h2>Invoices</h2>
+        <Tooltip title="Produce Invoices Popup" arrow>
           <Button
             variant="contained"
             color="success"
-            
             onClick={() => {
-              router.push("/addcase");
+            //   router.push("/addcase");
             }}
           >
-            Add Case
+            Produce Invoices
           </Button>
         </Tooltip>
       </div>
-      <AdminCasesHeader presenter={presenter} />
-      <AdminSecondHeader presenter={presenter} />
-      <AdminCasesList presenter={presenter} />
+      <InvoicesHeader presenter={presenter} />
+      <InvoicesSecondHeader presenter={presenter} />
+      <InvoicesList presenter={presenter} />
     </div>
   );
 };
 
-export default observer(AdminCasesContent);
+export default observer(InvoicesContent);
