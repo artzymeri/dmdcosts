@@ -607,7 +607,7 @@ app.get("/case:case_id", async (req, res) => {
 
 app.post(`/insert-invoices:admin_id`, async (req, res) => {
   const { admin_id } = req.params;
-  const {cases_array, client_id} = req.body;
+  const { cases_array, client_id } = req.body;
   try {
     await invoices_table.create({
       cases_involved: JSON.stringify(cases_array),
@@ -657,7 +657,16 @@ app.get(`/allclients`, async (req, res) => {
 });
 
 app.post("/addclient", async (req, res) => {
-  const { business_name, address1, address2, address3, city, post_code, email_address, initials } = req.body;
+  const {
+    business_name,
+    address1,
+    address2,
+    address3,
+    city,
+    post_code,
+    email_address,
+    initials,
+  } = req.body;
 
   if (!business_name || !address1 || !email_address || !initials) {
     return res.json({
@@ -704,7 +713,16 @@ app.post("/addclient", async (req, res) => {
 
 app.post(`/updateclient:client_id`, async (req, res) => {
   const { client_id } = req.params;
-  const { business_name, address1, address2, address3, city, post_code, email_address, initials } = req.body;
+  const {
+    business_name,
+    address1,
+    address2,
+    address3,
+    city,
+    post_code,
+    email_address,
+    initials,
+  } = req.body;
   try {
     const clientToUpdate = await clients_table.findOne({
       where: { id: client_id },
@@ -786,6 +804,60 @@ app.get("/client:client_id", async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching case details:", error);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/produce-single-invoices`, async (req, res) => {
+  const { cases_involved, admin_id } = req.body;
+  try {
+    for (const item of cases_involved) {
+      const array = [item.id];
+      await invoices_table.create({
+        cases_involved: JSON.stringify(array),
+        client_id: item.client_id,
+        admin_id,
+        paid: false,
+        sent: false,
+      });
+    }
+    res.json({
+      title: "success",
+      message: "Single Invoices produced successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/produce-bundle-invoices:client_id`, async (req, res) => {
+  const { client_id } = req.params;
+  const { cases_involved, admin_id } = req.body;
+  try {
+    let casesIds = [];
+    for (const item of cases_involved) {
+      casesIds.push(item.id);
+    }
+    await invoices_table.create({
+      cases_involved: JSON.stringify(casesIds),
+      client_id,
+      admin_id,
+      paid: false,
+      sent: false,
+    });
+    res.json({
+      title: "success",
+      message: "Bundle Invoices produced successfully",
+    });
+  } catch (e) {
+    console.log(e);
     res.json({
       title: "error",
       message: "Something went wrong",

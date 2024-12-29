@@ -9,35 +9,53 @@ class InvoicesPresenter {
 
   vm = {
     all_invoices: [],
+    all_cases: [],
     deletionModalOpen: false,
     invoiceToBeDeleted: null,
-    sortingOption: "reference_number",
+    sortingOption: "id",
     sortingMode: "any",
     searchQuery: "",
     firstDateFilter: null,
     lastDateFilter: null,
     clients_list: [],
     employees_list: [],
-    single_to_delete_case: null,
+    single_to_delete_invoice: null,
+    produce_invoices_popup: null,
+    produce_invoices_mode: "single",
+    selected_client: null,
+    selected_cases: [],
+    snackbar_boolean: false,
+    snackbar_details: null,
+    refresh_state: 1,
   };
 
   constructor() {
     makeObservable(this, {
       vm: observable,
-      allCases: computed,
-      getAllCases: action.bound,
+      allInvoices: computed,
+      getAllInvoices: action.bound,
       deletionModalOpen: computed,
       init: action.bound,
-      singleToDeleteCase: computed
+      setProduceInvoicesMode: action.bound,
+      singleToDeleteInvoice: computed,
+      produceInvoicesPopup: computed,
+      produceInvoicesMode: computed,
+      allClients: computed,
+      snackbarBoolean: computed,
+      snackbarDetails: computed,
+      produceInvoices: action.bound,
     });
   }
 
   init = async () => {
     const response_clients = await this.mainAppRepository.getAllClients();
     const response_employees = await this.mainAppRepository.getAllEmployees();
-    const response_invoices = await this.mainAppRepository.getAllInvoices();
+    const response_cases = await this.mainAppRepository.getAllCases();
+    await this.getAllInvoices();
     this.vm.clients_list = response_clients.data;
+    this.vm.selected_client = response_clients.data[0];
     this.vm.employees_list = response_employees.data;
+    this.vm.all_cases = response_cases.data;
   };
 
   handleDatesChange(newValue, type) {
@@ -53,49 +71,99 @@ class InvoicesPresenter {
   }
 
   handleSearchFiltering(event) {
-    this.vm.searchQuery = event?.target?.value.toLowerCase();
+    this.vm.searchQuery = event?.target?.value.toLowerInvoice();
   }
 
-  handleDeleteCasesModal(value) {
-    if (this.vm.single_to_delete_case && value == false) {
-      this.vm.single_to_delete_case = null;
+  handleDeleteInvoicesModal(value) {
+    if (this.vm.single_to_delete_invoice && value == false) {
+      this.vm.single_to_delete_invoice = null;
     }
     this.vm.deletionModalOpen = value;
   }
 
-  handleSingleDeletionCasesModal(case_id, value) {
+  handleSingleDeletionInvoicesModal(invoice_id, value) {
     this.vm.deletionModalOpen = value;
-    this.vm.single_to_delete_case = case_id;
+    this.vm.single_to_delete_invoice = invoice_id;
   }
 
-  getAllCases = async () => {
-    const response = await this.mainAppRepository.getAllCases();
-    this.vm.all_cases = response?.data;
+  getAllInvoices = async () => {
+    const response = await this.mainAppRepository.getAllInvoices();
+    this.vm.all_invoices = response?.data;
   };
 
-  handleCaseCheck = (case_id) => {
-    const caseToCheck = this.vm.all_cases.find((item) => item.id == case_id);
-    caseToCheck.checked = !caseToCheck.checked;
+  handleInvoiceCheck = (invoice_id) => {
+    const invoiceToCheck = this.vm.all_invoices.find(
+      (item) => item.id == invoice_id
+    );
+    invoiceToCheck.checked = !invoiceToCheck.checked;
   };
 
-  deleteSingleCase = async () => {
-    await this.mainAppRepository.deleteCase(this.singleToDeleteCase);
-    await this.getAllCases();
-    this.handleDeleteCasesModal(false);
+  deleteSingleInvoice = async () => {
+    await this.mainAppRepository.deleteInvoice(this.singleToDeleteInvoice);
+    await this.getAllInvoices();
+    this.handleDeleteInvoicesModal(false);
   };
 
-  deleteCases = async () => {
-    for (const item of this.vm.all_cases) {
+  deleteInvoices = async () => {
+    for (const item of this.vm.all_invoices) {
       if (item.checked) {
-        await this.mainAppRepository.deleteCase(item?.id);
+        await this.mainAppRepository.deleteInvoice(item?.id);
       }
     }
-    await this.getAllCases();
-    this.handleDeleteCasesModal(false);
+    await this.getAllInvoices();
+    this.handleDeleteInvoicesModal(false);
   };
 
-  get allCases() {
-    return this.vm.all_cases
+  setProduceInvoicesPopup(boolean) {
+    this.vm.produce_invoices_popup = boolean;
+  }
+
+  setProduceInvoicesMode(mode) {
+    for (const c of this.vm.all_cases) {
+      c.selected = false;
+    }
+    this.vm.produce_invoices_mode = mode;
+  }
+
+  setSnackbar(value, details) {
+    this.vm.snackbar_boolean = value;
+    this.vm.snackbar_details = details;
+    setTimeout(() => {
+      this.vm.snackbar_boolean = false;
+      this.vm.snackbar_details = null;
+    }, 3000);
+  }
+
+  produceInvoices = async () => {
+    const selectedCases = this.vm.all_cases.filter((c) => c.selected == true);
+    if (this.produceInvoicesMode == "single") {
+      const response = await this.mainAppRepository.produceSingleInvoices(
+        selectedCases
+      );
+      this.setSnackbar(true, response.data);
+      this.vm.refresh_state += 1;
+    }
+    if (this.produceInvoicesMode == "bundle") {
+      const response = await this.mainAppRepository.produceBundleInvoices(
+        this.vm.selected_client.id,
+        selectedCases
+      );
+      this.setSnackbar(true, response.data);
+      this.vm.refresh_state += 1;
+    }
+  };
+
+  setSelectedClient(client) {
+    this.vm.selected_client = client;
+  }
+
+  selectCase(case_id) {
+    const selectedCase = this.vm.all_cases.find((item) => item.id == case_id);
+    selectedCase.selected = !selectedCase.selected;
+  }
+
+  get allInvoices() {
+    return this.vm.all_invoices
       .map((item) => {
         const client = this.vm.clients_list.find(
           (client) => client?.id == item?.client_id
@@ -133,20 +201,69 @@ class InvoicesPresenter {
       });
   }
 
+  get casesToProduce() {
+    return this.vm.all_cases.filter((case_item) => {
+      return !this.vm.all_invoices.some((invoice) => {
+        try {
+          const casesInvolved = JSON.parse(invoice.cases_involved || "[]");
+
+          return casesInvolved.includes(case_item.id);
+        } catch (error) {
+          console.error("Error parsing cases_involved:", error);
+          return false;
+        }
+      });
+    });
+  }
+
+  get singleToProduceCases() {
+    return this.casesToProduce.filter(
+      (case_item) => case_item.negotiable == false
+    );
+  }
+
+  get bundleToProduceCases() {
+    return this.casesToProduce
+      .filter((case_item) => case_item.negotiable == true)
+      .filter(
+        (case_item) => case_item.client_id == this.vm.selected_client?.id
+      );
+  }
+
   get deletionModalOpen() {
     return this.vm.deletionModalOpen;
   }
 
-  get singleToDeleteCase() {
-    return this.vm.single_to_delete_case;
+  get singleToDeleteInvoice() {
+    return this.vm.single_to_delete_invoice;
   }
 
   get printInvoicesButtonDisabled() {
-    return this.allCases.length === 0;
+    return this.allInvoices.length === 0;
   }
 
   get deleteButtonDisabled() {
-    return !this.vm.all_cases.some((item) => item.checked);
+    return !this.vm.all_invoices.some((item) => item.checked);
+  }
+
+  get produceInvoicesPopup() {
+    return this.vm.produce_invoices_popup;
+  }
+
+  get produceInvoicesMode() {
+    return this.vm.produce_invoices_mode;
+  }
+
+  get allClients() {
+    return this.vm.clients_list;
+  }
+
+  get snackbarBoolean() {
+    return this.vm.snackbar_boolean;
+  }
+
+  get snackbarDetails() {
+    return this.vm.snackbar_details;
   }
 }
 

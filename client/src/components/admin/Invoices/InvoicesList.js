@@ -7,7 +7,7 @@ const InvoicesList = ({ presenter }) => {
     <>
       <InvoicesDeletionDialog presenter={presenter} />
       <div className="admin-cases-list-container">
-        {presenter?.allCases.map((item) => {
+        {presenter?.allInvoices.map((item) => {
           return (
             <InvoicesListItem
               presenter={presenter}
@@ -16,7 +16,7 @@ const InvoicesList = ({ presenter }) => {
             />
           );
         })}
-        {presenter.allCases.length === 0 && (
+        {presenter.allInvoices.length === 0 && (
           <span style={{ width: "100%", textAlign: "center" }}>No Data</span>
         )}
       </div>

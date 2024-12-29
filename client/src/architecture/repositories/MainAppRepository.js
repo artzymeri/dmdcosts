@@ -107,8 +107,12 @@ class MainAppRepository {
   };
 
   insertInvoiceToDatabase = async (cases_array, admin_id, client_id) => {
-    return await this.appGateway.insertInvoiceToDatabase(cases_array, admin_id, client_id);
-  }
+    return await this.appGateway.insertInvoiceToDatabase(
+      cases_array,
+      admin_id,
+      client_id
+    );
+  };
 
   getAllInvoices = async () => {
     return await this.appGateway.getAllInvoices();
@@ -135,6 +139,17 @@ class MainAppRepository {
 
   getClientDetails = async (client_id) => {
     return await this.appGateway.getClientDetails(client_id);
+  };
+
+  produceSingleInvoices = async (cases_involved) => {
+    return await this.appGateway.produceSingleInvoices(cases_involved);
+  };
+
+  produceBundleInvoices = async (client_id, cases_involved) => {
+    return await this.appGateway.produceBundleInvoices(
+      client_id,
+      cases_involved
+    );
   };
 }
 

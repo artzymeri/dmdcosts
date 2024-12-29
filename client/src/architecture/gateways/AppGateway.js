@@ -1,5 +1,6 @@
 import axios from "axios";
 import { injectable } from "inversify";
+import Cookies from "js-cookie";
 import "reflect-metadata";
 
 @injectable()
@@ -104,7 +105,10 @@ class AppGateway {
   };
 
   insertInvoiceToDatabase = async (cases_array, admin_id, client_id) => {
-    return await axios.post(`http://localhost:7070/insert-invoices${admin_id}`, {cases_array, client_id});
+    return await axios.post(
+      `http://localhost:7070/insert-invoices${admin_id}`,
+      { cases_array, client_id }
+    );
   };
 
   getAllInvoices = async () => {
@@ -132,6 +136,22 @@ class AppGateway {
 
   getClientDetails = async (client_id) => {
     return await axios.get(`http://localhost:7070/client${client_id}`);
+  };
+
+  produceSingleInvoices = async (cases_involved) => {
+    const admin = JSON.parse(Cookies.get("employeeData"));
+    return await axios.post(`http://localhost:7070/produce-single-invoices`, {
+      cases_involved,
+      admin_id: admin?.id,
+    });
+  };
+
+  produceBundleInvoices = async (client_id, cases_involved) => {
+    const admin = JSON.parse(Cookies.get("employeeData"));
+    return await axios.post(
+      `http://localhost:7070/produce-bundle-invoices${client_id}`,
+      { cases_involved, admin_id: admin?.id }
+    );
   };
 }
 
