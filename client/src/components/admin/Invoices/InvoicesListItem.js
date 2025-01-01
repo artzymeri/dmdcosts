@@ -1,10 +1,31 @@
 import { observer } from "mobx-react-lite";
 import { Checkbox, IconButton, Tooltip } from "@mui/material";
-import { DeleteOutlineRounded } from "@mui/icons-material";
+import { Download } from "@mui/icons-material";
 import dayjs from "dayjs";
+import axios from "axios";
 
 const InvoicesListItem = (props) => {
   const { item, presenter } = props;
+
+  const downloadInvoicePDF = async (invoice) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:7070/download-invoice`,
+        { invoice },
+        { responseType: "blob" }
+      );
+
+      const downloadLink = document.createElement("a");
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+
+      downloadLink.href = url;
+      downloadLink.setAttribute("download", `Case ${invoice?.id} ${`123`}.pdf`);
+      downloadLink.click();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className={`admin-cases-list-item`}>
@@ -40,15 +61,15 @@ const InvoicesListItem = (props) => {
       >
         <span>{dayjs(item?.createdAt).format("DD|MM|YYYY")}</span>
       </Tooltip>
-      <Tooltip placement="top" title="Click to delete case" arrow>
+      <Tooltip placement="top" title="Click to download case" arrow>
         <IconButton
           color="error"
           onClick={(e) => {
             e.stopPropagation();
-            presenter.handleSingleDeletionCasesModal(item?.id, true);
+            downloadInvoicePDF(item);
           }}
         >
-          <DeleteOutlineRounded />
+          <Download />
         </IconButton>
       </Tooltip>
     </div>

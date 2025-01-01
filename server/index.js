@@ -865,12 +865,19 @@ app.post(`/produce-bundle-invoices:client_id`, async (req, res) => {
   }
 });
 
-app.post("/generatepdfonly/:case_id", async (req, res) => {
-  const { case_id } = req.params;
-  const caseData = await cases_table.findByPk(case_id);
-
+app.post("/download-invoice", async (req, res) => {
+  const { invoice } = req.body;
+  const admin = await users_table.findByPk(parseInt(invoice.admin_id));
+  const client = await clients_table.findByPk(parseInt(invoice.client_id));
+  invoice.cases_involved = JSON.parse(invoice.cases_involved);
+  const cases_data = [];
+  for (id of invoice.cases_involved) {
+    const row = await cases_table.findByPk(parseInt(id));
+    cases_data.push(row.dataValues);
+  }
+  invoice.cases_data = cases_data;
   try {
-    await createInvoice(case_id, caseData, res);
+    await createInvoice(invoice, admin, client, res);
   } catch (error) {
     console.log(error);
     res.status(500).json({

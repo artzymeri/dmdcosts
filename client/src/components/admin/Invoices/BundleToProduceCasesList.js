@@ -32,17 +32,23 @@ const BundleToProduceCasesList = ({ presenter }) => {
         </FormControl>
       )}
 
-      {presenter.bundleToProduceCases.map((item) => (
-        <div key={item.id}>
-          <Checkbox
-            onClick={(e) => {
-              e.stopPropagation();
-              presenter.selectCase(item?.id);
-            }}
-          />
-          {item.id}
+      {presenter.bundleToProduceCases.length > 0 ? (
+        presenter.bundleToProduceCases.map((item) => (
+          <div key={item.id}>
+            <Checkbox
+              onClick={(e) => {
+                e.stopPropagation();
+                presenter.selectCase(item?.id);
+              }}
+            />
+            {item.id}
+          </div>
+        ))
+      ) : (
+        <div style={{ width: "100%", textAlign: "center" }}>
+          No Cases to Produce.
         </div>
-      ))}
+      )}
     </>
   );
 };

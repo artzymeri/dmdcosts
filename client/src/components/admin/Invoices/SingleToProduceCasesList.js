@@ -20,7 +20,9 @@ const SingleToProduceCasesList = ({ presenter }) => {
       })}
     </>
   ) : (
-    <div>No Cases to Produce.</div>
+    <div style={{ width: "100%", textAlign: "center" }}>
+      No Cases to Produce.
+    </div>
   );
 };
 
