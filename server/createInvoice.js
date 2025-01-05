@@ -181,6 +181,24 @@ function generateTableHeader(doc, y1, y2, y3, c1, c2, c3) {
     .text(c3, 70, y3);
 }
 
+function generateBankDetails(doc, y1, y2, y3, y4, c1, v1, v2, v3) {
+  doc
+    .fontSize(10)
+    .font("Helvetica")
+    .text(c1, 70, y1) // Bank Details
+    .text("Account Holder: ", 70, y2, { continued: true })
+    .font("Helvetica-Bold")
+    .text(v1) // Use the value directly
+    .font("Helvetica")
+    .text("Account Number: ", 70, y3, { continued: true })
+    .font("Helvetica-Bold")
+    .text(v2) // Use the value directly
+    .font("Helvetica")
+    .text("Sort Code: ", 70, y4, { continued: true })
+    .font("Helvetica-Bold")
+    .text(v3); // Use the value directly
+}
+
 function generateFooterDisclaimer(doc) {
   doc
     .font("Helvetica")
@@ -196,6 +214,8 @@ function generateFooterDisclaimer(doc) {
 }
 
 function createInvoice(invoice_object, admin, client, res) {
+  const bankDetails = JSON.parse(admin.dataValues?.bank_details);
+
   return new Promise((resolve, reject) => {
     let doc = new PDFDocument({ margin: 30 });
 
@@ -211,6 +231,17 @@ function createInvoice(invoice_object, admin, client, res) {
       "Work Done:"
     );
     generateTable(doc, invoice_object.cases_data);
+    generateBankDetails(
+      doc,
+      620,
+      635,
+      650,
+      665,
+      "Bank Details:",
+      bankDetails?.account_holder,
+      bankDetails?.account_number,
+      bankDetails?.sort_code
+    );
     generateFooterDisclaimer(doc);
 
     res.setHeader("Content-Type", "application/pdf");
