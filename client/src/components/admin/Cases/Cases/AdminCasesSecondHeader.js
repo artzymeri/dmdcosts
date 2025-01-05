@@ -2,8 +2,11 @@ import { Button } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useRouter } from "next/router";
 
 const AdminSecondHeader = ({ presenter }) => {
+  const router = useRouter();
+
   return (
     <div className="admin-cases-header-container">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -50,6 +53,9 @@ const AdminSecondHeader = ({ presenter }) => {
         color="success"
         disabled={presenter?.printInvoicesButtonDisabled}
         sx={{ textWrap: "nowrap", flexShrink: "0", height: "56px" }}
+        onClick={() => {
+          router.push("/invoices");
+        }}
       >
         Produce Invoices
       </Button>

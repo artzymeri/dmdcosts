@@ -14,13 +14,18 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AdminCaseDetailsNegotiationDetails from "@/components/admin/Cases/Case/AdminCaseDetailsNegotiationDetails";
 
 const AdminCaseDetailsRightSide = ({ presenter }) => {
-  const generatePDF = async (caseData) => {
-    const dateObject = new Date(caseData?.createdAt);
-    const formattedDate = dateObject.toLocaleString();
+  const downloadInvoicePDF = async (case_id) => {
+    const dateStr = presenter.vm.case_invoice_object.createdAt;
+    const date = new Date(dateStr);
+
+    const formattedDate = date.toLocaleDateString("en-GB");
+
+    const finalDate = formattedDate.replaceAll("/", ".");
+
     try {
       const response = await axios.post(
-        `http://localhost:7070/generatepdfonly/${caseData?.id}`,
-        { caseData },
+        `http://localhost:7070/find-invoice`,
+        { case_id },
         { responseType: "blob" }
       );
 
@@ -31,7 +36,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
       downloadLink.href = url;
       downloadLink.setAttribute(
         "download",
-        `Case ${caseData?.id} ${formattedDate}.pdf`
+        `${presenter.clientDetails.business_name} ${finalDate}.pdf`
       );
       downloadLink.click();
     } catch (error) {
@@ -92,18 +97,31 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
         >
           Delete Case
         </Button>
-        <Button
-          variant="contained"
-          color="success"
-          size="large"
-          fullWidth
-          onClick={() => {
-            presenter.insertInvoiceToDatabase()
-            // generatePDF(presenter?.caseDetails);
-          }}
-        >
-          Create Invoice
-        </Button>
+        {presenter.alreadyHasInvoice ? (
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
+            fullWidth
+            onClick={() => {
+              downloadInvoicePDF(presenter.caseDetails?.id);
+            }}
+          >
+            Download Invoice
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
+            fullWidth
+            onClick={() => {
+              presenter.insertInvoiceToDatabase();
+            }}
+          >
+            Create Invoice
+          </Button>
+        )}
       </div>
       <div
         style={{

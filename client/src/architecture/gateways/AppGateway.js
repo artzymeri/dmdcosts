@@ -35,6 +35,12 @@ class AppGateway {
     return await axios.post(`http://localhost:7070/deletecase${case_id}`);
   };
 
+  deleteInvoice = async (invoice_id) => {
+    return await axios.post(
+      `http://localhost:7070/delete-invoice${invoice_id}`
+    );
+  };
+
   changeCaseStatus = async (case_id, status, date) => {
     return await axios.post(
       `http://localhost:7070/changecasestatus${case_id}`,
@@ -98,6 +104,10 @@ class AppGateway {
     return await axios.get(
       `http://localhost:7070/employees/${employee_id}/cases/${case_id}`
     );
+  };
+
+  getCaseInvoice = async (case_id) => {
+    return await axios.get(`http://localhost:7070/invoice-case${case_id}`);
   };
 
   getCaseDetailsAsAdmin = async (case_id) => {

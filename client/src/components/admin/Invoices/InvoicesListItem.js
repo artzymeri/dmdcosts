@@ -8,6 +8,13 @@ const InvoicesListItem = (props) => {
   const { item, presenter } = props;
 
   const downloadInvoicePDF = async (invoice) => {
+    const dateStr = invoice.createdAt;
+    const date = new Date(dateStr);
+
+    const formattedDate = date.toLocaleDateString("en-GB"); // Output: 05/01/2025
+
+    const finalDate = formattedDate.replaceAll("/", ".");
+
     try {
       const response = await axios.post(
         `http://localhost:7070/download-invoice`,
@@ -20,7 +27,12 @@ const InvoicesListItem = (props) => {
       const url = URL.createObjectURL(blob);
 
       downloadLink.href = url;
-      downloadLink.setAttribute("download", `Case ${invoice?.id} ${`123`}.pdf`);
+      downloadLink.setAttribute(
+        "download",
+        `${
+          presenter.getCaseDetailsByInvoice(invoice).business_name
+        } ${finalDate}.pdf`
+      );
       downloadLink.click();
     } catch (error) {
       console.error(error);
@@ -32,7 +44,7 @@ const InvoicesListItem = (props) => {
       <Checkbox
         onClick={(e) => {
           e.stopPropagation();
-          presenter.handleCaseCheck(item?.id);
+          presenter.selectInvoice(item?.id);
         }}
       />
       <Tooltip placement="top-start" title={"aaa"} arrow>

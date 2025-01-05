@@ -244,12 +244,6 @@ function createInvoice(invoice_object, admin, client, res) {
     );
     generateFooterDisclaimer(doc);
 
-    res.setHeader("Content-Type", "application/pdf");
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename=Fatura ${invoice_object?.id} ${`111`}.pdf`
-    );
-
     doc.pipe(res);
     doc.end();
 

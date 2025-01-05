@@ -111,6 +111,7 @@ class AdminCasePresenter {
     settled_date: null,
     editable_case_fields: null,
     edit_view: false,
+    case_invoice_object: null,
   };
 
   constructor() {
@@ -131,6 +132,8 @@ class AdminCasePresenter {
       addOfferModalOpen: computed,
       POD: computed,
       showStatusDropdown: computed,
+      alreadyHasInvoice: computed,
+      clientDetails: computed,
     });
   }
 
@@ -140,6 +143,10 @@ class AdminCasePresenter {
     );
     const clients_response = await this.mainAppRepository.getAllClients();
     const employees_response = await this.mainAppRepository.getAllEmployees();
+    const invoice_object_response = await this.mainAppRepository.getCaseInvoice(
+      case_id
+    );
+    this.vm.case_invoice_object = invoice_object_response.data.invoice;
     this.vm.case_details = response.data;
     this.vm.editable_case_fields = response?.data?.case;
     this.vm.clients_list = clients_response.data;
@@ -393,11 +400,15 @@ class AdminCasePresenter {
   };
 
   insertInvoiceToDatabase = async () => {
-    const adminData = JSON.parse(Cookies.get("employeeData"))
-    const response = await this.mainAppRepository.insertInvoiceToDatabase([this.caseDetails?.id], adminData?.id, this.caseDetails?.client_id);
+    const adminData = JSON.parse(Cookies.get("employeeData"));
+    const response = await this.mainAppRepository.insertInvoiceToDatabase(
+      [this.caseDetails?.id],
+      adminData?.id,
+      this.caseDetails?.client_id
+    );
     this.setSnackbar(true, response.data);
     this.vm.refresh_state += 1;
-  }
+  };
 
   get assignedEmployee() {
     return this.vm.employees_list.find(
@@ -482,6 +493,16 @@ class AdminCasePresenter {
     } else {
       return true;
     }
+  }
+
+  get alreadyHasInvoice() {
+    return this.vm.case_invoice_object;
+  }
+
+  get clientDetails() {
+    return this.vm.clients_list.find(
+      (client) => client.id == this.caseDetails.client_id
+    );
   }
 }
 

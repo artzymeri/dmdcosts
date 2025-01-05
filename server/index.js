@@ -144,7 +144,6 @@ app.post(`/deleteemployee:employee_id`, async (req, res) => {
     const employeeToDelete = await users_table.findOne({
       where: { id: employee_id },
     });
-    console.log(employee_id);
     await employeeToDelete.destroy();
     res.json({
       title: "success",
@@ -353,6 +352,26 @@ app.post(`/deletecase:case_id`, async (req, res) => {
     res.json({
       title: "success",
       message: "Case deleted successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post(`/delete-invoice:invoice_id`, async (req, res) => {
+  const { invoice_id } = req.params;
+  try {
+    const invoiceToDelete = await invoices_table.findOne({
+      where: { id: invoice_id },
+    });
+    await invoiceToDelete.destroy();
+    res.json({
+      title: "success",
+      message: "Invoices deleted successfully",
     });
   } catch (e) {
     console.log(e);
@@ -594,6 +613,52 @@ app.get("/case:case_id", async (req, res) => {
       res.json({
         title: "error",
         message: "Case not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching case details:", error);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get("/invoice-case:case_id", async (req, res) => {
+  const { case_id } = req.params;
+  try {
+    const invoices_list = await invoices_table.findAll();
+
+    let casesArray = [];
+
+    let foundInvoice = null;
+
+    for (item of invoices_list) {
+      const cases_involved = JSON.parse(item.cases_involved);
+      if (cases_involved.some((c) => c == case_id)) {
+        foundInvoice = item;
+      }
+      for (c of cases_involved) {
+        casesArray.push(c);
+      }
+    }
+
+    const foundCase = casesArray.find((c) => c == case_id);
+
+    console.log(foundInvoice);
+
+    if (foundCase) {
+      res.json({
+        title: "success",
+        message: "Invoice found",
+        case: foundCase,
+        invoice: foundInvoice,
+      });
+    } else {
+      res.json({
+        title: "error",
+        message: "Invoice not found",
+        case: null,
       });
     }
   } catch (error) {
@@ -880,6 +945,45 @@ app.post("/download-invoice", async (req, res) => {
     await createInvoice(invoice, admin, client, res);
   } catch (error) {
     console.log(error);
+    res.status(500).json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.post("/find-invoice", async (req, res) => {
+  const { case_id } = req.body;
+
+  let invoiceData = await invoices_table.findOne({
+    where: {
+      cases_involved: {
+        [Op.like]: `%${case_id}%`, // Matches case_id within the stringified array
+      },
+    },
+  });
+
+  let invoice = invoiceData?.dataValues;
+  if (invoice) {
+    const admin = await users_table.findByPk(parseInt(invoice.admin_id));
+    const client = await clients_table.findByPk(parseInt(invoice.client_id));
+    invoice.cases_involved = JSON.parse(invoice.cases_involved);
+    const cases_data = [];
+    for (id of invoice.cases_involved) {
+      const row = await cases_table.findByPk(parseInt(id));
+      cases_data.push(row.dataValues);
+    }
+    invoice.cases_data = cases_data;
+    try {
+      await createInvoice(invoice, admin, client, res);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        title: "error",
+        message: "Something went wrong",
+      });
+    }
+  } else {
     res.status(500).json({
       title: "error",
       message: "Something went wrong",

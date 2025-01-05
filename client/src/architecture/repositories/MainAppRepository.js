@@ -56,6 +56,10 @@ class MainAppRepository {
     return await this.appGateway.deleteCase(case_id);
   };
 
+  deleteInvoice = async (invoice_id) => {
+    return await this.appGateway.deleteInvoice(invoice_id);
+  };
+
   changeCaseStatus = async (case_id, status, date) => {
     return await this.appGateway.changeCaseStatus(case_id, status, date);
   };
@@ -100,6 +104,10 @@ class MainAppRepository {
 
   getCaseDetails = async (employee_id, case_id) => {
     return await this.appGateway.getCaseDetails(employee_id, case_id);
+  };
+
+  getCaseInvoice = async (case_id) => {
+    return await this.appGateway.getCaseInvoice(case_id);
   };
 
   getCaseDetailsAsAdmin = async (case_id) => {

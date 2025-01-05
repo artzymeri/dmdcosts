@@ -75,15 +75,7 @@ class InvoicesPresenter {
   }
 
   handleDeleteInvoicesModal(value) {
-    if (this.vm.single_to_delete_invoice && value == false) {
-      this.vm.single_to_delete_invoice = null;
-    }
     this.vm.deletionModalOpen = value;
-  }
-
-  handleSingleDeletionInvoicesModal(invoice_id, value) {
-    this.vm.deletionModalOpen = value;
-    this.vm.single_to_delete_invoice = invoice_id;
   }
 
   getAllInvoices = async () => {
@@ -106,7 +98,7 @@ class InvoicesPresenter {
 
   deleteInvoices = async () => {
     for (const item of this.vm.all_invoices) {
-      if (item.checked) {
+      if (item.selected) {
         await this.mainAppRepository.deleteInvoice(item?.id);
       }
     }
@@ -153,13 +145,23 @@ class InvoicesPresenter {
     }
   };
 
-  setSelectedClient(client) {
-    this.vm.selected_client = client;
+  selectCase(case_id) {
+    const selecteInvoice = this.vm.all_cases.find((item) => item.id == case_id);
+    selecteInvoice.selected = !selecteInvoice.selected;
   }
 
-  selectCase(case_id) {
-    const selectedCase = this.vm.all_cases.find((item) => item.id == case_id);
-    selectedCase.selected = !selectedCase.selected;
+  selectInvoice(invoice_id) {
+    const selecteInvoice = this.vm.all_invoices.find(
+      (item) => item.id == invoice_id
+    );
+    selecteInvoice.selected = !selecteInvoice.selected;
+  }
+
+  getCaseDetailsByInvoice(invoice) {
+    const foundClient = this.vm.clients_list.find(
+      (c) => c.id == invoice.client_id
+    );
+    return foundClient;
   }
 
   get allInvoices() {
@@ -243,7 +245,7 @@ class InvoicesPresenter {
   }
 
   get deleteButtonDisabled() {
-    return !this.vm.all_invoices.some((item) => item.checked);
+    return !this.vm.all_invoices.some((item) => item.selected);
   }
 
   get produceInvoicesPopup() {
