@@ -7,14 +7,27 @@ const SingleToProduceCasesList = ({ presenter }) => {
     <>
       {presenter.singleToProduceCases.map((item) => {
         return (
-          <div key={item.id}>
-            <Checkbox
-              onClick={(e) => {
-                e.stopPropagation();
-                presenter.selectCase(item?.id);
-              }}
-            />
-            {item.id}
+          <div
+            key={item.id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <Checkbox
+                onClick={(e) => {
+                  e.stopPropagation();
+                  presenter.selectCase(item?.id);
+                }}
+              />
+              <span>{`#${presenter.getClientDetailsByCase(item).initials}.${
+                item.type
+              }.${item.id}`}</span>
+            </div>
+            <span>{presenter.getClientDetailsByCase(item).business_name}</span>
           </div>
         );
       })}

@@ -386,6 +386,7 @@ app.post(`/changecasestatus:case_id`, async (req, res) => {
   const { case_id } = req.params;
   const { status, date } = req.body;
   try {
+    let includedInvoice = null;
     const caseToUpdate = await cases_table.findOne({
       where: { id: case_id },
     });
@@ -395,7 +396,24 @@ app.post(`/changecasestatus:case_id`, async (req, res) => {
     if (status == "settled") {
       caseToUpdate.settled_date = date;
     }
+    if (status == "paid") {
+      const invoicesTable = await invoices_table.findAll();
+      for (const invoice of invoicesTable) {
+        const parsedCasesInvolved = JSON.parse(
+          invoice?.dataValues?.cases_involved
+        );
+        const foundCase = parsedCasesInvolved.find((c) => c == case_id);
+        if (foundCase) {
+          includedInvoice = invoice;
+        }
+      }
+    }
+
     caseToUpdate.status = status;
+    if (includedInvoice) {
+      includedInvoice.paid = true;
+      await includedInvoice.save();
+    }
     await caseToUpdate.save();
     res.json({
       title: "success",
@@ -644,8 +662,6 @@ app.get("/invoice-case:case_id", async (req, res) => {
     }
 
     const foundCase = casesArray.find((c) => c == case_id);
-
-    console.log(foundInvoice);
 
     if (foundCase) {
       res.json({

@@ -14,9 +14,9 @@ const InvoicesDeletionDialog = ({ presenter }) => {
       }}
     >
       <DialogContent>
-        {presenter.singleToDeleteCase
-          ? "Are you sure you want to delete the selected case?"
-          : "Are you sure you want to delete the selected cases?"}
+        {presenter.singleToDeleteInvoice
+          ? "Are you sure you want to delete the selected invoice?"
+          : "Are you sure you want to delete the selected invoices?"}
       </DialogContent>
       <DialogActions
         sx={{

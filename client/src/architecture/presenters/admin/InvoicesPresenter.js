@@ -157,11 +157,33 @@ class InvoicesPresenter {
     selecteInvoice.selected = !selecteInvoice.selected;
   }
 
-  getCaseDetailsByInvoice(invoice) {
+  getClientDetailsByInvoice(invoice) {
     const foundClient = this.vm.clients_list.find(
       (c) => c.id == invoice.client_id
     );
     return foundClient;
+  }
+
+  getClientDetailsByCase(case_details) {
+    const foundClient = this.vm.clients_list.find(
+      (c) => c.id == case_details.client_id
+    );
+    return foundClient;
+  }
+
+  getTypeOfInvoice(invoice) {
+    const caseInvolved = this.vm.all_cases.find(
+      (c) => c.id == JSON.parse(invoice.cases_involved)[0]
+    );
+    if (caseInvolved?.negotiable) {
+      return "Single";
+    } else {
+      return "Bundle";
+    }
+  }
+
+  setSelectedClient(client) {
+    this.vm.selected_client = client;
   }
 
   get allInvoices() {
@@ -220,13 +242,13 @@ class InvoicesPresenter {
 
   get singleToProduceCases() {
     return this.casesToProduce.filter(
-      (case_item) => case_item.negotiable == false
+      (case_item) => case_item.negotiable == true
     );
   }
 
   get bundleToProduceCases() {
     return this.casesToProduce
-      .filter((case_item) => case_item.negotiable == true)
+      .filter((case_item) => case_item.negotiable == false)
       .filter(
         (case_item) => case_item.client_id == this.vm.selected_client?.id
       );

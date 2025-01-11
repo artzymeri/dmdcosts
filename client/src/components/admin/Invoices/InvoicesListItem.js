@@ -1,11 +1,16 @@
 import { observer } from "mobx-react-lite";
-import { Checkbox, IconButton, Tooltip } from "@mui/material";
+import { Button, Checkbox, IconButton, Tooltip } from "@mui/material";
 import { Download } from "@mui/icons-material";
 import dayjs from "dayjs";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const InvoicesListItem = (props) => {
   const { item, presenter } = props;
+
+  const router = useRouter();
+  const cases_array = JSON.parse(item?.cases_involved);
+  const firstCaseId = cases_array[0];
 
   const downloadInvoicePDF = async (invoice) => {
     const dateStr = invoice.createdAt;
@@ -30,7 +35,7 @@ const InvoicesListItem = (props) => {
       downloadLink.setAttribute(
         "download",
         `${
-          presenter.getCaseDetailsByInvoice(invoice).business_name
+          presenter.getClientDetailsByInvoice(invoice).business_name
         } ${finalDate}.pdf`
       );
       downloadLink.click();
@@ -47,24 +52,19 @@ const InvoicesListItem = (props) => {
           presenter.selectInvoice(item?.id);
         }}
       />
-      <Tooltip placement="top-start" title={"aaa"} arrow>
-        <span>{`aaa`}</span>
+      <Tooltip placement="top-start" title={`Invoice ID: ${item?.id}`} arrow>
+        <span>{`#${item?.id}`}</span>
       </Tooltip>
       <Tooltip placement="top-start" title={item?.client_business_name} arrow>
         <span>{item?.client_business_name}</span>
       </Tooltip>
-      <Tooltip placement="top-start" title={item?.assignee_name_surname} arrow>
-        <span>{item?.assignee_name_surname}</span>
-      </Tooltip>
-      <Tooltip placement="top-start" title={"aaa"} arrow>
-        <span>aaa</span>
-      </Tooltip>
+      <span>{presenter.getTypeOfInvoice(item)}</span>
       <Tooltip
         placement="top-start"
-        title={item?.negotiable ? "Negotiable" : "Non-Negotiable"}
+        title={item?.paid ? "Invoice is paid" : "Invoice has not been paid yet"}
         arrow
       >
-        <span>{item?.negotiable ? "Negotiable" : "Non-Negotiable"}</span>
+        <span>{item?.paid ? "Paid" : "Unpaid"}</span>
       </Tooltip>
       <Tooltip
         placement="top-start"
@@ -72,6 +72,18 @@ const InvoicesListItem = (props) => {
         arrow
       >
         <span>{dayjs(item?.createdAt).format("DD|MM|YYYY")}</span>
+      </Tooltip>
+      <Tooltip placement="top" title="Redirect to Case" arrow>
+        <Button
+          disabled={presenter.getTypeOfInvoice(item) == "Bundle"}
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            router.push(`/case/${firstCaseId}`);
+          }}
+        >
+          Go To Case
+        </Button>
       </Tooltip>
       <Tooltip placement="top" title="Click to download case" arrow>
         <IconButton
