@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import AdminHeaderNotificationsMenu from "@/components/admin/Header/AdminHeaderNotificationsMenu";
 import AdminHeaderSettingsMenu from "@/components/admin/Header/AdminHeaderSettingsMenu";
 import AdminSettingsPopup from "./AdminSettingsPopup";
+import { Alert, Snackbar } from "@mui/material";
+import AdminChangePasswordPopup from "./AdminChangePasswordPopup";
 
 const AdminHeader = () => {
   const [presenter, setPresenter] = useState(
@@ -17,7 +19,17 @@ const AdminHeader = () => {
 
   return (
     <>
+      <Snackbar open={presenter?.snackbarBoolean} autoHideDuration={3000}>
+        <Alert
+          severity={presenter?.snackbarDetails?.title}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {presenter?.snackbarDetails?.message}
+        </Alert>
+      </Snackbar>
       <AdminSettingsPopup presenter={presenter} />
+      <AdminChangePasswordPopup presenter={presenter} />
       <div className="admin-header-container">
         <div className="admin-header-name-container">
           <span>Welcome</span>

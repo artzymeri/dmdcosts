@@ -135,7 +135,12 @@ app.post("/login", async (req, res) => {
 
 app.post("/edit-user-data", async (req, res) => {
   const { edit_user_data } = req.body;
-  console.log(edit_user_data);
+  if (edit_user_data.username || edit_user_data.name_surname) {
+    return res.json({
+      title: "error",
+      message: "Username and Name & Surname cannot be empty",
+    });
+  }
   try {
     const userToEdit = await users_table.findOne({
       where: { id: edit_user_data.id },
@@ -143,6 +148,11 @@ app.post("/edit-user-data", async (req, res) => {
     userToEdit.name_surname = edit_user_data.name_surname;
     userToEdit.email_address = edit_user_data.email_address;
     userToEdit.username = edit_user_data.username;
+    userToEdit.bank_details = JSON.stringify({
+      account_holder: edit_user_data?.account_holder,
+      account_number: edit_user_data?.account_number,
+      sort_code: edit_user_data?.sort_code,
+    });
     await userToEdit.save();
     res.json({
       title: "success",
@@ -153,6 +163,29 @@ app.post("/edit-user-data", async (req, res) => {
     res.json({
       title: "error",
       message: `Error: ${e}`,
+    });
+  }
+});
+
+app.post(`/change-user-password:user_id`, async (req, res) => {
+  const { user_id } = req.params;
+  const { new_password } = req.body;
+  try {
+    const userToChange = await users_table.findOne({
+      where: { id: user_id },
+    });
+    const hashedPassword = bcrypt.hashSync(new_password, 10);
+    userToChange.password = hashedPassword;
+    await userToChange.save();
+    res.json({
+      title: "success",
+      message: "User Password changed successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
     });
   }
 });

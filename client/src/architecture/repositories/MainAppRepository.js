@@ -40,6 +40,10 @@ class MainAppRepository {
     return await this.appGateway.saveEditUserDetails(edit_user_data);
   };
 
+  saveChangeUserPassword = async (user_id, new_password) => {
+    return await this.appGateway.saveChangeUserPassword(user_id, new_password);
+  };
+
   getAllEmployees = async () => {
     return await this.appGateway.getAllEmployees();
   };

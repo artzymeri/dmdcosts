@@ -31,10 +31,12 @@ class LoginRegisterPresenter {
       username,
       email_address,
       role,
+      bank_details,
       adminToken,
       employeeToken,
     } = response.data;
     if (role === "admin") {
+      const parsedBankDetails = JSON.parse(bank_details);
       Cookies.set("adminToken", adminToken, { expires: 365 });
       Cookies.set(
         "employeeData",
@@ -43,6 +45,9 @@ class LoginRegisterPresenter {
           name_surname: name_surname,
           username: username,
           email_address: email_address,
+          account_holder: parsedBankDetails?.account_holder,
+          account_number: parsedBankDetails?.account_number,
+          sort_code: parsedBankDetails?.sort_code,
           role: role,
         }),
         { expires: 3 / 24 }

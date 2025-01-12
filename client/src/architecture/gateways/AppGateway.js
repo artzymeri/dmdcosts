@@ -19,6 +19,15 @@ class AppGateway {
     });
   };
 
+  saveChangeUserPassword = async (user_id, new_password) => {
+    return await axios.post(
+      `http://localhost:7070/change-user-password${user_id}`,
+      {
+        new_password,
+      }
+    );
+  };
+
   getAllEmployees = async () => {
     return await axios.get("http://localhost:7070/allemployees");
   };

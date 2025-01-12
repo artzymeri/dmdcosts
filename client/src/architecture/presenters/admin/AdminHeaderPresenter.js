@@ -3,7 +3,6 @@ import "reflect-metadata";
 import { makeObservable, action, observable, computed } from "mobx";
 import Cookies from "js-cookie";
 import { TYPES } from "@/architecture/ioc/types";
-import { useRouter } from "next/router";
 
 @injectable()
 class AdminHeaderPresenter {
@@ -15,6 +14,13 @@ class AdminHeaderPresenter {
     employeeData: null,
     editUserData: null,
     settings_popup: false,
+    change_password_popup: false,
+    snackbar_boolean: false,
+    snackbar_details: null,
+    change_password_values: {
+      first_value: null,
+      second_value: null,
+    },
   };
 
   constructor() {
@@ -26,6 +32,9 @@ class AdminHeaderPresenter {
       notificationsMenuList: computed,
       lastOfferReminders: computed,
       settingsPopup: computed,
+      setSnackbar: action.bound,
+      snackbarBoolean: computed,
+      snackbarDetails: computed,
     });
   }
 
@@ -54,14 +63,58 @@ class AdminHeaderPresenter {
     this.vm.settings_popup = boolean;
   }
 
+  setChangePasswordPopup(boolean) {
+    this.vm.change_password_popup = boolean;
+  }
+
   handleUserDataValuesChange(target, value) {
     this.vm.editUserData[target] = value;
+  }
+
+  handleChangePasswordValues(target, value) {
+    this.vm.change_password_values[target] = value;
   }
 
   async saveEditUserDetails() {
     return await this.mainAppRepository.saveEditUserDetails(
       this.vm.editUserData
     );
+  }
+
+  async saveChangeUserPassword() {
+    if (
+      !this.vm.change_password_values?.first_value ||
+      !this.vm.change_password_values?.second_value
+    ) {
+      this.setSnackbar(true, {
+        title: "error",
+        message: "Please fill out both values",
+      });
+      return;
+    }
+    if (
+      this.vm.change_password_values?.first_value !==
+      this.vm.change_password_values?.second_value
+    ) {
+      this.setSnackbar(true, {
+        title: "error",
+        message: "First value is not the same as the second value",
+      });
+      return;
+    }
+    return await this.mainAppRepository.saveChangeUserPassword(
+      this.vm.employeeData?.id,
+      this.vm.change_password_values?.first_value
+    );
+  }
+
+  setSnackbar(value, details) {
+    this.vm.snackbar_boolean = value;
+    this.vm.snackbar_details = details;
+    setTimeout(() => {
+      this.vm.snackbar_boolean = false;
+      this.vm.snackbar_details = null;
+    }, 3000);
   }
 
   get employeeData() {
@@ -219,6 +272,18 @@ class AdminHeaderPresenter {
 
   get settingsPopup() {
     return this.vm.settings_popup;
+  }
+
+  get changePasswordPopup() {
+    return this.vm.change_password_popup;
+  }
+
+  get snackbarBoolean() {
+    return this.vm.snackbar_boolean;
+  }
+
+  get snackbarDetails() {
+    return this.vm.snackbar_details;
   }
 }
 
