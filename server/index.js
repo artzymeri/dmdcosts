@@ -1,5 +1,5 @@
 const express = require("express");
-const { Op, or } = require("sequelize");
+const { Op, or, where } = require("sequelize");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
@@ -130,6 +130,30 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Database query error:", error);
     res.status(500).json({ message: "An error occurred" });
+  }
+});
+
+app.post("/edit-user-data", async (req, res) => {
+  const { edit_user_data } = req.body;
+  console.log(edit_user_data);
+  try {
+    const userToEdit = await users_table.findOne({
+      where: { id: edit_user_data.id },
+    });
+    userToEdit.name_surname = edit_user_data.name_surname;
+    userToEdit.email_address = edit_user_data.email_address;
+    userToEdit.username = edit_user_data.username;
+    await userToEdit.save();
+    res.json({
+      title: "success",
+      message: "User Details saved successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: `Error: ${e}`,
+    });
   }
 });
 

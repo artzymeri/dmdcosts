@@ -13,6 +13,12 @@ class AppGateway {
     return await axios.post("http://localhost:7070/login", user_data);
   };
 
+  saveEditUserDetails = async (edit_user_data) => {
+    return await axios.post(`http://localhost:7070/edit-user-data`, {
+      edit_user_data,
+    });
+  };
+
   getAllEmployees = async () => {
     return await axios.get("http://localhost:7070/allemployees");
   };

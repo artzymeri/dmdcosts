@@ -36,6 +36,10 @@ class MainAppRepository {
     return await this.appGateway.login(user_data);
   };
 
+  saveEditUserDetails = async (edit_user_data) => {
+    return await this.appGateway.saveEditUserDetails(edit_user_data);
+  };
+
   getAllEmployees = async () => {
     return await this.appGateway.getAllEmployees();
   };

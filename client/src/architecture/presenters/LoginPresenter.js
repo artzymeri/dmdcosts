@@ -35,7 +35,7 @@ class LoginRegisterPresenter {
       employeeToken,
     } = response.data;
     if (role === "admin") {
-      Cookies.set("adminToken", adminToken, { expires: 3 / 24 });
+      Cookies.set("adminToken", adminToken, { expires: 365 });
       Cookies.set(
         "employeeData",
         JSON.stringify({
@@ -48,7 +48,7 @@ class LoginRegisterPresenter {
         { expires: 3 / 24 }
       );
     } else if (role === "employee") {
-      Cookies.set("employeeToken", employeeToken, { expires: 3 / 24 });
+      Cookies.set("employeeToken", employeeToken, { expires: 365 });
       Cookies.set(
         "employeeData",
         JSON.stringify({

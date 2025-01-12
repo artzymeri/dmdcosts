@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { makeObservable, action, observable, computed } from "mobx";
 import Cookies from "js-cookie";
 import { TYPES } from "@/architecture/ioc/types";
+import { useRouter } from "next/router";
 
 @injectable()
 class AdminHeaderPresenter {
@@ -12,6 +13,8 @@ class AdminHeaderPresenter {
     clients_list: [],
     cases_list: [],
     employeeData: null,
+    editUserData: null,
+    settings_popup: false,
   };
 
   constructor() {
@@ -22,6 +25,7 @@ class AdminHeaderPresenter {
       notificationsNumber: computed,
       notificationsMenuList: computed,
       lastOfferReminders: computed,
+      settingsPopup: computed,
     });
   }
 
@@ -43,6 +47,21 @@ class AdminHeaderPresenter {
 
   async getUserData() {
     this.vm.employeeData = await JSON.parse(Cookies.get("employeeData"));
+    this.vm.editUserData = await JSON.parse(Cookies.get("employeeData"));
+  }
+
+  setSettingsPopup(boolean) {
+    this.vm.settings_popup = boolean;
+  }
+
+  handleUserDataValuesChange(target, value) {
+    this.vm.editUserData[target] = value;
+  }
+
+  async saveEditUserDetails() {
+    return await this.mainAppRepository.saveEditUserDetails(
+      this.vm.editUserData
+    );
   }
 
   get employeeData() {
@@ -196,6 +215,10 @@ class AdminHeaderPresenter {
       ...this.billNeedsToBeDraftedReminders,
       ...this.billNeedsToBeServedReminders,
     ];
+  }
+
+  get settingsPopup() {
+    return this.vm.settings_popup;
   }
 }
 
