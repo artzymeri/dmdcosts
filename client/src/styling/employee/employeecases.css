@@ -71,14 +71,14 @@
     padding: 5px 10px;
     border-radius: 10px;
     gap: 10px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 65px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 50px;
     flex-shrink: 0;
     cursor: pointer;
 }
 
 .employee-cases-list-item-cancelled {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 65px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .employee-cases-list-item :nth-child(1) {

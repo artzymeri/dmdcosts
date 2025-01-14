@@ -1,93 +1,99 @@
-import {TYPES} from "@/architecture/ioc/types"
-import {inject, injectable} from "inversify";
+import { TYPES } from "@/architecture/ioc/types";
+import { inject, injectable } from "inversify";
 import "reflect-metadata";
-import {makeObservable, action, observable, computed} from "mobx";
-import Cookies from "js-cookie";
+import { makeObservable, action, observable, computed } from "mobx";
 
 @injectable()
 class EmployeeCasesPresenter {
+  @inject(TYPES.MainAppRepository) mainAppRepository;
 
-    @inject(TYPES.MainAppRepository) mainAppRepository;
+  vm = {
+    all_cases: [],
+    sortingOption: "reference_number",
+    sortingMode: "any",
+    searchQuery: "",
+    firstDateFilter: null,
+    lastDateFilter: null,
+    clients_list: [],
+    employees_list: [],
+  };
 
-    vm = {
-        clientOrders: [],
-        cancellationModalOpen: false,
-        orderToBeCancelled: null,
-        sortingOption: 'receiver_name_surname',
-        sortingMode: 'any',
-        searchQuery: ''
-    }
+  constructor() {
+    makeObservable(this, {
+      vm: observable,
+      allCases: computed,
+      getAllCases: action.bound,
+      init: action.bound,
+    });
+  }
 
-    constructor() {
-        makeObservable(this, {
-            vm: observable,
-            clientOrders: computed,
-            getClientOrders: action.bound,
-            cancellationModalOpen: computed
-        });
-    }
+  init = async () => {
+    const response_clients = await this.mainAppRepository.getAllClients();
+    const response_employees = await this.mainAppRepository.getAllEmployees();
+    await this.getAllCases();
+    this.vm.clients_list = response_clients.data;
+    this.vm.employees_list = response_employees.data;
+  };
 
-    handleSortingOptions(event) {
-        this.vm.sortingOption = event?.target?.value;
-    }
+  handleDatesChange(newValue, type) {
+    this.vm[type] = newValue;
+  }
 
-    handleSortingMode(event) {
-        this.vm.sortingMode = event?.target?.value;
-    }
+  handleSortingOptions(event) {
+    this.vm.sortingOption = event?.target?.value;
+  }
 
-    handleSearchFiltering(event) {
-        this.vm.searchQuery = event?.target?.value.toLowerCase();
-    }
+  handleSortingMode(event) {
+    this.vm.sortingMode = event?.target?.value;
+  }
 
-    setCancellationModal = (boolean, value) => {
-        this.vm.cancellationModalOpen = boolean;
-        if (boolean == false) {
-            this.vm.orderToBeCancelled = null
-        } else {
-            if (value == 'none') {
-                return;
-            }
-            this.vm.orderToBeCancelled = value
-        }
-    }
+  handleSearchFiltering(event) {
+    this.vm.searchQuery = event?.target?.value.toLowerCase();
+  }
 
-    getClientOrders = async () => {
-        let clientId = await JSON.parse(Cookies.get('employeeData')).id
-        const response = await this.mainAppRepository.getClientOrders(clientId);
-        this.vm.clientOrders = response?.data;
-    }
+  getAllCases = async () => {
+    const response = await this.mainAppRepository.getAllCases();
+    this.vm.all_cases = response?.data;
+  };
 
-    cancelOrder = async () => {
-        await this.mainAppRepository.cancelOrder(this.vm.orderToBeCancelled);
-        await this.getClientOrders();
-        this.setCancellationModal(false, null)
-    }
+  get allCases() {
+    return this.vm.all_cases
+      .map((item) => {
+        const client = this.vm.clients_list.find(
+          (client) => client?.id == item?.client_id
+        );
+        const employee = this.vm.employees_list.find(
+          (employee) => employee?.id == item?.assignee_id
+        );
 
-    get clientOrders() {
-        const normalizedData = this.vm.clientOrders.map(item => {
-            return {
-                ...item,
-                progress: item.progress === null ? 'request' : item.progress
-            };
-        });
+        return {
+          ...item,
+          checked: false,
+          reference_number: `${client?.initials}.${item?.type}.${item?.id}`,
+          client_business_name: client?.business_name || "Unknown",
+          client_initials: client?.initials,
+          assignee_name_surname: employee
+            ? employee.name_surname
+            : "Unassigned",
+        };
+      })
+      .filter((item) => {
+        const itemValue =
+          item[this.vm.sortingOption]?.toString().toLowerCase() || "";
+        const matchesSearch = itemValue.includes(this.vm.searchQuery);
+        const matchesSortingMode =
+          this.vm.sortingMode === "any" || item.status === this.vm.sortingMode;
 
-        const filteredData = normalizedData.filter(item => {
-            const itemValue = item[this.vm.sortingOption]?.toString().toLowerCase() || '';
-            const matchesSearch = itemValue.includes(this.vm.searchQuery);
-
-            const matchesSortingMode =
-                this.vm.sortingMode === 'any' || item.progress === this.vm.sortingMode;
-
-            return matchesSearch && matchesSortingMode;
-        });
-
-        return filteredData;
-    }
-
-    get cancellationModalOpen() {
-        return this.vm.cancellationModalOpen;
-    }
-
+        const matchesDateFilter =
+          this.vm?.firstDateFilter && this.vm?.lastDateFilter
+            ? new Date(item?.createdAt).getTime() >=
+                new Date(this.vm?.firstDateFilter).getTime() &&
+              new Date(item?.createdAt).getTime() <=
+                new Date(this.vm?.lastDateFilter).getTime()
+            : true;
+        return matchesSearch && matchesSortingMode && matchesDateFilter;
+      });
+  }
 }
 
 export default EmployeeCasesPresenter;

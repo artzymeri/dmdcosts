@@ -7,10 +7,11 @@ import AdminHeader from "@/components/admin/Header/AdminHeader";
 import { observer } from "mobx-react-lite";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
-import Cookies from "js-cookie";
 import { CircularProgress } from "@mui/material";
 import { WarningOutlined } from "@mui/icons-material";
 import AdminCaseView from "@/components/admin/Cases/Case/AdminCaseView";
+import EmployeeHeader from "@/components/employee/Header/EmployeeHeader";
+import EmployeeCaseView from "@/components/employee/Cases/Case/EmployeeCaseView";
 
 const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), {
   ssr: false,
@@ -46,20 +47,13 @@ const CasePage = () => {
         setLoading(true);
         try {
           if (token === "employee") {
-            const employeeData = JSON.parse(Cookies.get("employeeData"));
-            await presenter.getCaseDetails(parseInt(id));
-            if (
-              presenter.caseDetails?.title !== "error" &&
-              presenter.caseDetails !== undefined &&
-              presenter.caseDetails?.title !== null
-            ) {
+            await presenter.getCaseDetailsAsAdmin(parseInt(id));
+            if (presenter.vm.case_details?.title !== "error") {
               setSuccessfulLoad(true);
             }
           } else if (token === "admin") {
             await presenter.getCaseDetailsAsAdmin(parseInt(id));
-            if (
-              presenter.vm.case_details?.title !== "error"
-            ) {
+            if (presenter.vm.case_details?.title !== "error") {
               setSuccessfulLoad(true);
             }
           }

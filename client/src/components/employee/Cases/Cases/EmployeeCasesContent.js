@@ -1,37 +1,33 @@
-import {observer} from "mobx-react-lite";
-import UserCasesHeader from "@/components/employee/Cases/Cases/EmployeeCasesHeader";
-import UserCasesList from "@/components/employee/Cases/Cases/EmployeeCasesList";
-import {useEffect, useMemo} from "react";
-import {container} from "@/architecture/ioc/ioc";
-import {TYPES} from "@/architecture/ioc/types";
-import {Button} from "@mui/material";
-import {useRouter} from "next/router";
+import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
+import { container } from "@/architecture/ioc/ioc";
+import { TYPES } from "@/architecture/ioc/types";
+import { useRouter } from "next/router";
+import EmployeeCasesList from "./EmployeeCasesList";
+import EmployeeCasesHeader from "./EmployeeCasesHeader";
+import EmployeeSecondHeader from "./EmployeeSecondHeader";
 
+const AdminCasesContent = () => {
+  const router = useRouter();
 
-const EmployeeCasesContent = () => {
+  const [presenter, setPresenter] = useState(
+    container.get(TYPES.EmployeeCasesPresenter)
+  );
 
-    const router = useRouter()
+  useEffect(() => {
+    presenter.init();
+  }, []);
 
-    const presenter = useMemo(() => container.get(TYPES.UserCasesPresenter), []);
+  return (
+    <div className="admin-cases-content-container">
+      <div className="admin-cases-content-title-container">
+        <h2>Assigned Cases</h2>
+      </div>
+      <EmployeeCasesHeader presenter={presenter} />
+      <EmployeeSecondHeader presenter={presenter} />
+      <EmployeeCasesList presenter={presenter} />
+    </div>
+  );
+};
 
-    useEffect(() => {
-        presenter.getClientOrders();
-    }, []);
-
-    return (
-        <div className="employee-cases-content-container">
-            <div className="employee-cases-content-title-container">
-                <h2>
-                    Porositë tuaja
-                </h2>
-                <Button variant="contained" onClick={() => {router.push('/bejporosi')}}>
-                    Bëj Porosi
-                </Button>
-            </div>
-            <UserCasesHeader presenter={presenter}/>
-            <UserCasesList presenter={presenter}/>
-        </div>
-    )
-}
-
-export default observer(EmployeeCasesContent);
+export default observer(AdminCasesContent);

@@ -61,10 +61,11 @@
     height: 70px;
     border-bottom: var(--employee-sidebar-logo-container--border-bottom);
     flex-shrink: 0;
+    padding: 15px;
 }
 
 .employee-sidebar-container img {
-    width: 125px;
+    height: 50px;
 }
 
 .employee-sidebar-items-container {

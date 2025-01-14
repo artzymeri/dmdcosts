@@ -1,18 +1,20 @@
 import { LogoutRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
 
 const EmployeeSidebar = () => {
   const router = useRouter();
-  const presenter = container.get(TYPES.UserSidebarPresenter);
+  const [presenter, setPresenter] = useState(
+    container.get(TYPES.EmployeeSidebarPresenter)
+  );
 
   return (
     <div className="employee-sidebar-container">
       <div className="employee-sidebar-logo-container">
-        <img src="/superpostafull-transparent.png" />
+        <img src="/dmd_logo.png" />
       </div>
       <div className="employee-sidebar-items-container">
         {presenter?.sidebarItems.map((item) => {
@@ -44,7 +46,7 @@ const EmployeeSidebar = () => {
           }}
         >
           <LogoutRounded sx={{ height: "18px", width: "18px" }} />
-          Shlogin
+          Logout
         </button>
       </div>
     </div>

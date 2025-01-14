@@ -1,35 +1,87 @@
-import UserCaseStatusBanner from "@/components/employee/Cases/Case/EmployeeCaseStatusBanner";
-import {Button} from "@mui/material";
-import {observer} from "mobx-react-lite";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { observer } from "mobx-react-lite";
+import AdminCaseStatusBanner from "@/components/admin/Cases/Case/AdminCaseStatusBanner";
 
-const EmployeeCaseDetailsRightSide = ({presenter}) => {
+const EmployeeCaseDetailsRightSide = ({ presenter }) => {
+  const customStatusText = (case_status) => {
+    if (case_status == "checked") {
+      return "Serve";
+    }
+    if (case_status == "served") {
+      return "Settle";
+    }
+    if (case_status == "settled") {
+      return "Mark as Paid";
+    }
+  };
 
-    return (
-        <div className="employee-case-details-right-side">
-            <div className="employee-case-details-status-container">
-                <span style={{fontWeight: "bold"}}>Statusi i porosisë:</span>
-                <UserCaseStatusBanner progress={presenter.orderDetails?.progress}/>
-            </div>
-            <div className="employee-case-details-right-side-qr-code-container">
-                <div className="employee-case-details-right-side-qr-code-container-description">
-                                        <span
-                                            className="employee-case-details-right-side-qr-code-container-description-title">Skano QR-Code</span>
-                    <p>Përmes telefonit tuaj smartphone, mund të skanoni këtë <b>QR-CODE</b> çdo herë
-                        për të shikuar detajet dhe progresin e porosisë tuaj!</p>
-                </div>
-                <img src={presenter.orderDetails?.qr_code} height="200px"/>
-            </div>
-            <div style={{display: 'flex', gap: '10px', alignItems: 'center', width: '100%'}}>
-                <Button variant="outlined" color="error" disabled={presenter.orderDetails?.progress !== 'request'} fullWidth onClick={() => {presenter.cancelOrder(presenter?.orderDetails?.id)}}>
-                    Anulo Porosinë
-                </Button>
-                <Button variant="contained" color="success" fullWidth>
-                    Printo Porosinë
-                </Button>
-            </div>
+  const changeCaseStatus = (case_status) => {
+    if (case_status == "checked") {
+      if (presenter.caseDetails.negotiable) {
+        presenter.setAddOfferModal(true, "sent");
+      } else {
+        presenter.changeCaseStatus(presenter.caseDetails.id, "served");
+      }
+    }
+    if (case_status == "served") {
+      presenter.changeCaseStatus(presenter.caseDetails.id, "settled");
+    }
+    if (case_status == "settled") {
+      presenter.changeCaseStatus(presenter.caseDetails.id, "paid");
+    }
+  };
+
+  return (
+    <div className="admin-case-details-right-side">
+      <div className="admin-case-details-status-container">
+        <span style={{ fontWeight: "bold" }}>Case Status:</span>
+        <AdminCaseStatusBanner status={presenter.caseDetails?.status} />
+      </div>
+      {(presenter.caseDetails.status == "to-draft" ||
+        presenter.caseDetails.status == "to-amend") && (
+        <div
+          style={{
+            display: "grid",
+            gap: "10px",
+            width: "100%",
+            gridTemplateColumns: "1fr",
+          }}
+        >
+          <FormControl fullWidth size="small">
+            <InputLabel
+              sx={{ padding: "0px 5px", background: "white" }}
+              id="status-select"
+            >
+              Change Case Status
+            </InputLabel>
+            <Select
+              size="small"
+              labelId="status-select"
+              variant="outlined"
+              onChange={(event) => {
+                presenter.handleCaseStatusChange(event).then((res) => {
+                  if (res) {
+                    presenter.setSnackbar(true, res.data);
+                  }
+                });
+              }}
+            >
+              {presenter?.vm?.status_options &&
+                presenter?.vm?.status_options.map((option) => {
+                  if (option.value !== presenter.caseDetails?.status) {
+                    return (
+                      <MenuItem key={option?.id} value={option?.value}>
+                        {option?.title}
+                      </MenuItem>
+                    );
+                  }
+                })}
+            </Select>
+          </FormControl>
         </div>
-
-    )
-}
+      )}
+    </div>
+  );
+};
 
 export default observer(EmployeeCaseDetailsRightSide);

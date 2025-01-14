@@ -1,79 +1,71 @@
-import {observer} from "mobx-react-lite";
-import {Button, Tooltip} from "@mui/material";
-import {useRouter} from "next/router";
+import { observer } from "mobx-react-lite";
+import { Checkbox, IconButton, Tooltip } from "@mui/material";
+import { DeleteOutlineRounded } from "@mui/icons-material";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
 const EmployeeCasesListItem = (props) => {
+  const { item, presenter } = props;
 
-    const {item, cancelOrder} = props;
-    const router = useRouter();
+  const router = useRouter();
 
-
-    const progressCheck = (progress) => {
-        if (progress === "request") {
-            return 'Kërkesë'
-        }
-        if (progress === 'cancelled') {
-            return 'Anuluar'
-        }
+  const statusCheck = (status) => {
+    if (status == "to-draft") {
+      return "To Draft";
+    } else if (status == "drafted") {
+      return "Drafted";
+    } else if (status == "checked") {
+      return "Checked";
+    } else if (status == "served") {
+      return "Served";
+    } else if (status == "settled") {
+      return "Settled";
+    } else if (status == "paid") {
+      return "Paid";
+    } else if (status == "to-amend") {
+      return "To Amend";
     }
+  };
 
-    const progressClassCheck = (progress) => {
-        if (progress === null) {
-            return;
-        }
-        if (progress === 'cancelled') {
-            return 'employee-cases-list-item-progress-bar-cancelled';
-        }
-    }
-
-    return (
-        <div
-            onClick={() => {
-                router.push(`/case/${item?.id}`);
-            }}
-            className={`employee-cases-list-item ${item?.progress == 'cancelled' && 'employee-cases-list-item-cancelled'}`}>
-            <Tooltip placement="top-start" title={item?.receiver_name_surname} arrow>
-                <span>
-                        {item?.receiver_name_surname}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_phone_number} arrow>
-                <span>
-                        {item?.receiver_phone_number}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_city} arrow>
-                <span>
-                        {item?.receiver_city}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_state} arrow>
-                <span>
-                        {item?.receiver_state}
-                </span>
-            </Tooltip>
-            <Tooltip placement="top-start" title={item?.receiver_full_address} arrow>
-                <span>
-                        {item?.receiver_full_address}
-                </span>
-            </Tooltip>
-            <div className="employee-cases-list-item-progress-bar-container">
-                <span
-                    className={`employee-cases-list-item-progress-bar ${progressClassCheck(item?.progress)}`}>{progressCheck(item?.progress)}</span>
-            </div>
-            {
-                item?.progress == "request" &&
-                <Tooltip placement="top" title="Kliko për të anuluar llogarinë" arrow>
-                    <Button variant="outlined" color="error" disabled={!item?.progress == 'request'} onClick={(e) => {
-                        e.stopPropagation();
-                        cancelOrder(true, item?.id);
-                    }}>
-                        Anulo
-                    </Button>
-                </Tooltip>
-            }
-        </div>
-    )
-}
+  return (
+    <div
+      onClick={() => {
+        router.push(`/case/${item?.id}`);
+      }}
+      className={`employee-cases-list-item`}
+    >
+      <Tooltip
+        placement="top-start"
+        title={`#${item?.client_initials}.${item?.type}.${item?.id}`}
+        arrow
+      >
+        <span>{`#${item?.client_initials}.${item?.type}.${item?.id}`}</span>
+      </Tooltip>
+      <Tooltip placement="top-start" title={item?.client_business_name} arrow>
+        <span>{item?.client_business_name}</span>
+      </Tooltip>
+      <Tooltip placement="top-start" title={item?.assignee_name_surname} arrow>
+        <span>{item?.assignee_name_surname}</span>
+      </Tooltip>
+      <Tooltip placement="top-start" title={statusCheck(item?.status)} arrow>
+        <span>{statusCheck(item?.status)}</span>
+      </Tooltip>
+      <Tooltip
+        placement="top-start"
+        title={item?.negotiable ? "Negotiable" : "Non-Negotiable"}
+        arrow
+      >
+        <span>{item?.negotiable ? "Negotiable" : "Non-Negotiable"}</span>
+      </Tooltip>
+      <Tooltip
+        placement="top-start"
+        title={dayjs(item?.date_instructed).format("DD|MM|YYYY")}
+        arrow
+      >
+        <span>{dayjs(item?.date_instructed).format("DD|MM|YYYY")}</span>
+      </Tooltip>
+    </div>
+  );
+};
 
 export default observer(EmployeeCasesListItem);

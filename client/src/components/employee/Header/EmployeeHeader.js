@@ -6,10 +6,10 @@ import UserHeaderNotificationsMenu from "@/components/employee/Header/EmployeeHe
 import UserHeaderSettingsMenu from "@/components/employee/Header/EmployeeHeaderSettingsMenu";
 
 const EmployeeHeader = () => {
-  let presenter = container.get(TYPES.UserHeaderPresenter);
+  let presenter = container.get(TYPES.EmployeeHeaderPresenter);
 
   useEffect(() => {
-    presenter.getUserData().then(() => {});
+    presenter.getEmployeeData().then(() => {});
   }, [presenter]);
 
   return (
@@ -19,8 +19,6 @@ const EmployeeHeader = () => {
         <span>{presenter?.employeeData?.name_surname}</span>
       </div>
       <div className="employee-header-icons-container">
-        <UserHeaderNotificationsMenu />
-        <div className="employee-header-icons-divider"></div>
         <UserHeaderSettingsMenu />
       </div>
     </div>
