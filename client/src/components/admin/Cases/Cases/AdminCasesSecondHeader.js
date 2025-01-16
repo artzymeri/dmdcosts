@@ -8,7 +8,7 @@ const AdminSecondHeader = ({ presenter }) => {
   const router = useRouter();
 
   return (
-    <div className="admin-cases-header-container">
+    <div className="admin-cases-header-container remove-mobile">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           sx={{ width: "100%" }}

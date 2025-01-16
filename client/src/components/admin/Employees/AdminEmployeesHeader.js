@@ -16,7 +16,11 @@ const AdminEmployeesHeader = ({ presenter }) => {
           presenter.handleSearchFiltering(e);
         }}
       />
-      <FormControl sx={{ width: "150px" }} variant="filled">
+      <FormControl
+        sx={{ width: "150px" }}
+        variant="filled"
+        className="remove-mobile"
+      >
         <NativeSelect
           variant="filled"
           defaultValue={"username"}
@@ -30,7 +34,11 @@ const AdminEmployeesHeader = ({ presenter }) => {
           <option value={"role"}>Role</option>
         </NativeSelect>
       </FormControl>
-      <FormControl sx={{ width: "150px" }} variant="filled">
+      <FormControl
+        sx={{ width: "150px" }}
+        variant="filled"
+        className="remove-mobile"
+      >
         <NativeSelect
           variant="filled"
           defaultValue={"a-z"}
@@ -43,6 +51,7 @@ const AdminEmployeesHeader = ({ presenter }) => {
         </NativeSelect>
       </FormControl>
       <Button
+        className="remove-mobile"
         variant="contained"
         color="error"
         onClick={() => {

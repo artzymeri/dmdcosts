@@ -1,11 +1,10 @@
-import { Button } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const InvoicesSecondHeader = ({ presenter }) => {
   return (
-    <div className="admin-cases-header-container">
+    <div className="admin-cases-header-container remove-mobile">
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           sx={{ width: "100%" }}

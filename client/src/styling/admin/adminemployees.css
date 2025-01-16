@@ -35,6 +35,15 @@
     justify-content: space-between;
 }
 
+@media (max-width: 865px) {
+    .admin-employees-content-title-container {
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 .admin-employees-header-container {
     display: flex;
     align-items: center;
@@ -76,6 +85,13 @@
     height: 50px;
     flex-shrink: 0;
     cursor: pointer;
+}
+
+@media (max-width: 865px) {
+    .admin-employees-list-item {
+        grid-template-columns: 1fr 1fr 35px;
+        gap: 3px;
+    }
 }
 
 .admin-employees-list-item :nth-child(1) {

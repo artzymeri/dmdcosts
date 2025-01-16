@@ -17,7 +17,11 @@ const InvoicesHeader = ({ presenter }) => {
           presenter.handleSearchFiltering(e);
         }}
       />
-      <FormControl sx={{ width: "275px" }} variant="filled">
+      <FormControl
+        sx={{ width: "275px" }}
+        variant="filled"
+        className="remove-mobile"
+      >
         <NativeSelect
           variant="filled"
           defaultValue={"reference_number"}
@@ -38,7 +42,11 @@ const InvoicesHeader = ({ presenter }) => {
           <option value={"defendant_email"}>Defendant Email</option>
         </NativeSelect>
       </FormControl>
-      <FormControl sx={{ width: "250px" }} variant="filled">
+      <FormControl
+        sx={{ width: "250px" }}
+        variant="filled"
+        className="remove-mobile"
+      >
         <NativeSelect
           variant="filled"
           defaultValue={"any"}
@@ -53,6 +61,7 @@ const InvoicesHeader = ({ presenter }) => {
         </NativeSelect>
       </FormControl>
       <Button
+        className="remove-mobile"
         variant="contained"
         size="large"
         color="error"

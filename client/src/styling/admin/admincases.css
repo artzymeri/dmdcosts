@@ -34,6 +34,15 @@
     align-items: center;
 }
 
+@media (max-width: 865px) {
+    .admin-cases-content-title-container {
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 .admin-cases-header-container {
     display: flex;
     align-items: center;

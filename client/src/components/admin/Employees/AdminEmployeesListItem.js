@@ -13,6 +13,7 @@ const AdminEmployeesListItem = (props) => {
     <div>
       <div className="admin-employees-list-item">
         <Checkbox
+          className="remove-mobile"
           onChange={() => {
             presenter.handleEmployeeCheck(item?.id);
           }}
@@ -23,10 +24,20 @@ const AdminEmployeesListItem = (props) => {
         <Tooltip placement="top-start" title={item?.name_surname} arrow>
           {item?.name_surname ? item.name_surname : "No Data"}
         </Tooltip>
-        <Tooltip placement="top-start" title={item?.email_address} arrow>
+        <Tooltip
+          className="remove-mobile"
+          placement="top-start"
+          title={item?.email_address}
+          arrow
+        >
           {item?.email_address ? item.email_address : "No Data"}
         </Tooltip>
-        <Tooltip placement="top-start" title={item?.role} arrow>
+        <Tooltip
+          className="remove-mobile"
+          placement="top-start"
+          title={item?.role}
+          arrow
+        >
           <span>
             {item?.role ? capitalizeFirstLetter(item.role) : "No Data"}
           </span>

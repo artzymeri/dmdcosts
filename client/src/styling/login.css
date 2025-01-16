@@ -12,6 +12,12 @@
   z-index: 1;
 }
 
+@media (max-width: 865px) {
+  .login-container {
+    width: 100%;
+  }
+}
+
 .login-container {
     flex-direction: column;
     gap: 20px;

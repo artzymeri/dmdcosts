@@ -17,7 +17,11 @@ const AdminClientsHeader = ({ presenter }) => {
           presenter.handleSearchFiltering(e);
         }}
       />
-      <FormControl sx={{ width: "250px" }} variant="filled">
+      <FormControl
+        sx={{ width: "250px" }}
+        variant="filled"
+        className="remove-mobile"
+      >
         <NativeSelect
           variant="filled"
           defaultValue={"business_name"}
@@ -30,7 +34,11 @@ const AdminClientsHeader = ({ presenter }) => {
           <option value={"email_address"}>Email Address</option>
         </NativeSelect>
       </FormControl>
-      <FormControl sx={{ width: "250px" }} variant="filled">
+      <FormControl
+        sx={{ width: "250px" }}
+        variant="filled"
+        className="remove-mobile"
+      >
         <NativeSelect
           variant="filled"
           defaultValue={"a-z"}
@@ -43,6 +51,7 @@ const AdminClientsHeader = ({ presenter }) => {
         </NativeSelect>
       </FormControl>
       <Button
+        className="remove-mobile"
         variant="contained"
         size="large"
         color="error"

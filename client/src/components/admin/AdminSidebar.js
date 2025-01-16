@@ -29,7 +29,7 @@ const AdminSidebar = () => {
               }}
             >
               {item?.icon}
-              {item?.title}
+              <span>{item?.title}</span>
             </div>
           );
         })}
@@ -46,7 +46,7 @@ const AdminSidebar = () => {
           }}
         >
           <LogoutRounded sx={{ height: "18px", width: "18px" }} />
-          <span style={{marginLeft: '10px'}}>Logout</span>
+          <span style={{ marginLeft: "10px" }}>Logout</span>
         </Button>
       </div>
     </div>
