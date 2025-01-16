@@ -110,6 +110,10 @@ class MainAppRepository {
     return await this.appGateway.getAllCases();
   };
 
+  getAllAssignedCases = async (user_id) => {
+    return await this.appGateway.getAllAssignedCases(user_id);
+  };
+
   getCaseDetails = async (employee_id, case_id) => {
     return await this.appGateway.getCaseDetails(employee_id, case_id);
   };
@@ -120,6 +124,10 @@ class MainAppRepository {
 
   getCaseDetailsAsAdmin = async (case_id) => {
     return await this.appGateway.getCaseDetailsAsAdmin(case_id);
+  };
+
+  getCaseDetailsAsEmployee = async (case_id, user_id) => {
+    return await this.appGateway.getCaseDetailsAsEmployee(case_id, user_id);
   };
 
   insertInvoiceToDatabase = async (cases_array, admin_id, client_id) => {

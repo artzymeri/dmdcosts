@@ -48,7 +48,7 @@ class EmployeeCasePresenter {
   constructor() {
     makeObservable(this, {
       vm: observable,
-      getCaseDetailsAsAdmin: action.bound,
+      getCaseDetailsAsEmployee: action.bound,
       deleteCase: action.bound,
       setDeletionConfirmationModal: action.bound,
       caseDetails: computed,
@@ -68,10 +68,12 @@ class EmployeeCasePresenter {
     });
   }
 
-  getCaseDetailsAsAdmin = async (case_id) => {
-    const response = await this.mainAppRepository.getCaseDetailsAsAdmin(
-      case_id
+  getCaseDetailsAsEmployee = async (case_id, user_id) => {
+    const response = await this.mainAppRepository.getCaseDetailsAsEmployee(
+      case_id,
+      user_id
     );
+    console.log(response);
     const clients_response = await this.mainAppRepository.getAllClients();
     const employees_response = await this.mainAppRepository.getAllEmployees();
     const invoice_object_response = await this.mainAppRepository.getCaseInvoice(

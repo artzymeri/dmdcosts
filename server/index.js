@@ -362,6 +362,22 @@ app.get(`/allcases`, async (req, res) => {
   }
 });
 
+app.get(`/all_assigned_cases`, async (req, res) => {
+  const { user_id } = req.query;
+  try {
+    const cases_array = await cases_table.findAll({
+      where: { assignee_id: user_id },
+    });
+    res.send(cases_array);
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.get(`/cases:client_id`, async (req, res) => {
   const { client_id } = req.params;
   try {
@@ -675,6 +691,38 @@ app.get("/case:case_id", async (req, res) => {
     const caseData = await cases_table.findOne({
       where: {
         id: case_id,
+      },
+    });
+
+    if (caseData) {
+      res.json({
+        title: "success",
+        message: "Case found",
+        case: caseData,
+      });
+    } else {
+      res.json({
+        title: "error",
+        message: "Case not found",
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching case details:", error);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
+app.get("/case:case_id", async (req, res) => {
+  const { case_id } = req.params;
+  const { user_id } = req.body;
+  try {
+    const caseData = await cases_table.findOne({
+      where: {
+        id: case_id,
+        assignee_id: user_id,
       },
     });
 

@@ -12,6 +12,7 @@ import { WarningOutlined } from "@mui/icons-material";
 import AdminCaseView from "@/components/admin/Cases/Case/AdminCaseView";
 import EmployeeHeader from "@/components/employee/Header/EmployeeHeader";
 import EmployeeCaseView from "@/components/employee/Cases/Case/EmployeeCaseView";
+import Cookies from "js-cookie";
 
 const AdminHOC = dynamic(() => import("@/components/admin/adminHOC"), {
   ssr: false,
@@ -47,7 +48,8 @@ const CasePage = () => {
         setLoading(true);
         try {
           if (token === "employee") {
-            await presenter.getCaseDetailsAsAdmin(parseInt(id));
+            const user = JSON.parse(Cookies.get("employeeData"));
+            await presenter.getCaseDetailsAsEmployee(parseInt(id), user?.id);
             if (presenter.vm.case_details?.title !== "error") {
               setSuccessfulLoad(true);
             }

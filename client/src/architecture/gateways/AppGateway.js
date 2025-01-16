@@ -115,6 +115,12 @@ class AppGateway {
     return await axios.get(`http://localhost:7070/allcases`);
   };
 
+  getAllAssignedCases = async (user_id) => {
+    return await axios.get(`http://localhost:7070/all_assigned_cases`, {
+      params: { user_id },
+    });
+  };
+
   getCaseDetails = async (employee_id, case_id) => {
     return await axios.get(
       `http://localhost:7070/employees/${employee_id}/cases/${case_id}`
@@ -127,6 +133,15 @@ class AppGateway {
 
   getCaseDetailsAsAdmin = async (case_id) => {
     return await axios.get(`http://localhost:7070/case${case_id}`);
+  };
+
+  getCaseDetailsAsEmployee = async (case_id, user_id) => {
+    return await axios.get(
+      `http://localhost:7070/case_details_as_employee${case_id}`,
+      {
+        user_id: user_id,
+      }
+    );
   };
 
   insertInvoiceToDatabase = async (cases_array, admin_id, client_id) => {

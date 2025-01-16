@@ -2,6 +2,7 @@ import { TYPES } from "@/architecture/ioc/types";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { makeObservable, action, observable, computed } from "mobx";
+import Cookies from "js-cookie";
 
 @injectable()
 class EmployeeCasesPresenter {
@@ -22,7 +23,7 @@ class EmployeeCasesPresenter {
     makeObservable(this, {
       vm: observable,
       allCases: computed,
-      getAllCases: action.bound,
+      getAllAssignedCases: action.bound,
       init: action.bound,
     });
   }
@@ -30,7 +31,7 @@ class EmployeeCasesPresenter {
   init = async () => {
     const response_clients = await this.mainAppRepository.getAllClients();
     const response_employees = await this.mainAppRepository.getAllEmployees();
-    await this.getAllCases();
+    await this.getAllAssignedCases();
     this.vm.clients_list = response_clients.data;
     this.vm.employees_list = response_employees.data;
   };
@@ -51,8 +52,11 @@ class EmployeeCasesPresenter {
     this.vm.searchQuery = event?.target?.value.toLowerCase();
   }
 
-  getAllCases = async () => {
-    const response = await this.mainAppRepository.getAllCases();
+  getAllAssignedCases = async () => {
+    const user = JSON.parse(Cookies.get("employeeData"));
+    console.log(user?.id);
+    const response = await this.mainAppRepository.getAllAssignedCases(user?.id);
+    console.log({ response });
     this.vm.all_cases = response?.data;
   };
 
