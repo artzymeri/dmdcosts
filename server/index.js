@@ -250,7 +250,7 @@ app.post("/createcase", async (req, res) => {
   }
 
   try {
-    const newCase = await cases_table.create({
+    await cases_table.create({
       client_id,
       assignee_id,
       claimant_name,
@@ -264,12 +264,7 @@ app.post("/createcase", async (req, res) => {
       status: "to-draft",
       pod_checked: false,
       date_instructed,
-      qr_code: null,
     });
-
-    const qrCodeData = await QRCode.toDataURL(newCase.id.toString());
-
-    await newCase.update({ qr_code: qrCodeData });
 
     res.json({
       title: "success",

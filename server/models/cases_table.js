@@ -115,13 +115,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false,
       },
     },
-    qr_code: {
-      type: DataTypes.TEXT("long"), // it is going to be an image base64 format
-      allowNull: true,
-      validate: {
-        notEmpty: false,
-      },
-    },
   });
   return cases_table;
 };
