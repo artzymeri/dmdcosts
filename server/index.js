@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const QRCode = require("qrcode");
 require("dotenv").config();
-const { createInvoice } = require("./createinvoice.js");
+const { createInvoice } = require("./createInvoice.js");
 const fs = require("fs");
 
-console.log("Current directory files:", fs.readdirSync(__dirname));
+console.log(createInvoice);
 
 const {
   users_table,
