@@ -9,13 +9,6 @@ const QRCode = require("qrcode");
 require("dotenv").config();
 const { createInvoice } = require("./createInvoice.js");
 
-const corsOptions = {
-  origin: "http://localhost:3001", // Your frontend URL here
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  credentials: true,
-};
-
 const {
   users_table,
   cases_table,
@@ -27,7 +20,7 @@ const secretKey = process.env.SECRET_KEY;
 
 const app = express();
 app.use(express.json({ limit: "50mb" }));
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
