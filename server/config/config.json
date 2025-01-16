@@ -1,23 +1,23 @@
 {
   "development": {
-    "employeename": "root",
+    "username": "root",
     "password": "password",
     "database": "dmdcosts",
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
-    "employeename": "root",
+    "username": "root",
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "employeename": "udffdndlnob9wj7d",
-    "password": "7icioVQKMVaEV3dS29aa",
-    "database": "baukprwexnesnqzylg5m",
-    "host": "baukprwexnesnqzylg5m-mysql.services.clever-cloud.com",
+    "username": "if0_38120569",
+    "password": "13SHkurt",
+    "database": "if0_38120569_dmd_costs_db",
+    "host": "sql303.infinityfree.com",
     "dialect": "mysql"
   }
 }
