@@ -8,9 +8,13 @@ const cookieParser = require("cookie-parser");
 const QRCode = require("qrcode");
 require("dotenv").config();
 const { createInvoice } = require("./createInvoice.js");
-const fs = require("fs");
 
-console.log(createInvoice);
+const corsOptions = {
+  origin: "http://localhost:3001", // Your frontend URL here
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  credentials: true,
+};
 
 const {
   users_table,
@@ -23,13 +27,13 @@ const secretKey = process.env.SECRET_KEY;
 
 const app = express();
 app.use(express.json({ limit: "50mb" }));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
 const db = require("./models");
 
-const port = 3306;
+const port = 7070;
 
 app.post("/registeruser", async (req, res) => {
   const {

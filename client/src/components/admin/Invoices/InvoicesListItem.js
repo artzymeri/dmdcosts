@@ -22,7 +22,7 @@ const InvoicesListItem = (props) => {
 
     try {
       const response = await axios.post(
-        `https://dmdcosts.onrender.com/download-invoice`,
+        `http://localhost:3306/download-invoice`,
         { invoice },
         { responseType: "blob" }
       );

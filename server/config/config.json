@@ -1,10 +1,17 @@
 {
   "development": {
-    "username": "root",
-    "password": "password",
+    "username": "artzymeri",
+    "password": "AVNS_ntG3N9z3AtxuV9lmn81",
     "database": "dmdcosts",
-    "host": "localhost",
-    "dialect": "mysql"
+    "host": "dmdcosts-do-user-14835057-0.f.db.ondigitalocean.com",
+    "dialect": "mysql",
+    "port": 25060,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
     "username": "root",
@@ -14,10 +21,17 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "if0_38120569",
-    "password": "13SHkurt",
-    "database": "if0_38120569_dmd_costs_db",
-    "host": "sql303.infinityfree.com",
-    "dialect": "mysql"
+    "username": "artzymeri",
+    "password": "AVNS_ntG3N9z3AtxuV9lmn81",
+    "database": "dmdcosts",
+    "host": "dmdcosts-do-user-14835057-0.f.db.ondigitalocean.com",
+    "dialect": "mysql",
+    "port": 25060,
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
