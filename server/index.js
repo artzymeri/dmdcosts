@@ -4,11 +4,13 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
 const cookieParser = require("cookie-parser");
 const QRCode = require("qrcode");
 require("dotenv").config();
 const { createInvoice } = require("./createinvoice.js");
+const fs = require("fs");
+
+console.log("Current directory files:", fs.readdirSync(__dirname));
 
 const {
   users_table,
