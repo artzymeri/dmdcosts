@@ -3,7 +3,7 @@ import { Fade, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 
-const EmployeeHeaderSettingsMenu = () => {
+const EmployeeHeaderSettingsMenu = ({ presenter }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -11,6 +11,10 @@ const EmployeeHeaderSettingsMenu = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const openSettingsPopup = () => {
+    presenter.setSettingsPopup(true);
+    handleClose();
   };
 
   return (
@@ -40,7 +44,10 @@ const EmployeeHeaderSettingsMenu = () => {
           horizontal: "right",
         }}
       >
-        <MenuItem className="admin-header-menu-item" onClick={handleClose}>
+        <MenuItem
+          className="admin-header-menu-item"
+          onClick={openSettingsPopup}
+        >
           Settings
         </MenuItem>
       </Menu>

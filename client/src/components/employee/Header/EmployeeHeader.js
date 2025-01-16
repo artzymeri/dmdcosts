@@ -2,8 +2,10 @@ import { observer } from "mobx-react-lite";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
 import { useEffect, useState } from "react";
-import UserHeaderNotificationsMenu from "@/components/employee/Header/EmployeeHeaderNotificationsMenu";
-import UserHeaderSettingsMenu from "@/components/employee/Header/EmployeeHeaderSettingsMenu";
+import EmployeeHeaderSettingsMenu from "@/components/employee/Header/EmployeeHeaderSettingsMenu";
+import { Alert, Snackbar } from "@mui/material";
+import EmployeeSettingsPopup from "./EmployeeSettingsPopup";
+import EmployeeChangePasswordPopup from "./EmployeeChangePasswordPopup";
 
 const EmployeeHeader = () => {
   let presenter = container.get(TYPES.EmployeeHeaderPresenter);
@@ -13,15 +15,28 @@ const EmployeeHeader = () => {
   }, [presenter]);
 
   return (
-    <div className="employee-header-container">
-      <div className="employee-header-name-container">
-        <span>Welcome</span>
-        <span>{presenter?.employeeData?.name_surname}</span>
+    <>
+      <Snackbar open={presenter?.snackbarBoolean} autoHideDuration={3000}>
+        <Alert
+          severity={presenter?.snackbarDetails?.title}
+          variant="filled"
+          sx={{ width: "100%" }}
+        >
+          {presenter?.snackbarDetails?.message}
+        </Alert>
+      </Snackbar>
+      <EmployeeSettingsPopup presenter={presenter} />
+      <EmployeeChangePasswordPopup presenter={presenter} />
+      <div className="employee-header-container">
+        <div className="employee-header-name-container">
+          <span>Welcome</span>
+          <span>{presenter?.employeeData?.name_surname}</span>
+        </div>
+        <div className="employee-header-icons-container">
+          <EmployeeHeaderSettingsMenu presenter={presenter} />
+        </div>
       </div>
-      <div className="employee-header-icons-container">
-        <UserHeaderSettingsMenu />
-      </div>
-    </div>
+    </>
   );
 };
 

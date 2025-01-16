@@ -135,7 +135,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/edit-user-data", async (req, res) => {
   const { edit_user_data } = req.body;
-  if (edit_user_data.username || edit_user_data.name_surname) {
+  if (!edit_user_data.username || !edit_user_data.name_surname) {
     return res.json({
       title: "error",
       message: "Username and Name & Surname cannot be empty",

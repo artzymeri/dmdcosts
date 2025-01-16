@@ -32,6 +32,7 @@ class AdminHeaderPresenter {
       notificationsMenuList: computed,
       lastOfferReminders: computed,
       settingsPopup: computed,
+      changePasswordPopup: computed,
       setSnackbar: action.bound,
       snackbarBoolean: computed,
       snackbarDetails: computed,
