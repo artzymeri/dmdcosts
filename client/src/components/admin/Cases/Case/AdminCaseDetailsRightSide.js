@@ -24,7 +24,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3306/find-invoice`,
+        `https://dmdcosts.onrender.com/find-invoice`,
         { case_id },
         { responseType: "blob" }
       );
