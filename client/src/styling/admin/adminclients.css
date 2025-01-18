@@ -89,7 +89,7 @@
 
 @media (max-width: 865px) {
     .admin-clients-list-item {
-        grid-template-columns: 1fr 1fr 40px;
+        grid-template-columns: 1fr 40px;
     }
 }
 
