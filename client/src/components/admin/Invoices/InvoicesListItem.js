@@ -1,9 +1,16 @@
 import { observer } from "mobx-react-lite";
-import { Button, Checkbox, IconButton, Tooltip } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  CircularProgress,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import { Download } from "@mui/icons-material";
 import dayjs from "dayjs";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const InvoicesListItem = (props) => {
   const { item, presenter } = props;
@@ -12,7 +19,10 @@ const InvoicesListItem = (props) => {
   const cases_array = JSON.parse(item?.cases_involved);
   const firstCaseId = cases_array[0];
 
+  const [loading, setLoading] = useState(false);
+
   const downloadInvoicePDF = async (invoice) => {
+    setLoading(true);
     const dateStr = invoice.createdAt;
     const date = new Date(dateStr);
 
@@ -39,6 +49,7 @@ const InvoicesListItem = (props) => {
         } ${finalDate}.pdf`
       );
       downloadLink.click();
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -93,17 +104,36 @@ const InvoicesListItem = (props) => {
           Go To Case
         </Button>
       </Tooltip>
-      <Tooltip placement="top" title="Click to download case" arrow>
-        <IconButton
-          color="error"
-          onClick={(e) => {
-            e.stopPropagation();
-            downloadInvoicePDF(item);
+      {loading ? (
+        <div
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Download />
-        </IconButton>
-      </Tooltip>
+          <CircularProgress
+            color="success"
+            sx={{ height: "30px !important", width: "30px !important" }}
+          />
+        </div>
+      ) : (
+        <Tooltip placement="top" title={"Click to download case"} arrow>
+          <IconButton
+            color="success"
+            onClick={(e) => {
+              if (!loading) {
+                e.stopPropagation();
+                downloadInvoicePDF(item);
+              }
+            }}
+          >
+            <Download />
+          </IconButton>
+        </Tooltip>
+      )}
     </div>
   );
 };
