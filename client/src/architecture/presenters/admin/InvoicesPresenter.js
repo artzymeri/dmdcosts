@@ -27,6 +27,7 @@ class InvoicesPresenter {
     snackbar_boolean: false,
     snackbar_details: null,
     refresh_state: 1,
+    loading: false,
   };
 
   constructor() {
@@ -44,10 +45,12 @@ class InvoicesPresenter {
       snackbarBoolean: computed,
       snackbarDetails: computed,
       produceInvoices: action.bound,
+      loading: computed,
     });
   }
 
   init = async () => {
+    this.vm.loading = true;
     const response_clients = await this.mainAppRepository.getAllClients();
     const response_employees = await this.mainAppRepository.getAllEmployees();
     const response_cases = await this.mainAppRepository.getAllCases();
@@ -56,6 +59,7 @@ class InvoicesPresenter {
     this.vm.selected_client = response_clients.data[0];
     this.vm.employees_list = response_employees.data;
     this.vm.all_cases = response_cases.data;
+    this.vm.loading = false;
   };
 
   handleDatesChange(newValue, type) {
@@ -288,6 +292,10 @@ class InvoicesPresenter {
 
   get snackbarDetails() {
     return this.vm.snackbar_details;
+  }
+
+  get loading() {
+    return this.vm.loading;
   }
 }
 
