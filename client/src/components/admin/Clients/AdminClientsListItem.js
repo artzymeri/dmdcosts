@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { Button, Checkbox, IconButton, Tooltip } from "@mui/material";
+import { Checkbox, IconButton, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
 import { DeleteOutlineRounded } from "@mui/icons-material";
 
@@ -24,8 +24,8 @@ const AdminClientsListItem = (props) => {
       <Tooltip placement="top-start" title={client?.business_name} arrow>
         <span>{client?.business_name}</span>
       </Tooltip>
-      <Tooltip placement="top-start" title={client?.address} arrow>
-        <span>{client?.address}</span>
+      <Tooltip placement="top-start" title={client?.initials} arrow>
+        <span>{client?.initials}</span>
       </Tooltip>
       <Tooltip placement="top-start" title={client?.email_address} arrow>
         <span>{client?.email_address}</span>

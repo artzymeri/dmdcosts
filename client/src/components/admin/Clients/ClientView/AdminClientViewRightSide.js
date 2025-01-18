@@ -1,4 +1,12 @@
-import { CloseRounded, DoneRounded, MovingRounded } from "@mui/icons-material";
+import {
+  CloseRounded,
+  CurrencyPound,
+  Description,
+  DoneRounded,
+  DriveFileRenameOutline,
+  MovingRounded,
+  WavingHand,
+} from "@mui/icons-material";
 import { Tooltip } from "@mui/material";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
@@ -12,19 +20,22 @@ const AdminClientViewContentRightSide = (props) => {
       return <MovingRounded sx={{ width: "10px", height: "10px" }} />;
     }
     if (status == "drafted") {
-      return <CloseRounded sx={{ width: "10px", height: "10px" }} />;
+      return <Description sx={{ width: "10px", height: "10px" }} />;
     }
     if (status == "to-amend") {
-      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+      return <DriveFileRenameOutline sx={{ width: "10px", height: "10px" }} />;
     }
     if (status == "checked") {
       return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
     }
+    if (status == "sent-to-client") {
+      return <WavingHand sx={{ width: "10px", height: "10px" }} />;
+    }
     if (status == "served") {
-      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+      return <WavingHand sx={{ width: "10px", height: "10px" }} />;
     }
     if (status == "settled") {
-      return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
+      return <CurrencyPound sx={{ width: "10px", height: "10px" }} />;
     }
     if (status == "paid") {
       return <DoneRounded sx={{ width: "10px", height: "10px" }} />;
@@ -44,6 +55,9 @@ const AdminClientViewContentRightSide = (props) => {
     if (status == "checked") {
       return "admin-case-status-banner-done";
     }
+    if (status == "sent-to-client") {
+      return "admin-case-status-banner-done";
+    }
     if (status == "served") {
       return "admin-case-status-banner-done";
     }
@@ -60,23 +74,30 @@ const AdminClientViewContentRightSide = (props) => {
       return "Case is yet to be done!";
     }
     if (status == "drafted") {
-      return "Case needs to get fixed!";
+      return "Case is drafted!";
     }
     if (status == "to-amend") {
-      return "Case is done!";
+      return "Case needs to amend!";
     }
     if (status == "checked") {
-      return "Case is done!";
+      return "Case is checked!";
+    }
+    if (status == "sent-to-client") {
+      return "Case has been sent to client!";
     }
     if (status == "served") {
-      return "Case is done!";
+      return "Case is served!";
     }
     if (status == "settled") {
-      return "Case is done!";
+      return "Case is settled!";
     }
     if (status == "paid") {
-      return "Case is done!";
+      return "Case is paid!";
     }
+  };
+
+  const displayCaseReference = (case_details) => {
+    return `#${presenter.clientDetails?.initials}.${case_details?.type}.${case_details?.id}`;
   };
 
   return (
@@ -108,7 +129,7 @@ const AdminClientViewContentRightSide = (props) => {
                   Reference Number:
                 </span>
                 <span className="admin-client-view-content-right-side-row-value">
-                  {case_details?.reference_number}
+                  {displayCaseReference(case_details)}
                 </span>
               </div>
               <div className="admin-client-view-content-right-side-row-middle"></div>
