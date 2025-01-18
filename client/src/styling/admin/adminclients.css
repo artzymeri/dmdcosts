@@ -74,7 +74,7 @@
     overflow-y: auto;
 }
 
-.admin-invoices-list-item {
+.admin-clients-list-item {
     display: grid;
     align-items: center;
     border: var(--admin-clients-list-item-border);
@@ -88,7 +88,7 @@
 }
 
 @media (max-width: 865px) {
-    .admin-invoices-list-item {
+    .admin-clients-list-item {
         grid-template-columns: 1fr 1fr 40px;
     }
 }
