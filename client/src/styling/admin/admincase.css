@@ -114,7 +114,7 @@
     color: var(--admin-case-title-container--color);
 }
 
-.kthehu-button {
+.back-button {
     background: var(--admin-case-title-container--background) !important;
     color: var(--admin-case-title-container--color) !important;
     border: var(--admin-case-title-container--border) !important;
@@ -132,6 +132,29 @@
     overflow-y: auto;
     grid-template-columns: 1fr 1px 1fr;
     color: var(--admin-case-details-container--color);
+}
+
+@media (max-width: 865px) {
+    .admin-case-details-container {
+        display: flex;
+        flex-direction: column;
+        padding: 7px;
+        border-radius: 15px;
+        gap: 7px;
+        background: var(--admin-case-details-container--background);
+        border: 1px solid lightgray;
+        height: 100%;
+        overflow-y: auto;
+        grid-template-columns: 1fr 1px 1fr;
+        color: var(--admin-case-details-container--color);
+    }
+    .admin-case-details-left-side-label {
+        font-size: 13px;
+    }
+    
+    .admin-case-details-left-side-info {
+        font-size: 13px;
+    }
 }
 
 .admin-case-details-left-side {
@@ -179,6 +202,15 @@
     border-left: var(--admin-case-details-middle--border-left);
 }
 
+@media (max-width: 865px) {
+    .admin-case-details-middle {
+        width: 100%;
+        height: 1px;
+        border-left: none;
+        border-top: var(--admin-case-details-middle--border-left);
+    }
+}
+
 .admin-case-details-left-side-title {
     font-size: 20px;
     font-weight: 600;
@@ -204,6 +236,12 @@
     gap: 15px;
     overflow-y: auto;
     max-height: 100%;
+}
+
+@media (max-width: 865px) {
+    .admin-case-details-right-side {
+        height: 300px;
+    }
 }
 
 .admin-case-details-right-side-qr-code-container {

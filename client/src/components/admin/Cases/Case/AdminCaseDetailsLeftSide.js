@@ -483,6 +483,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
       ) : (
         <Button
           variant="contained"
+          className="remove-mobile"
           onClick={() => {
             presenter.switchEditView();
           }}

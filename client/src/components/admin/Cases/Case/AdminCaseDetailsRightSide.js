@@ -79,6 +79,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
         <AdminCaseStatusBanner status={presenter.caseDetails?.status} />
       </div>
       <div
+        className="remove-mobile"
         style={{
           display: "flex",
           gap: "10px",
