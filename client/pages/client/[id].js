@@ -51,7 +51,7 @@ const ClientPage = () => {
         } finally {
           setTimeout(() => {
             setLoading(false);
-          }, 1500);
+          }, 500);
         }
       }
     };

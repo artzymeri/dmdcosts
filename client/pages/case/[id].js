@@ -62,7 +62,9 @@ const CasePage = () => {
         } catch (error) {
           console.error("Error fetching order details:", error);
         } finally {
-          setLoading(false);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
         }
       }
     };
