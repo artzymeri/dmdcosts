@@ -74,7 +74,6 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 50px;
     flex-shrink: 0;
-    cursor: pointer;
 }
 
 .employee-cases-list-item-cancelled {

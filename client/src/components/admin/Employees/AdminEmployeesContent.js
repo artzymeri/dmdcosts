@@ -13,13 +13,20 @@ const AdminEmployeesPresenter = () => {
     container.get(TYPES.AdminEmployeesPresenter)
   );
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    presenter.getAllEmployees();
+    const getEmployees = async () => {
+      setLoading(true);
+      await presenter.getAllEmployees();
+      setLoading(false);
+    };
+    getEmployees();
   }, []);
 
   return (
     <div className="admin-employees-content-container">
-      {presenter.loading ? (
+      {loading ? (
         <Box
           sx={{
             display: "flex",

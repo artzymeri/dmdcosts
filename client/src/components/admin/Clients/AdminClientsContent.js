@@ -13,13 +13,20 @@ const AdminClientsContent = () => {
     container.get(TYPES.AdminClientsPresenter)
   );
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    presenter.getAllClients();
+    const getClients = async () => {
+      setLoading(true);
+      await presenter.getAllClients();
+      setLoading(false);
+    };
+    getClients();
   }, []);
 
   return (
     <div className="admin-clients-content-container">
-      {presenter.loading ? (
+      {loading ? (
         <Box
           sx={{
             display: "flex",
