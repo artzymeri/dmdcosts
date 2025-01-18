@@ -5,7 +5,7 @@ import { TYPES } from "@/architecture/ioc/types";
 import AdminCasesHeader from "@/components/admin/Cases/Cases/AdminCasesHeader";
 import AdminCasesList from "@/components/admin/Cases/Cases/AdminCasesList";
 import AdminSecondHeader from "@/components/admin/Cases/Cases/AdminCasesSecondHeader";
-import { Button, Tooltip } from "@mui/material";
+import { Box, Button, CircularProgress, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
 
 const AdminCasesContent = () => {
@@ -21,24 +21,39 @@ const AdminCasesContent = () => {
 
   return (
     <div className="admin-cases-content-container">
-      <div className="admin-cases-content-title-container">
-        <h2>Cases</h2>
-        <Tooltip title="Add Case Form Redirection" arrow>
-          <Button
-            variant="contained"
-            color="success"
-            
-            onClick={() => {
-              router.push("/addcase");
-            }}
-          >
-            Add Case
-          </Button>
-        </Tooltip>
-      </div>
-      <AdminCasesHeader presenter={presenter} />
-      <AdminSecondHeader presenter={presenter} />
-      <AdminCasesList presenter={presenter} />
+      {presenter.loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            height: "100%",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress color="primary" />
+        </Box>
+      ) : (
+        <>
+          <div className="admin-cases-content-title-container">
+            <h2>Cases</h2>
+            <Tooltip title="Add Case Form Redirection" arrow>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => {
+                  router.push("/addcase");
+                }}
+              >
+                Add Case
+              </Button>
+            </Tooltip>
+          </div>
+          <AdminCasesHeader presenter={presenter} />
+          <AdminSecondHeader presenter={presenter} />
+          <AdminCasesList presenter={presenter} />
+        </>
+      )}
     </div>
   );
 };

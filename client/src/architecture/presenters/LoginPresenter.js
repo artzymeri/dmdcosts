@@ -13,6 +13,7 @@ class LoginRegisterPresenter {
       username: null,
       password: null,
     },
+    loading: false,
   };
 
   constructor() {
@@ -20,10 +21,12 @@ class LoginRegisterPresenter {
       vm: observable,
       login: action.bound,
       loginUserData: computed,
+      loading: computed,
     });
   }
 
   login = async () => {
+    this.vm.loading = true;
     const response = await this.mainAppRepository.login(this.loginUserData);
     const {
       id,
@@ -66,6 +69,7 @@ class LoginRegisterPresenter {
         { expires: 3 / 24 }
       );
     }
+    this.vm.loading = false;
   };
 
   changeLoginUserData = (type, value) => {
@@ -74,6 +78,10 @@ class LoginRegisterPresenter {
 
   get loginUserData() {
     return this.vm.loginUserDataObject;
+  }
+
+  get loading() {
+    return this.vm.loading;
   }
 }
 

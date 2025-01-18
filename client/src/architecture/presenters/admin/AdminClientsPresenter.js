@@ -16,6 +16,7 @@ class AdminClientsPresenter {
     firstDateFilter: null,
     lastDateFilter: null,
     single_to_delete_client: null,
+    loading: false,
   };
 
   constructor() {
@@ -33,6 +34,7 @@ class AdminClientsPresenter {
       handleDeleteClientsModal: action.bound,
       handleSingleDeletionClientsModal: action.bound,
       handleClientCheck: action.bound,
+      loading: computed,
     });
   }
 
@@ -61,8 +63,10 @@ class AdminClientsPresenter {
   }
 
   getAllClients = async () => {
+    this.vm.loading = true;
     const response = await this.mainAppRepository.getAllClients();
     this.vm.all_clients = response?.data;
+    this.vm.loading = false;
   };
 
   handleClientCheck = (client_id) => {
@@ -138,6 +142,10 @@ class AdminClientsPresenter {
           (client) => client.id === this.vm.single_to_delete_client
         )
       : null;
+  }
+
+  get loading() {
+    return this.vm.loading;
   }
 }
 

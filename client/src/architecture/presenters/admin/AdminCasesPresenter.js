@@ -19,6 +19,7 @@ class AdminCasesPresenter {
     clients_list: [],
     employees_list: [],
     single_to_delete_case: null,
+    loading: false,
   };
 
   constructor() {
@@ -28,16 +29,19 @@ class AdminCasesPresenter {
       getAllCases: action.bound,
       deletionModalOpen: computed,
       init: action.bound,
-      singleToDeleteCase: computed
+      singleToDeleteCase: computed,
+      loading: computed,
     });
   }
 
   init = async () => {
+    this.vm.loading = true;
     const response_clients = await this.mainAppRepository.getAllClients();
     const response_employees = await this.mainAppRepository.getAllEmployees();
     await this.getAllCases();
     this.vm.clients_list = response_clients.data;
     this.vm.employees_list = response_employees.data;
+    this.vm.loading = false;
   };
 
   handleDatesChange(newValue, type) {
@@ -147,6 +151,10 @@ class AdminCasesPresenter {
 
   get deleteButtonDisabled() {
     return !this.vm.all_cases.some((item) => item.checked);
+  }
+
+  get loading() {
+    return this.vm.loading;
   }
 }
 

@@ -7,14 +7,20 @@ import AdminHeaderSettingsMenu from "@/components/admin/Header/AdminHeaderSettin
 import AdminSettingsPopup from "./AdminSettingsPopup";
 import { Alert, Snackbar } from "@mui/material";
 import AdminChangePasswordPopup from "./AdminChangePasswordPopup";
+import { useRouter } from "next/router";
 
 const AdminHeader = () => {
+  const router = useRouter();
   const [presenter, setPresenter] = useState(
     container.get(TYPES.AdminHeaderPresenter)
   );
 
   useEffect(() => {
-    presenter.init();
+    presenter.init().then(() => {
+      if (!presenter?.employeeData?.name_surname) {
+        router.push("/login");
+      }
+    });
   }, []);
 
   return (

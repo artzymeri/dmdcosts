@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { observer } from "mobx-react-lite";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
-import { Button, TextField } from "@mui/material";
+import { Button, CircularProgress, TextField } from "@mui/material";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -65,14 +65,17 @@ const LoginPage = () => {
           <Button
             variant="contained"
             size="large"
-            
             onClick={() => {
               presenter.login().then(() => {
                 router.push("./");
               });
             }}
           >
-            Login
+            {presenter.loading ? (
+              <CircularProgress size={"26px"} sx={{ color: "white" }} />
+            ) : (
+              "Login"
+            )}
           </Button>
           <div className="login-container-copyright-text">
             <span>{`© DMD Costs ${new Date().getFullYear()} All rights reserved`}</span>
