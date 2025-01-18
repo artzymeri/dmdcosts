@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   FormControl,
   InputLabel,
   MenuItem,
@@ -12,9 +13,12 @@ import axios from "axios";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AdminCaseDetailsNegotiationDetails from "@/components/admin/Cases/Case/AdminCaseDetailsNegotiationDetails";
+import { useState } from "react";
 
 const AdminCaseDetailsRightSide = ({ presenter }) => {
+  const [invoiceLoader, setInvoiceLoader] = useState(false);
   const downloadInvoicePDF = async (case_id) => {
+    setInvoiceLoader(true);
     const dateStr = presenter.vm.case_invoice_object.createdAt;
     const date = new Date(dateStr);
 
@@ -39,6 +43,7 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
         `${presenter.clientDetails.business_name} ${finalDate}.pdf`
       );
       downloadLink.click();
+      setInvoiceLoader(false);
     } catch (error) {
       console.error(error);
     }
@@ -105,10 +110,22 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
             size="large"
             fullWidth
             onClick={() => {
-              downloadInvoicePDF(presenter.caseDetails?.id);
+              if (!invoiceLoader) {
+                downloadInvoicePDF(presenter.caseDetails?.id);
+              }
             }}
           >
-            Download Invoice
+            {invoiceLoader ? (
+              <CircularProgress
+                sx={{
+                  color: "white",
+                  height: "25px !important",
+                  width: "25px !important",
+                }}
+              />
+            ) : (
+              "Download Invoice"
+            )}
           </Button>
         ) : (
           <Button
@@ -195,12 +212,15 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
         )}
       </div>
       {presenter.caseDetails?.negotiable && (
-        <AdminCaseDetailsNegotiationDetails presenter={presenter} />
+        <AdminCaseDetailsNegotiationDetails
+          className="remove-mobile"
+          presenter={presenter}
+        />
       )}
       {presenter.caseDetails.negotiable &&
         presenter.caseOffers.length > 0 &&
         presenter.caseOffers[0].sent.formality && (
-          <div className="admin-case-details-right-side-pod-panel">
+          <div className="admin-case-details-right-side-pod-panel remove-mobile">
             <span className="admin-case-details-pod-banner">
               {presenter.POD ? "POD Checked" : "POD Unchecked"}
             </span>
