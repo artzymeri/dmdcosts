@@ -94,7 +94,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
             <div
               key={index}
               className={`admin-case-details-left-side-row ${className}`}
-              style={index === 0 ? { marginTop: "20px" } : undefined}
+              style={index === 0 ? { marginTop: "10px" } : undefined}
             >
               <span className="admin-case-details-left-side-label">
                 {label}
@@ -108,7 +108,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
           <div
             className={`admin-case-details-left-side-row`}
             style={{
-              marginTop: "20px",
+              marginTop: "10px",
               justifyContent: "space-between",
             }}
           >
@@ -337,6 +337,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
               Claimant Name:
             </span>
             <TextField
+              size="small"
               value={presenter?.vm?.editable_case_fields?.claimant_name}
               onChange={(e) => {
                 presenter.changeEditTextDetails(
@@ -356,6 +357,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
               Client Reference Number:
             </span>
             <TextField
+              size="small"
               value={
                 presenter?.vm?.editable_case_fields?.client_reference_number
               }
@@ -377,6 +379,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
               Defendant Name:
             </span>
             <TextField
+              size="small"
               value={presenter?.vm?.editable_case_fields?.defendant_name}
               onChange={(e) => {
                 presenter.changeEditTextDetails(
@@ -396,6 +399,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
               Defendant Reference Number:
             </span>
             <TextField
+              size="small"
               value={
                 presenter?.vm?.editable_case_fields?.defendant_reference_number
               }
@@ -417,6 +421,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
               Defendant Email:
             </span>
             <TextField
+              size="small"
               value={presenter?.vm?.editable_case_fields?.defendant_email}
               onChange={(e) => {
                 presenter.changeEditTextDetails(
@@ -436,6 +441,7 @@ const AdminCaseDetailsLeftSide = ({ presenter }) => {
               DMD Rate:
             </span>
             <TextField
+              size="small"
               value={presenter?.vm?.editable_case_fields?.rate_per_hour}
               onChange={(e) => {
                 presenter.changeEditTextDetails(
