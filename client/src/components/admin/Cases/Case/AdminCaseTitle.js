@@ -10,7 +10,7 @@ const AdminCaseTitle = ({ presenter }) => {
     <div className="admin-case-content-title-container">
       <Button
         sx={{ backgroundColor: "var(--dmd-costs--background-color)" }}
-        className="back-button"
+        className="back-button remove-mobile"
         variant="contained"
         startIcon={<ArrowBack />}
         onClick={() => {

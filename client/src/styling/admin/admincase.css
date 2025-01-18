@@ -63,6 +63,16 @@
     justify-content: space-between;
 }
 
+@media (max-width: 865px) {
+    .admin-case-content-title-container {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .admin-case-content-title-container :is(span) {
+        font-size: 14px;
+    }
+}
+
 .admin-case-header-container {
     display: flex;
     align-items: center;

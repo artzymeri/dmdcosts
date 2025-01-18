@@ -45,8 +45,9 @@ const InvoicesListItem = (props) => {
   };
 
   return (
-    <div className={`admin-cases-list-item`}>
+    <div className={`admin-invoices-list-item`}>
       <Checkbox
+        className="remove-mobile"
         onClick={(e) => {
           e.stopPropagation();
           presenter.selectInvoice(item?.id);
@@ -58,8 +59,9 @@ const InvoicesListItem = (props) => {
       <Tooltip placement="top-start" title={item?.client_business_name} arrow>
         <span>{item?.client_business_name}</span>
       </Tooltip>
-      <span>{presenter.getTypeOfInvoice(item)}</span>
+      <span className="remove-mobile">{presenter.getTypeOfInvoice(item)}</span>
       <Tooltip
+        className="remove-mobile"
         placement="top-start"
         title={item?.paid ? "Invoice is paid" : "Invoice has not been paid yet"}
         arrow
@@ -67,13 +69,19 @@ const InvoicesListItem = (props) => {
         <span>{item?.paid ? "Paid" : "Unpaid"}</span>
       </Tooltip>
       <Tooltip
+        className="remove-mobile"
         placement="top-start"
         title={dayjs(item?.createdAt).format("DD|MM|YYYY")}
         arrow
       >
         <span>{dayjs(item?.createdAt).format("DD|MM|YYYY")}</span>
       </Tooltip>
-      <Tooltip placement="top" title="Redirect to Case" arrow>
+      <Tooltip
+        className="remove-mobile"
+        placement="top"
+        title="Redirect to Case"
+        arrow
+      >
         <Button
           disabled={presenter.getTypeOfInvoice(item) == "Bundle"}
           color="primary"

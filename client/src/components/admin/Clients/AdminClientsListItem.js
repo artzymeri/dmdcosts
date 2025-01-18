@@ -16,6 +16,7 @@ const AdminClientsListItem = (props) => {
       className="admin-clients-list-item"
     >
       <Checkbox
+        className="remove-mobile"
         onClick={(e) => {
           e.stopPropagation();
           presenter.handleClientCheck(client?.id);
@@ -24,10 +25,20 @@ const AdminClientsListItem = (props) => {
       <Tooltip placement="top-start" title={client?.business_name} arrow>
         <span>{client?.business_name}</span>
       </Tooltip>
-      <Tooltip placement="top-start" title={client?.initials} arrow>
+      <Tooltip
+        className="remove-mobile"
+        placement="top-start"
+        title={client?.initials}
+        arrow
+      >
         <span>{client?.initials}</span>
       </Tooltip>
-      <Tooltip placement="top-start" title={client?.email_address} arrow>
+      <Tooltip
+        className="remove-mobile"
+        placement="top-start"
+        title={client?.email_address}
+        arrow
+      >
         <span>{client?.email_address}</span>
       </Tooltip>
       <Tooltip placement="top" title="Click to delete case" arrow>

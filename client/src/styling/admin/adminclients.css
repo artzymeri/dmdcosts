@@ -74,17 +74,23 @@
     overflow-y: auto;
 }
 
-.admin-clients-list-item {
+.admin-invoices-list-item {
     display: grid;
     align-items: center;
     border: var(--admin-clients-list-item-border);
     padding: 5px 10px;
     border-radius: 10px;
     gap: 10px;
-    grid-template-columns: 30px 1fr 1fr 1fr  40px;
+    grid-template-columns: 30px 1fr 1fr 1fr 40px;
     height: 50px;
     flex-shrink: 0;
     cursor: pointer;
+}
+
+@media (max-width: 865px) {
+    .admin-invoices-list-item {
+        grid-template-columns: 1fr 1fr 40px;
+    }
 }
 
 .admin-clients-list-item :nth-child(1) {

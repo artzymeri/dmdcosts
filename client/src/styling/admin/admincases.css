@@ -86,6 +86,12 @@
     cursor: pointer;
 }
 
+@media (max-width: 865px) {
+    .admin-cases-list-item {
+        grid-template-columns: 1fr 40px;
+    }
+}
+
 .admin-cases-list-item :nth-child(1) {
     padding: 0;
 }
@@ -118,4 +124,34 @@
     background: var(--admin-cases-list-item-progress-bar-cancelled--background);
     color: var(--admin-cases-list-item-progress-bar-cancelled--color);
     border: var(--admin-cases-list-item-progress-bar-cancelled--border);
+}
+
+.admin-invoices-list-item {
+    display: grid;
+    align-items: center;
+    border: var(--admin-cases-list-item-border);
+    padding: 5px 10px;
+    border-radius: 10px;
+    gap: 10px;
+    grid-template-columns: 30px 1fr 1fr 1fr 1fr 1fr 1fr 40px;
+    height: 50px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+@media (max-width: 865px) {
+    .admin-invoices-list-item {
+        grid-template-columns: 1fr 40px;
+    }
+}
+
+.admin-invoices-list-item :nth-child(1) {
+    padding: 0;
+}
+
+.admin-invoices-list-item :is(span) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: min-content;
 }
