@@ -309,17 +309,17 @@ app.post("/editcase", async (req, res) => {
     });
     caseToEdit.client_id = client_id;
     caseToEdit.assignee_id = assignee_id;
-    caseToEdit.claimant_name = claimant_name;
-    caseToEdit.client_reference_number = client_reference_number;
-    caseToEdit.defendant_name = defendant_name;
-    caseToEdit.defendant_reference_number = defendant_reference_number;
-    caseToEdit.defendant_email = defendant_email;
+    caseToEdit.claimant_name = claimant_name || null;
+    caseToEdit.client_reference_number = client_reference_number || null;
+    caseToEdit.defendant_name = defendant_name || null;
+    caseToEdit.defendant_reference_number = defendant_reference_number || null;
+    caseToEdit.defendant_email = defendant_email || null;
     caseToEdit.rate_per_hour = rate_per_hour;
     caseToEdit.type = type;
     caseToEdit.negotiable = negotiable;
-    caseToEdit.date_instructed = date_instructed;
-    caseToEdit.checked_date = checked_date;
-    caseToEdit.settled_date = settled_date;
+    caseToEdit.date_instructed = date_instructed || null;
+    caseToEdit.checked_date = checked_date || null;
+    caseToEdit.settled_date = settled_date || null;
 
     await caseToEdit.save();
     res.json({
