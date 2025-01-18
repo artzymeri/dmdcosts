@@ -232,10 +232,6 @@ app.post("/createcase", async (req, res) => {
   if (
     !client_id ||
     !assignee_id ||
-    !claimant_name ||
-    !client_reference_number ||
-    !defendant_name ||
-    !defendant_reference_number ||
     !rate_per_hour ||
     !type ||
     !date_instructed
@@ -297,10 +293,6 @@ app.post("/editcase", async (req, res) => {
   if (
     !client_id ||
     !assignee_id ||
-    !claimant_name ||
-    !client_reference_number ||
-    !defendant_name ||
-    !defendant_reference_number ||
     !rate_per_hour ||
     !type ||
     !date_instructed
