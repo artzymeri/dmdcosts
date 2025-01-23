@@ -47,18 +47,6 @@ const AdminSecondHeader = ({ presenter }) => {
           }}
         />
       </LocalizationProvider>
-      <Button
-        variant="contained"
-        size="large"
-        color="success"
-        disabled={presenter?.printInvoicesButtonDisabled}
-        sx={{ textWrap: "nowrap", flexShrink: "0", height: "56px" }}
-        onClick={() => {
-          router.push("/invoices");
-        }}
-      >
-        Produce Invoices
-      </Button>
     </div>
   );
 };
