@@ -49,7 +49,7 @@ const AdminAddCaseForm = (props) => {
           sx={{ padding: "0px 5px", background: "white" }}
           id="employee-select"
         >
-          Assignee
+          File Handler
         </InputLabel>
         <Select
           labelId="employee-select"

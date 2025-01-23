@@ -43,8 +43,8 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
             }}
             label={
               presenter.typeOfOfferModal == "sent"
-                ? "Date of Service:"
-                : "Write Received Offer Date"
+                ? presenter.firstOffer ? "Date of Service:" : "Offer Sent Date:"
+                : "Received Offer Date"
             }
             format={"DD/MM/YYYY"}
             onChange={(newValue) => {
@@ -55,11 +55,11 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
         <TextField
           fullWidth
           type="number"
-          value={presenter.vm.new_offer_value}
+          value={presenter.newOfferValue}
           placeholder={
             presenter.typeOfOfferModal == "sent"
-              ? "Bill Total:"
-              : "Write Received Offer Value"
+              ? presenter.firstOffer ? "Bill Total:" : "Offer Amount:"
+              : "Received Offer Value"
           }
           onChange={(e) => {
             presenter.handleNewOfferValueChange(e);
@@ -89,7 +89,7 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
                   },
                 },
               }}
-              label={"Select the POD Due Date"}
+              label={"POD Due Date"}
               format={"DD/MM/YYYY"}
               onChange={(newValue) => {
                 presenter.handlePodDueDate(newValue);

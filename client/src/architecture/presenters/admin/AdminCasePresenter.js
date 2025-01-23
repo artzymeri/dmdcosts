@@ -134,6 +134,7 @@ class AdminCasePresenter {
       showStatusDropdown: computed,
       alreadyHasInvoice: computed,
       clientDetails: computed,
+      newOfferValue: computed
     });
   }
 
@@ -319,7 +320,7 @@ class AdminCasePresenter {
         this.vm.pod_due_date,
         this.vm.type_of_offer_modal,
         this.vm.offer_to_edit_id,
-        this.firstOffer
+        this.firstOffer,
       );
       this.vm.refresh_state += 1;
       return response;
@@ -503,6 +504,11 @@ class AdminCasePresenter {
     return this.vm.clients_list.find(
       (client) => client.id == this.caseDetails.client_id
     );
+  }
+
+  get newOfferValue() {
+    const value = this.vm.new_offer_value;
+    return value >= 1000 ? value.toLocaleString() : value;
   }
 }
 
