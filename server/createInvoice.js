@@ -70,7 +70,7 @@ function generateTable(doc, cases_array) {
       .fontSize(10)
       .font("Helvetica")
       .text(
-        `${row?.defendant_reference_number} - ${row?.defendant_name}`,
+        `${row?.claimant_name} - ${row?.client_reference_number}`,
         150,
         409 + number
       );
