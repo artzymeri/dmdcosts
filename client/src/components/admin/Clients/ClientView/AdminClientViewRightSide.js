@@ -126,7 +126,7 @@ const AdminClientViewContentRightSide = (props) => {
               </Tooltip>
               <div className="admin-client-view-content-right-side-row-half">
                 <span className="admin-client-view-content-right-side-row-label">
-                  Reference Number:
+                  Reference:
                 </span>
                 <span className="admin-client-view-content-right-side-row-value">
                   {displayCaseReference(case_details)}
