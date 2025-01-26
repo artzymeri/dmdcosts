@@ -134,6 +134,19 @@
     color: var(--admin-case-details-container--color);
 }
 
+.admin-case-details-container-default {
+    display: grid;
+    padding: 15px;
+    border-radius: 15px;
+    gap: 15px;
+    background: var(--admin-case-details-container--background);
+    border: 1px solid lightgray;
+    height: 100%;
+    overflow-y: auto;
+    grid-template-columns: 1fr;
+    color: var(--admin-case-details-container--color);
+}
+
 @media (max-width: 865px) {
     .admin-case-details-container {
         display: flex;

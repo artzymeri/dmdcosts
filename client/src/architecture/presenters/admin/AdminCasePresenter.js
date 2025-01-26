@@ -112,6 +112,7 @@ class AdminCasePresenter {
     editable_case_fields: null,
     edit_view: false,
     case_invoice_object: null,
+    left_side_open: false,
   };
 
   constructor() {
@@ -135,6 +136,7 @@ class AdminCasePresenter {
       alreadyHasInvoice: computed,
       clientDetails: computed,
       newOfferValue: computed,
+      leftSideOpen: computed,
     });
   }
 
@@ -411,6 +413,10 @@ class AdminCasePresenter {
     this.vm.refresh_state += 1;
   };
 
+  switchLeftSide = () => {
+    this.vm.left_side_open = !this.vm.left_side_open;
+  };
+
   get assignedEmployee() {
     return this.vm.employees_list.find(
       (employee) => employee.id == this.vm?.case_details?.case?.assignee_id
@@ -513,6 +519,10 @@ class AdminCasePresenter {
       const rawValue = parseInt(this.vm.new_offer_value);
       return new Intl.NumberFormat("en-US").format(rawValue);
     }
+  }
+
+  get leftSideOpen() {
+    return this.vm.left_side_open;
   }
 }
 
