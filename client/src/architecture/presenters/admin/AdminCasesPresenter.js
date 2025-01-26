@@ -2,6 +2,7 @@ import { TYPES } from "@/architecture/ioc/types";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { makeObservable, action, observable, computed } from "mobx";
+import dayjs from "dayjs";
 
 @injectable()
 class AdminCasesPresenter {
@@ -21,6 +22,29 @@ class AdminCasesPresenter {
     single_to_delete_case: null,
     loading: false,
     checked_cases: [],
+    table_columns: [
+      { field: "id", headerName: "ID", width: 90 },
+      { field: "reference_number", headerName: "Reference", width: 150 },
+      { field: "claimant_name", headerName: "Claimant", width: 150 },
+      {
+        field: "client_reference_number",
+        headerName: "Client Reference",
+        width: 180,
+      },
+      { field: "assignee_name_surname", headerName: "Assignee", width: 150 },
+      {
+        field: "status",
+        headerName: "Status",
+        width: 120,
+        valueGetter: (row) => this.statusCheck(row),
+      },
+      {
+        field: "date_instructed",
+        headerName: "Date Instructed",
+        width: 180,
+        valueGetter: (row) => dayjs(row?.date_instructed).format("DD|MM|YYYY"),
+      },
+    ],
   };
 
   constructor() {
@@ -90,6 +114,24 @@ class AdminCasesPresenter {
     }
     await this.getAllCases();
     this.handleDeleteCasesModal(false);
+  };
+
+  statusCheck = (status) => {
+    if (status == "to-draft") {
+      return "To Draft";
+    } else if (status == "drafted") {
+      return "Drafted";
+    } else if (status == "checked") {
+      return "Checked";
+    } else if (status == "served") {
+      return "Served";
+    } else if (status == "settled") {
+      return "Settled";
+    } else if (status == "paid") {
+      return "Paid";
+    } else if (status == "to-amend") {
+      return "To Amend";
+    }
   };
 
   get allCases() {
