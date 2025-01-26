@@ -20,6 +20,7 @@ class AdminCasesPresenter {
     employees_list: [],
     single_to_delete_case: null,
     loading: false,
+    checked_cases: [],
   };
 
   constructor() {
@@ -77,19 +78,12 @@ class AdminCasesPresenter {
     this.vm.all_cases = response?.data;
   };
 
-  handleCaseCheck = (case_id) => {
-    const caseToCheck = this.vm.all_cases.find((item) => item.id == case_id);
-    caseToCheck.checked = !caseToCheck.checked;
-  };
-
-  deleteSingleCase = async () => {
-    await this.mainAppRepository.deleteCase(this.singleToDeleteCase);
-    await this.getAllCases();
-    this.handleDeleteCasesModal(false);
+  handleCaseCheck = (cases_checked) => {
+    this.vm.checked_cases = cases_checked;
   };
 
   deleteCases = async () => {
-    for (const item of this.vm.all_cases) {
+    for (const item of this.allCases) {
       if (item.checked) {
         await this.mainAppRepository.deleteCase(item?.id);
       }
@@ -108,9 +102,11 @@ class AdminCasesPresenter {
           (employee) => employee?.id == item?.assignee_id
         );
 
+        const isChecked = this.vm.checked_cases.includes(item?.id);
+
         return {
           ...item,
-          checked: false,
+          checked: isChecked, // Set checked based on the ID being in checked_cases
           reference_number: `${client?.initials}.${item?.type}.${item?.id}`,
           client_business_name: client?.business_name || "Unknown",
           client_initials: client?.initials,
@@ -122,7 +118,6 @@ class AdminCasesPresenter {
       .filter((item) => {
         const searchQuery = this.vm.searchQuery.toLowerCase();
 
-        // Match search query against multiple fields
         const matchesSearch =
           item.reference_number?.toLowerCase().includes(searchQuery) ||
           item.claimant_name?.toLowerCase().includes(searchQuery) ||
@@ -157,7 +152,7 @@ class AdminCasesPresenter {
   }
 
   get deleteButtonDisabled() {
-    return !this.vm.all_cases.some((item) => item.checked);
+    return !this.allCases.some((item) => item.checked);
   }
 
   get loading() {
