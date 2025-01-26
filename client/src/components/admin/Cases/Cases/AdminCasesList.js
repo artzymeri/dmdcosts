@@ -5,23 +5,20 @@ import dayjs from "dayjs";
 
 const AdminCasesList = ({ presenter }) => {
   const statusCheck = (status) => {
-    switch (status) {
-      case "to-draft":
-        return "To Draft";
-      case "drafted":
-        return "Drafted";
-      case "checked":
-        return "Checked";
-      case "served":
-        return "Served";
-      case "settled":
-        return "Settled";
-      case "paid":
-        return "Paid";
-      case "to-amend":
-        return "To Amend";
-      default:
-        return "Unknown";
+    if (status == "to-draft") {
+      return "To Draft";
+    } else if (status == "drafted") {
+      return "Drafted";
+    } else if (status == "checked") {
+      return "Checked";
+    } else if (status == "served") {
+      return "Served";
+    } else if (status == "settled") {
+      return "Settled";
+    } else if (status == "paid") {
+      return "Paid";
+    } else if (status == "to-amend") {
+      return "To Amend";
     }
   };
 
@@ -39,7 +36,7 @@ const AdminCasesList = ({ presenter }) => {
       field: "status",
       headerName: "Status",
       width: 120,
-      valueGetter: (row) => statusCheck(row?.status),
+      valueGetter: (row) => statusCheck(row),
     },
     {
       field: "date_instructed",
