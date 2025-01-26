@@ -134,7 +134,7 @@ class AdminCasePresenter {
       showStatusDropdown: computed,
       alreadyHasInvoice: computed,
       clientDetails: computed,
-      newOfferValue: computed
+      newOfferValue: computed,
     });
   }
 
@@ -320,7 +320,7 @@ class AdminCasePresenter {
         this.vm.pod_due_date,
         this.vm.type_of_offer_modal,
         this.vm.offer_to_edit_id,
-        this.firstOffer,
+        this.firstOffer
       );
       this.vm.refresh_state += 1;
       return response;
@@ -507,8 +507,12 @@ class AdminCasePresenter {
   }
 
   get newOfferValue() {
-    const value = this.vm.new_offer_value;
-    return value >= 1000 ? value.toLocaleString() : value;
+    if (this.vm.new_offer_value == null || this.vm.new_offer_value == "") {
+      return null;
+    } else {
+      const rawValue = parseInt(this.vm.new_offer_value);
+      return new Intl.NumberFormat("en-US").format(rawValue);
+    }
   }
 }
 

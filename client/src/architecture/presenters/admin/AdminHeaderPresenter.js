@@ -56,8 +56,12 @@ class AdminHeaderPresenter {
   }
 
   async getUserData() {
-    this.vm.employeeData = await JSON.parse(Cookies.get("employeeData"));
-    this.vm.editUserData = await JSON.parse(Cookies.get("employeeData"));
+    const employeeData = Cookies.get("employeeData") || null;
+    if (employeeData == null) {
+      Cookies.remove("adminToken");
+    }
+    this.vm.employeeData = employeeData ? JSON.parse(employeeData) : null;
+    this.vm.editUserData = employeeData ? JSON.parse(employeeData) : null;
   }
 
   setSettingsPopup(boolean) {
