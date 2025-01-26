@@ -29,7 +29,7 @@ const AdminCasesList = ({ presenter }) => {
     {
       field: "client_reference_number",
       headerName: "Client Reference",
-      width: 150,
+      width: 180,
     },
     { field: "assignee_name_surname", headerName: "Assignee", width: 150 },
     {
