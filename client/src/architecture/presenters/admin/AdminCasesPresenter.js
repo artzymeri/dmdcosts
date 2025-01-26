@@ -120,9 +120,15 @@ class AdminCasesPresenter {
         };
       })
       .filter((item) => {
-        const itemValue =
-          item[this.vm.sortingOption]?.toString().toLowerCase() || "";
-        const matchesSearch = itemValue.includes(this.vm.searchQuery);
+        const searchQuery = this.vm.searchQuery.toLowerCase();
+
+        // Match search query against multiple fields
+        const matchesSearch =
+          item.reference_number?.toLowerCase().includes(searchQuery) ||
+          item.claimant_name?.toLowerCase().includes(searchQuery) ||
+          item.client_reference_number?.toLowerCase().includes(searchQuery) ||
+          item.assignee_name_surname?.toLowerCase().includes(searchQuery);
+
         const matchesSortingMode =
           this.vm.sortingMode === "any" || item.status === this.vm.sortingMode;
 
@@ -133,6 +139,7 @@ class AdminCasesPresenter {
               new Date(item?.createdAt).getTime() <=
                 new Date(this.vm?.lastDateFilter).getTime()
             : true;
+
         return matchesSearch && matchesSortingMode && matchesDateFilter;
       });
   }

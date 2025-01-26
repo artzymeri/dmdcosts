@@ -19,31 +19,6 @@ const AdminCasesHeader = ({ presenter }) => {
       />
       <FormControl
         className="remove-mobile"
-        sx={{ width: "275px" }}
-        variant="filled"
-      >
-        <NativeSelect
-          variant="filled"
-          defaultValue={"reference_number"}
-          onChange={(e) => {
-            presenter.handleSortingOptions(e);
-          }}
-        >
-          <option value={"reference_number"}>Reference Number</option>
-          <option value={"client_business_name"}>Client Firm Name</option>
-          <option value={"claimant_name"}>Claimant Name</option>
-          <option value={"client_reference_number"}>
-            Claimant Reference Number
-          </option>
-          <option value={"defendant_name"}>Defendant Name</option>
-          <option value={"defendant_reference_number"}>
-            Defendant Reference Number
-          </option>
-          <option value={"defendant_email"}>Defendant Email</option>
-        </NativeSelect>
-      </FormControl>
-      <FormControl
-        className="remove-mobile"
         sx={{ width: "250px" }}
         variant="filled"
       >

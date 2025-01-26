@@ -31,8 +31,24 @@ const AdminCaseTitle = ({ presenter }) => {
           </Button>
         </Tooltip>
       </div>
+      {presenter?.caseDetails?.claimant_name &&
+        presenter?.caseDetails?.client_reference_number && (
+          <div
+            className="admin-case-title-container"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              padding: "0px 10px",
+            }}
+          >
+            <span>{presenter?.caseDetails?.claimant_name}</span>
+            <span>{presenter?.caseDetails?.client_reference_number}</span>
+          </div>
+        )}
+
       <div className="admin-case-title-container">
-        <span>Reference Number</span>
+        <span>Reference</span>
         <span className="admin-case-id-banner">{`#${presenter.caseDetails?.client_initials}.${presenter.caseDetails?.type}.${presenter.caseDetails?.id}`}</span>
       </div>
     </div>
