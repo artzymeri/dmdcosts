@@ -19,6 +19,23 @@ class AdminEmployeesPresenter {
     snackbar_boolean: false,
     snackbar_details: null,
     loading: false,
+    checked_employees: [],
+    table_columns: [
+      { field: "id", headerName: "ID", width: 90 },
+      { field: "username", headerName: "Username", width: 150 },
+      { field: "name_surname", headerName: "Name & Surname", width: 150 },
+      {
+        field: "email_address",
+        headerName: "Email Address",
+        width: 180,
+      },
+      {
+        field: "role",
+        headerName: "Role",
+        width: 120,
+        valueGetter: (row) => this.capitalizeFirstLetter(row),
+      },
+    ],
   };
 
   constructor() {
@@ -27,7 +44,6 @@ class AdminEmployeesPresenter {
       allEmployees: computed,
       deletionModalOpen: computed,
       deleteButtonDisabled: computed,
-      singleToDeleteEmployee: computed,
       getAllEmployees: action.bound,
       deleteEmployees: action.bound,
       handleSortingOptions: action.bound,
@@ -78,11 +94,8 @@ class AdminEmployeesPresenter {
     this.vm.loading = false;
   };
 
-  handleEmployeeCheck = (employee_id) => {
-    const employeeToCheck = this.vm.all_employees.find(
-      (employee) => employee.id == employee_id
-    );
-    employeeToCheck.checked = !employeeToCheck.checked;
+  handleEmployeeCheck = (employees_checked) => {
+    this.vm.checked_employees = employees_checked;
   };
 
   deleteEmployees = async () => {
@@ -113,12 +126,19 @@ class AdminEmployeesPresenter {
     };
   };
 
+  capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   get allEmployees() {
     return this.vm.all_employees
-      .map((employee) => ({
-        ...employee,
-        checked: false,
-      }))
+      .map((employee) => {
+        const isChecked = this.vm.checked_employees.includes(employee?.id);
+        return {
+          ...employee,
+          checked: isChecked,
+        };
+      })
       .filter((employee) => {
         const employeeValue =
           employee[this.vm.sortingOption]?.toString().toLowerCase() || "";
@@ -141,15 +161,7 @@ class AdminEmployeesPresenter {
   }
 
   get deleteButtonDisabled() {
-    return !this.vm.all_employees.some((employee) => employee.checked);
-  }
-
-  get singleToDeleteEmployee() {
-    return this.vm.single_to_delete_employee
-      ? this.vm.all_employees.find(
-          (employee) => employee.id === this.vm.single_to_delete_employee
-        )
-      : null;
+    return !this.allEmployees.some((employee) => employee.checked);
   }
 
   setSnackbar(value, details) {
