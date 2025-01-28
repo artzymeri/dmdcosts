@@ -43,7 +43,9 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
             }}
             label={
               presenter.typeOfOfferModal == "sent"
-                ? presenter.firstOffer ? "Date of Service:" : "Offer Sent Date:"
+                ? presenter.firstOffer
+                  ? "Date of Service:"
+                  : "Offer Sent Date:"
                 : "Received Offer Date"
             }
             format={"DD/MM/YYYY"}
@@ -54,15 +56,21 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
         </LocalizationProvider>
         <TextField
           fullWidth
-          type="number"
-          value={presenter.newOfferValue}
+          value={presenter.newOfferValue || null}
           placeholder={
             presenter.typeOfOfferModal == "sent"
-              ? presenter.firstOffer ? "Bill Total:" : "Offer Amount:"
+              ? presenter.firstOffer
+                ? "Bill Total:"
+                : "Offer Amount:"
               : "Received Offer Value"
           }
           onChange={(e) => {
-            presenter.handleNewOfferValueChange(e);
+            const rawValue = e.target.value.replace(/,/g, ""); // Remove commas from the input
+            if (/^\d*$/.test(rawValue)) {
+              presenter.handleNewOfferValueChange({
+                target: { value: rawValue },
+              });
+            }
           }}
         />
         {presenter.caseOffers.length == 0 && (

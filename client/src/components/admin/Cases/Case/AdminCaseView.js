@@ -12,7 +12,13 @@ const AdminCaseView = ({ presenter }) => {
   return (
     <div className="admin-case-content-container">
       <AdminCaseTitle presenter={presenter} />
-      <div className="admin-case-details-container">
+      <div
+        className={
+          presenter.leftSideOpen
+            ? "admin-case-details-container"
+            : "admin-case-details-container-default"
+        }
+      >
         <Snackbar open={presenter?.snackbarBoolean} autoHideDuration={3000}>
           <Alert
             severity={presenter?.snackbarDetails?.title}
@@ -26,8 +32,12 @@ const AdminCaseView = ({ presenter }) => {
         <AdminCaseViewDeletionModal presenter={presenter} />
         <AdminCaseCheckedModal presenter={presenter} />
         <AdminCaseSettledModal presenter={presenter} />
-        <AdminCaseDetailsLeftSide presenter={presenter} />
-        <div className="admin-case-details-middle"></div>
+        {presenter.leftSideOpen && (
+          <AdminCaseDetailsLeftSide presenter={presenter} />
+        )}
+        {presenter.leftSideOpen && (
+          <div className="admin-case-details-middle"></div>
+        )}
         <AdminCaseDetailsRightSide presenter={presenter} />
       </div>
     </div>

@@ -51,10 +51,18 @@ const AdminCasesListItem = (props) => {
       <Tooltip
         className="remove-mobile"
         placement="top-start"
-        title={item?.client_business_name}
+        title={item?.claimant_name}
         arrow
       >
-        <span>{item?.client_business_name}</span>
+        <span>{item?.claimant_name}</span>
+      </Tooltip>
+      <Tooltip
+        className="remove-mobile"
+        placement="top-start"
+        title={item?.client_reference_number}
+        arrow
+      >
+        <span>{item?.client_reference_number}</span>
       </Tooltip>
       <Tooltip
         className="remove-mobile"
