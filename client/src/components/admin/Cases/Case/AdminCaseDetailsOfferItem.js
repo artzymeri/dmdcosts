@@ -17,7 +17,7 @@ const AdminCaseDetailsOfferItem = ({ presenter, offer }) => {
           Date: <b>{dayjs(offer.sent?.date).format("DD/MM/YYYY")}</b>
         </span>
         <span>
-          Value: <b>£{offer.sent?.value}</b>
+          Value: <b>{offer.sent?.value}</b>
         </span>
       </div>
       <div
@@ -33,7 +33,7 @@ const AdminCaseDetailsOfferItem = ({ presenter, offer }) => {
               Date: <b>{dayjs(offer.received?.date).format("DD/MM/YYYY")}</b>
             </span>
             <span>
-              Value: <b>£{offer.received?.value}</b>
+              Value: <b>{offer.received?.value}</b>
             </span>
           </>
         ) : (

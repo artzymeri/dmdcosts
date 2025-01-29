@@ -11,6 +11,7 @@ import {
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { observer } from "mobx-react-lite";
+import { NumericFormat } from "react-number-format";
 
 const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
   return (
@@ -54,7 +55,7 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
             }}
           />
         </LocalizationProvider>
-        <TextField
+        {/* <TextField
           fullWidth
           value={presenter.newOfferValue || null}
           placeholder={
@@ -67,6 +68,22 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
           onChange={(e) => {
             presenter.handleNewOfferValueChange(e);
           }}
+        /> */}
+        <NumericFormat
+          value={presenter.newOfferValue}
+          onChange={(value) => presenter.handleNewOfferValueChange(value)}
+          customInput={TextField}
+          thousandSeparator
+          valueIsNumericString
+          prefix="£"
+          variant="outlined"
+          placeholder={
+            presenter.typeOfOfferModal == "sent"
+              ? presenter.firstOffer
+                ? "Bill Total:"
+                : "Offer Amount:"
+              : "Received Offer Value"
+          }
         />
         {presenter.caseOffers.length == 0 && (
           <FormControlLabel

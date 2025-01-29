@@ -29,6 +29,7 @@
     "next": "15.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-number-format": "^5.4.3",
     "reflect-metadata": "^0.2.2",
     "styled-components": "^6.1.13"
   },

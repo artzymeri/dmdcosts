@@ -207,6 +207,7 @@ class AdminCasePresenter {
   };
 
   handleNewOfferValueChange = (event) => {
+    console.log(event);
     this.vm.new_offer_value = event.target.value;
   };
 
