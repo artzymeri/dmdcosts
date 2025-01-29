@@ -840,10 +840,10 @@ app.post("/addclient", async (req, res) => {
     initials,
   } = req.body;
 
-  if (!business_name || !address1 || !email_address || !initials) {
+  if (!business_name || !initials) {
     return res.json({
       title: "error",
-      message: "Values cannot be null.",
+      message: "Firm name & initials cannot be null.",
     });
   }
 
