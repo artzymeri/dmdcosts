@@ -65,12 +65,7 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
               : "Received Offer Value"
           }
           onChange={(e) => {
-            const rawValue = e.target.value.replace(/,/g, ""); // Remove commas from the input
-            if (/^\d*$/.test(rawValue)) {
-              presenter.handleNewOfferValueChange({
-                target: { value: rawValue },
-              });
-            }
+            presenter.handleNewOfferValueChange(e);
           }}
         />
         {presenter.caseOffers.length == 0 && (

@@ -513,12 +513,7 @@ class AdminCasePresenter {
   }
 
   get newOfferValue() {
-    if (this.vm.new_offer_value == null || this.vm.new_offer_value == "") {
-      return null;
-    } else {
-      const rawValue = parseInt(this.vm.new_offer_value);
-      return new Intl.NumberFormat("en-US").format(rawValue);
-    }
+    this.vm.new_offer_value;
   }
 
   get leftSideOpen() {
