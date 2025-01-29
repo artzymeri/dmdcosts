@@ -61,7 +61,7 @@ class InvoicesPresenter {
         headerName: "Actions",
         width: 180,
         renderCell: (params) => {
-          console.log(params);
+          console.log(params?.row);
           return (
             <Button
               color="success"
