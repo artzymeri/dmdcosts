@@ -55,20 +55,6 @@ const AdminCaseDetailsAddOfferModal = ({ presenter }) => {
             }}
           />
         </LocalizationProvider>
-        {/* <TextField
-          fullWidth
-          value={presenter.newOfferValue || null}
-          placeholder={
-            presenter.typeOfOfferModal == "sent"
-              ? presenter.firstOffer
-                ? "Bill Total:"
-                : "Offer Amount:"
-              : "Received Offer Value"
-          }
-          onChange={(e) => {
-            presenter.handleNewOfferValueChange(e);
-          }}
-        /> */}
         <NumericFormat
           value={presenter.newOfferValue}
           onChange={(value) => presenter.handleNewOfferValueChange(value)}
