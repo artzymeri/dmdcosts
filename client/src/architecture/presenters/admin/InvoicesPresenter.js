@@ -2,6 +2,10 @@ import { TYPES } from "@/architecture/ioc/types";
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { makeObservable, action, observable, computed } from "mobx";
+import dayjs from "dayjs";
+import { Download } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import axios from "axios";
 
 @injectable()
 class InvoicesPresenter {
@@ -28,6 +32,50 @@ class InvoicesPresenter {
     snackbar_details: null,
     refresh_state: 1,
     loading: false,
+    checked_cases: [],
+    table_columns: [
+      { field: "id", headerName: "ID", width: 90 },
+      { field: "client_business_name", headerName: "Reference", width: 150 },
+      {
+        field: "cases_involved",
+        headerName: "Type",
+        width: 120,
+        valueGetter: (row) => {
+          return this.getTypeOfInvoice(row);
+        },
+      },
+      {
+        field: "paid",
+        headerName: "Paid",
+        width: 120,
+        valueGetter: (row) => (row == true ? "Paid" : "Unpaid"),
+      },
+      {
+        field: "createdAt",
+        headerName: "Date Created",
+        width: 180,
+        valueGetter: (row) => dayjs(row).format("DD|MM|YYYY"),
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        width: 180,
+        renderCell: (params) => {
+          console.log(params);
+          return (
+            <Button
+              color="success"
+              onClick={(e) => {
+                e.stopPropagation();
+                this.downloadInvoicePDF(params?.row);
+              }}
+            >
+              <Download />
+            </Button>
+          );
+        },
+      },
+    ],
   };
 
   constructor() {
@@ -175,9 +223,9 @@ class InvoicesPresenter {
     return foundClient;
   }
 
-  getTypeOfInvoice(invoice) {
+  getTypeOfInvoice(cases_involved) {
     const caseInvolved = this.vm.all_cases.find(
-      (c) => c.id == JSON.parse(invoice.cases_involved)[0]
+      (c) => c.id == JSON.parse(cases_involved)[0]
     );
     if (caseInvolved?.negotiable) {
       return "Single";
@@ -189,6 +237,41 @@ class InvoicesPresenter {
   setSelectedClient(client) {
     this.vm.selected_client = client;
   }
+
+  downloadInvoicePDF = async (invoice) => {
+    console.log(invoice);
+    this.vm.loading = true;
+    const dateStr = invoice.createdAt;
+    const date = new Date(dateStr);
+
+    const formattedDate = date.toLocaleDateString("en-GB"); // Output: 05/01/2025
+
+    const finalDate = formattedDate.replaceAll("/", ".");
+
+    try {
+      const response = await axios.post(
+        `https://dmdcosts.onrender.com/download-invoice`,
+        { invoice },
+        { responseType: "blob" }
+      );
+
+      const downloadLink = document.createElement("a");
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+
+      downloadLink.href = url;
+      downloadLink.setAttribute(
+        "download",
+        `${
+          presenter.getClientDetailsByInvoice(invoice).business_name
+        } ${finalDate}.pdf`
+      );
+      downloadLink.click();
+      this.vm.loading = false;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   get allInvoices() {
     return this.vm.all_invoices
