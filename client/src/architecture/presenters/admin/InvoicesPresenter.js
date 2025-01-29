@@ -32,7 +32,7 @@ class InvoicesPresenter {
     snackbar_details: null,
     refresh_state: 1,
     loading: false,
-    checked_cases: [],
+    checked_invoices: [],
     table_columns: [
       { field: "id", headerName: "ID", width: 90 },
       { field: "client_business_name", headerName: "Reference", width: 150 },
@@ -61,7 +61,6 @@ class InvoicesPresenter {
         headerName: "Actions",
         width: 180,
         renderCell: (params) => {
-          console.log(params?.row);
           return (
             <Button
               color="success"
@@ -135,22 +134,13 @@ class InvoicesPresenter {
     this.vm.all_invoices = response?.data;
   };
 
-  handleInvoiceCheck = (invoice_id) => {
-    const invoiceToCheck = this.vm.all_invoices.find(
-      (item) => item.id == invoice_id
-    );
-    invoiceToCheck.checked = !invoiceToCheck.checked;
-  };
-
-  deleteSingleInvoice = async () => {
-    await this.mainAppRepository.deleteInvoice(this.singleToDeleteInvoice);
-    await this.getAllInvoices();
-    this.handleDeleteInvoicesModal(false);
+  handleInvoiceCheck = (invoices_checked) => {
+    this.vm.checked_invoices = invoices_checked;
   };
 
   deleteInvoices = async () => {
-    for (const item of this.vm.all_invoices) {
-      if (item.selected) {
+    for (const item of this.allInvoices) {
+      if (item.checked) {
         await this.mainAppRepository.deleteInvoice(item?.id);
       }
     }
@@ -263,7 +253,7 @@ class InvoicesPresenter {
       downloadLink.setAttribute(
         "download",
         `${
-          presenter.getClientDetailsByInvoice(invoice).business_name
+          this.getClientDetailsByInvoice(invoice).business_name
         } ${finalDate}.pdf`
       );
       downloadLink.click();
@@ -283,9 +273,11 @@ class InvoicesPresenter {
           (employee) => employee?.id == item?.assignee_id
         );
 
+        const isChecked = this.vm.checked_invoices.includes(item?.id);
+
         return {
           ...item,
-          checked: false,
+          checked: isChecked,
           reference_number: `${client?.initials}.${item?.type}.${item?.id}`,
           client_business_name: client?.business_name || "Unknown",
           client_initials: client?.initials,
@@ -354,7 +346,7 @@ class InvoicesPresenter {
   }
 
   get deleteButtonDisabled() {
-    return !this.vm.all_invoices.some((item) => item.selected);
+    return !this.allInvoices.some((item) => item.checked);
   }
 
   get produceInvoicesPopup() {

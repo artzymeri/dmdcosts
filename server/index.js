@@ -1045,8 +1045,11 @@ app.post("/download-invoice", async (req, res) => {
   const cases_data = [];
   for (id of invoice.cases_involved) {
     const row = await cases_table.findByPk(parseInt(id));
-    console.log(row);
-    cases_data.push(row?.dataValues);
+    if (!row) {
+      console.log(`Case with ID ${id} not found`);
+      continue; // Skip this case
+    }
+    cases_data.push(row.dataValues);
   }
   invoice.cases_data = cases_data;
   try {

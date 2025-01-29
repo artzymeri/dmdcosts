@@ -18,7 +18,7 @@ const InvoicesList = ({ presenter }) => {
           checkboxSelection
           disableRowSelectionOnClick
           onRowSelectionModelChange={(newSelection) =>
-            presenter.handleCaseCheck(newSelection)
+            presenter.handleInvoiceCheck(newSelection)
           }
         />
       </div>
