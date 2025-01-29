@@ -17,6 +17,17 @@ class AdminClientsPresenter {
     lastDateFilter: null,
     single_to_delete_client: null,
     loading: false,
+    checked_clients: [],
+    table_columns: [
+      { field: "id", headerName: "ID", width: 90 },
+      { field: "business_name", headerName: "Firm Name", width: 150 },
+      { field: "initials", headerName: "Firm Initials", width: 150 },
+      {
+        field: "email_address",
+        headerName: "Email Address",
+        width: 180,
+      }
+    ],
   };
 
   constructor() {
@@ -69,11 +80,8 @@ class AdminClientsPresenter {
     this.vm.loading = false;
   };
 
-  handleClientCheck = (client_id) => {
-    const clientToCheck = this.vm.all_clients.find(
-      (client) => client.id == client_id
-    );
-    clientToCheck.checked = !clientToCheck.checked;
+  handleClientCheck = (clients_checked) => {
+    this.vm.checked_clients = clients_checked;
   };
 
   deleteClients = async () => {
@@ -98,10 +106,12 @@ class AdminClientsPresenter {
   get allClients() {
     if (this.vm.all_clients.length > 0) {
       return this.vm.all_clients
-        .map((client) => ({
+        .map((client) => {
+        const isChecked = this.vm.checked_clients.includes(client?.id);
+          return {
           ...client,
-          checked: false,
-        }))
+          checked: isChecked,
+        }})
         .filter((client) => {
           const clientValue =
             client[this.vm.sortingOption]?.toString().toLowerCase() || "";
@@ -129,11 +139,7 @@ class AdminClientsPresenter {
   }
 
   get deleteButtonDisabled() {
-    if (this.vm.all_clients.length > 0) {
-      return !this.vm.all_clients.some((client) => client.checked);
-    } else {
-      return true;
-    }
+    return !this.allClients.some((item) => item.checked);
   }
 
   get singleToDeleteClient() {
