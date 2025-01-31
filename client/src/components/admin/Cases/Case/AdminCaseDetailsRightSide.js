@@ -310,9 +310,16 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
         presenter.caseOffers.length > 0 &&
         presenter.caseOffers[0].sent.formality && (
           <div className="admin-case-details-right-side-pod-panel remove-mobile">
-            <span className="admin-case-details-pod-banner">
-              {presenter.POD ? "POD Checked" : "POD Unchecked"}
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <span className="admin-case-details-pod-banner">
+                {presenter.POD ? "POD Checked" : "POD Unchecked"}
+              </span>
+              {presenter?.caseDetails?.pod_replies_sent && (
+                <span className="admin-case-details-pod-banner">
+                  POD Replies Sent
+                </span>
+              )}
+            </div>
             {!presenter.POD && (
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
