@@ -112,6 +112,10 @@ class MainAppRepository {
     );
   };
 
+  markSentReplies = async (case_id, boolean) => {
+    return await this.appGateway.markSentReplies(case_id, boolean);
+  };
+
   extendCasePodDueDate = async (case_id, date) => {
     return await this.appGateway.extendCasePodDueDate(case_id, date);
   };

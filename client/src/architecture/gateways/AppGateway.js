@@ -98,6 +98,12 @@ class AppGateway {
     });
   };
 
+  markSentReplies = async (case_id, boolean) => {
+    return await axios.post(`${BASE_URL}/mark-replies-sent${case_id}`, {
+      boolean,
+    });
+  };
+
   extendCasePodDueDate = async (case_id, date) => {
     return await axios.post(`${BASE_URL}/extend-pod-due-date${case_id}`, {
       date,

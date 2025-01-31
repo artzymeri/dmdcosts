@@ -618,6 +618,30 @@ app.post(`/change-case-pod-status:case_id`, async (req, res) => {
   }
 });
 
+app.post(`/mark-replies-sent:case_id`, async (req, res) => {
+  const { case_id } = req.params;
+  const { boolean } = req.body;
+  try {
+    const foundCase = await cases_table.findOne({
+      where: { id: case_id },
+    });
+
+    foundCase.pod_replies_sent = boolean;
+
+    await foundCase.save();
+    res.json({
+      title: "success",
+      message: "POD Replies Sent successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.json({
+      title: "error",
+      message: "Something went wrong",
+    });
+  }
+});
+
 app.post(`/extend-pod-due-date:case_id`, async (req, res) => {
   const { case_id } = req.params;
   const { date } = req.body;

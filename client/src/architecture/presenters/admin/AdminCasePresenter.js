@@ -381,6 +381,16 @@ class AdminCasePresenter {
     return response;
   };
 
+  markSentReplies = async () => {
+    const response = await this.mainAppRepository.markSentReplies(
+      this.caseDetails?.id,
+      !this.caseDetails?.pod_replies_sent
+    );
+    this.setSnackbar(true, response.data);
+    this.vm.refresh_state += 1;
+    return response;
+  };
+
   clearCheckPOD = () => {
     this.vm.pod_checked_date = null;
     this.vm.pod_replies_due_date = null;
@@ -520,6 +530,10 @@ class AdminCasePresenter {
 
   get POD() {
     return this.vm.case_details?.case?.pod_checked;
+  }
+
+  get PODRepliesSent() {
+    return this.vm.case_details?.case?.pod_replies_sent;
   }
 
   get showStatusDropdown() {

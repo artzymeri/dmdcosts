@@ -334,6 +334,17 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
                 />
               </LocalizationProvider>
             )}
+            {presenter?.POD && !presenter?.PODRepliesSent && (
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => {
+                  presenter.markSentReplies();
+                }}
+              >
+                Mark Sent Replies
+              </Button>
+            )}
             {!presenter.POD && (
               <Button
                 onClick={() => {
