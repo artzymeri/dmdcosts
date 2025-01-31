@@ -80,12 +80,29 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       defaultValue: false,
     },
+    pod_checked_date: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
+    },
     pod_due_date: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
         notEmpty: false,
       },
+    },
+    pod_replies_due_date: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    pod_replies_sent: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false,
     },
     checked_date: {
       type: DataTypes.STRING,
