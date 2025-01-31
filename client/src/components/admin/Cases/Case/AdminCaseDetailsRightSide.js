@@ -1,11 +1,14 @@
 import {
   Button,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
-  Tooltip,
 } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import AdminCaseStatusBanner from "@/components/admin/Cases/Case/AdminCaseStatusBanner";
@@ -17,6 +20,7 @@ import { useState } from "react";
 
 const AdminCaseDetailsRightSide = ({ presenter }) => {
   const [invoiceLoader, setInvoiceLoader] = useState(false);
+  const [checkPODModal, setCheckPODModal] = useState(false);
   const downloadInvoicePDF = async (case_id) => {
     setInvoiceLoader(true);
     const dateStr = presenter.vm.case_invoice_object.createdAt;
@@ -79,6 +83,91 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
 
   return (
     <div className="admin-case-details-right-side">
+      <Dialog
+        open={checkPODModal}
+        onClose={() => {
+          setCheckPODModal(false);
+        }}
+      >
+        <DialogTitle borderBottom={"1px solid lightgray"}>
+          Check POD
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            paddingTop: "20px !important",
+          }}
+        >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              sx={{ background: "white" }}
+              value={presenter.vm.pod_checked_date}
+              slotProps={{
+                field: {
+                  clearable: true,
+                  onClear: () => {
+                    presenter.handlePodCheckedDate(null);
+                  },
+                },
+              }}
+              label={"POD Checked Date"}
+              format={"DD/MM/YYYY"}
+              onChange={(newValue) => {
+                presenter.handlePodCheckedDate(newValue);
+              }}
+            />
+          </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              sx={{ background: "white" }}
+              value={presenter.vm.pod_replies_due_date}
+              slotProps={{
+                field: {
+                  clearable: true,
+                  onClear: () => {
+                    presenter.handlePodRepliesDueDate(null);
+                  },
+                },
+              }}
+              label={"POD Replies due date"}
+              format={"DD/MM/YYYY"}
+              onChange={(newValue) => {
+                presenter.handlePodRepliesDueDate(newValue);
+              }}
+            />
+          </LocalizationProvider>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            borderTop: "1px solid lightgray",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => {
+              presenter.clearCheckPOD();
+              setCheckPODModal(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => {
+              presenter.changePODStatus();
+            }}
+          >
+            Check POD
+          </Button>
+        </DialogActions>
+      </Dialog>
       <div className="admin-case-details-status-container">
         <span style={{ fontWeight: "bold" }}>Case Status:</span>
         <AdminCaseStatusBanner status={presenter.caseDetails?.status} />
@@ -245,15 +334,17 @@ const AdminCaseDetailsRightSide = ({ presenter }) => {
                 />
               </LocalizationProvider>
             )}
-            <Button
-              onClick={() => {
-                presenter.changePODStatus();
-              }}
-              variant="contained"
-              color={presenter.POD ? "error" : "success"}
-            >
-              {presenter.POD ? "Uncheck POD" : "Check POD"}
-            </Button>
+            {!presenter.POD && (
+              <Button
+                onClick={() => {
+                  setCheckPODModal(true);
+                }}
+                variant="contained"
+                color={presenter.POD ? "error" : "success"}
+              >
+                Check POD
+              </Button>
+            )}
           </div>
         )}
     </div>

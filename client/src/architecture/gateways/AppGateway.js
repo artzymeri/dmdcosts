@@ -85,9 +85,16 @@ class AppGateway {
     });
   };
 
-  changeCasePODStatus = async (case_id, boolean) => {
+  changeCasePODStatus = async (
+    case_id,
+    boolean,
+    pod_checked_date,
+    pod_replies_due_date
+  ) => {
     return await axios.post(`${BASE_URL}/change-case-pod-status${case_id}`, {
       boolean,
+      pod_checked_date,
+      pod_replies_due_date,
     });
   };
 

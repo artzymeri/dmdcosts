@@ -98,8 +98,18 @@ class MainAppRepository {
     return await this.appGateway.deleteCaseOffer(case_id, offer_id);
   };
 
-  changeCasePODStatus = async (case_id, boolean) => {
-    return await this.appGateway.changeCasePODStatus(case_id, boolean);
+  changeCasePODStatus = async (
+    case_id,
+    boolean,
+    pod_checked_date,
+    pod_replies_due_date
+  ) => {
+    return await this.appGateway.changeCasePODStatus(
+      case_id,
+      boolean,
+      pod_checked_date,
+      pod_replies_due_date
+    );
   };
 
   extendCasePodDueDate = async (case_id, date) => {

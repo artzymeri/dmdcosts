@@ -594,13 +594,15 @@ app.post(`/delete-case-offer:case_id`, async (req, res) => {
 
 app.post(`/change-case-pod-status:case_id`, async (req, res) => {
   const { case_id } = req.params;
-  const { boolean } = req.body;
+  const { boolean, pod_checked_date, pod_replies_due_date } = req.body;
   try {
     const foundCase = await cases_table.findOne({
       where: { id: case_id },
     });
 
     foundCase.pod_checked = boolean;
+    foundCase.pod_checked_date = pod_checked_date;
+    foundCase.pod_replies_due_date = pod_replies_due_date;
 
     await foundCase.save();
     res.json({

@@ -104,6 +104,8 @@ class AdminCasePresenter {
     type_of_offer_modal: null,
     offer_to_edit_id: null,
     pod_due_date: null,
+    pod_checked_date: null,
+    pod_replies_due_date: null,
     extended_pod_due_date: null,
     checked_status_modal: null,
     checked_date: null,
@@ -213,6 +215,22 @@ class AdminCasePresenter {
   handlePodDueDate = (value) => {
     if (value) {
       this.vm.pod_due_date = value;
+    } else {
+      console.warn("Something is wrong with the date!");
+    }
+  };
+
+  handlePodCheckedDate = (value) => {
+    if (value) {
+      this.vm.pod_checked_date = value;
+    } else {
+      console.warn("Something is wrong with the date!");
+    }
+  };
+
+  handlePodRepliesDueDate = (value) => {
+    if (value) {
+      this.vm.pod_replies_due_date = value;
     } else {
       console.warn("Something is wrong with the date!");
     }
@@ -345,13 +363,27 @@ class AdminCasePresenter {
   };
 
   changePODStatus = async () => {
+    if (!this.vm.pod_checked_date || !this.vm.pod_replies_due_date) {
+      this.setSnackbar(true, {
+        title: "error",
+        message: "Fill out both dates please!",
+      });
+      return;
+    }
     const response = await this.mainAppRepository.changeCasePODStatus(
       this.caseDetails?.id,
-      !this.POD
+      !this.POD,
+      this.vm.pod_checked_date,
+      this.vm.pod_replies_due_date
     );
     this.setSnackbar(true, response.data);
     this.vm.refresh_state += 1;
     return response;
+  };
+
+  clearCheckPOD = () => {
+    this.vm.pod_checked_date = null;
+    this.vm.pod_replies_due_date = null;
   };
 
   switchEditView = () => {
