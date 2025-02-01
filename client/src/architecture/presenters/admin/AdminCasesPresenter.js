@@ -42,7 +42,7 @@ class AdminCasesPresenter {
         field: "date_instructed",
         headerName: "Date Instructed",
         width: 180,
-        valueGetter: (row) => dayjs(row?.date_instructed).format("DD|MM|YYYY"),
+        valueGetter: (row) => dayjs(row).format("DD|MM|YYYY"),
       },
     ],
   };
