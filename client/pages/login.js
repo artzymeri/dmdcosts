@@ -36,6 +36,7 @@ const LoginPage = () => {
             </p>
           </div>
           <TextField
+            sx={{ background: "white" }}
             onChange={(e) => {
               presenter.changeLoginUserData("username", e.target.value);
             }}
@@ -50,6 +51,7 @@ const LoginPage = () => {
             }}
           />
           <TextField
+            sx={{ background: "white" }}
             onChange={(e) => {
               presenter.changeLoginUserData("password", e.target.value);
             }}
