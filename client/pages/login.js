@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { container } from "@/architecture/ioc/ioc";
 import { TYPES } from "@/architecture/ioc/types";
 import { Button, CircularProgress, TextField } from "@mui/material";
+import ParticlesComponent from "@/components/ui/ParticlesComponent";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const LoginPage = () => {
         <title>Login | DMD Costs</title>
       </Head>
       <div className="login-parent">
+        <ParticlesComponent />
         <div className="login-container">
           <img src="./dmd_logo.png" />
           <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
