@@ -24,3 +24,12 @@
     align-items: center;
     width: 100%;
 }
+
+.admin-dashboard-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+    width: 100%;
+}

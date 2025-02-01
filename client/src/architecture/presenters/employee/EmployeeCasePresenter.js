@@ -73,7 +73,6 @@ class EmployeeCasePresenter {
       case_id,
       user_id
     );
-    console.log(response);
     const clients_response = await this.mainAppRepository.getAllClients();
     const employees_response = await this.mainAppRepository.getAllEmployees();
     const invoice_object_response = await this.mainAppRepository.getCaseInvoice(

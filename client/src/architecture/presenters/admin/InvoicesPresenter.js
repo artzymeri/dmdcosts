@@ -229,7 +229,6 @@ class InvoicesPresenter {
   }
 
   downloadInvoicePDF = async (invoice) => {
-    console.log(invoice);
     this.vm.loading = true;
     const dateStr = invoice.createdAt;
     const date = new Date(dateStr);

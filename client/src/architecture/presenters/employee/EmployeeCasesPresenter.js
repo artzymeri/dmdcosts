@@ -54,9 +54,7 @@ class EmployeeCasesPresenter {
 
   getAllAssignedCases = async () => {
     const user = JSON.parse(Cookies.get("employeeData"));
-    console.log(user?.id);
     const response = await this.mainAppRepository.getAllAssignedCases(user?.id);
-    console.log({ response });
     this.vm.all_cases = response?.data;
   };
 
